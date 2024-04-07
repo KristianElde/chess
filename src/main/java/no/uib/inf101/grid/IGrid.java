@@ -7,7 +7,7 @@ package no.uib.inf101.grid;
  * 
  * @param <E> The type of elements stored in the grid.
  */
-public interface IGrid<E> extends GridDimension, Iterable<GridCell<E>> {
+public interface IGrid<E> extends GridDimension, Iterable<E> {
 
   /**
    * Sets the value of a position in the grid. A subsequent call to {@link #get}

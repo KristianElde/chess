@@ -82,15 +82,14 @@ public class Grid<E> implements IGrid<E> {
   }
 
   @Override
-  public Iterator<GridCell<E>> iterator() {
-    ArrayList<GridCell<E>> grid = new ArrayList<>();
+  public Iterator<E> iterator() {
+    ArrayList<E> grid = new ArrayList<>();
 
     for (int i = 0; i < this.rows; i++) {
       for (int j = 0; j < this.cols; j++) {
         CellPosition cellPos = new CellPosition(i, j);
         E value = this.get(cellPos);
-        GridCell<E> cell = new GridCell<>(cellPos, value);
-        grid.add(cell);
+        grid.add(value);
       }
     }
 
