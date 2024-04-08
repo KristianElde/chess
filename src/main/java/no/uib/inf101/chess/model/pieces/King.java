@@ -21,19 +21,37 @@ public class King implements IPiece {
     }
 
     @Override
-    public void updateLegalMoves(ChessBoard board, Square pos) {
-        this.legalMoves = calculateLegalMoves(board, pos);
+    public void updateLegalMoves(ChessBoard board, Square currentSquare) {
+        this.legalMoves = calculateLegalMoves(board, currentSquare);
+    }
+
+    @Override
+    public ArrayList<Square> calculateLegalMoves(ChessBoard board, Square currentSquare) {
+        ArrayList<Square> legalMoves = new ArrayList<>();
+        ArrayList<Square> candidateSquares = new ArrayList<>();
+
+        candidateSquares.add(board.get(currentSquare.col(), currentSquare.row() + 1));
+        candidateSquares.add(board.get(currentSquare.col(), currentSquare.row() - 1));
+        candidateSquares.add(board.get(currentSquare.col().nextCol(), currentSquare.row()));
+        candidateSquares.add(board.get(currentSquare.col().nextCol(), currentSquare.row() + 1));
+        candidateSquares.add(board.get(currentSquare.col().nextCol(), currentSquare.row() - 1));
+        candidateSquares.add(board.get(currentSquare.col().prevCol(), currentSquare.row()));
+        candidateSquares.add(board.get(currentSquare.col().prevCol(), currentSquare.row() + 1));
+        candidateSquares.add(board.get(currentSquare.col().prevCol(), currentSquare.row() - 1));
+
+        for (Square candidateSquare : candidateSquares) {
+            if (candidateSquare != null
+                    && (candidateSquare.getPiece() == null || !candidateSquare.getPiece().getColor().equals(color))) {
+                legalMoves.add(candidateSquare);
+            }
+        }
+
+        return legalMoves;
     }
 
     @Override
     public ChessColor getColor() {
         return this.color;
-    }
-
-    @Override
-    public ArrayList<Square> calculateLegalMoves(ChessBoard board, Square pos) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'calculateLegalMoves'");
     }
 
 }

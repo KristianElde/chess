@@ -21,30 +21,31 @@ public class Pawn implements IPiece {
     }
 
     @Override
-    public void updateLegalMoves(ChessBoard board, Square pos) {
-        this.legalMoves = calculateLegalMoves(board, pos);
+    public void updateLegalMoves(ChessBoard board, Square currentSquare) {
+        this.legalMoves = calculateLegalMoves(board, currentSquare);
     }
 
     @Override
-    public ArrayList<Square> calculateLegalMoves(ChessBoard board, Square pos) {
+    public ArrayList<Square> calculateLegalMoves(ChessBoard board, Square currentSquare) {
         ArrayList<Square> legalMoves = new ArrayList<>();
 
         int nextRow = (color == ChessColor.WHITE ? 1 : -1);
 
-        Square oneAhead = board.get(pos.col(), pos.row() + nextRow);
-        if (oneAhead.getPiece() == null)
+        Square oneAhead = board.get(currentSquare.col(), currentSquare.row() + nextRow);
+        if (oneAhead.getPiece() == null) {
             legalMoves.add(oneAhead);
 
-        Square twoAhead = board.get(pos.col(), pos.row() + 2 * nextRow);
-        if (pos.row() == startRow() && twoAhead.getPiece() == null)
-            legalMoves.add(twoAhead);
+            Square twoAhead = board.get(currentSquare.col(), currentSquare.row() + 2 * nextRow);
+            if (currentSquare.row() == startRow() && twoAhead.getPiece() == null)
+                legalMoves.add(twoAhead);
+        }
 
-        Square rightAhead = board.get(pos.col().nextCol(), pos.row() + nextRow);
+        Square rightAhead = board.get(currentSquare.col().nextCol(), currentSquare.row() + nextRow);
         if (rightAhead != null && rightAhead.getPiece() != null && rightAhead.getPiece().getColor() != color) {
             legalMoves.add(rightAhead);
         }
 
-        Square leftAhead = board.get(pos.col().prevCol(), pos.row() + nextRow);
+        Square leftAhead = board.get(currentSquare.col().prevCol(), currentSquare.row() + nextRow);
         if (leftAhead != null && leftAhead.getPiece() != null && leftAhead.getPiece().getColor() != color) {
             legalMoves.add(leftAhead);
         }

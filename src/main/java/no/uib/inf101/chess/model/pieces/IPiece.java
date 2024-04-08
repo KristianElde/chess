@@ -9,9 +9,9 @@ import no.uib.inf101.chess.model.Square;
 public interface IPiece {
     ArrayList<Square> getLegalMoves();
 
-    void updateLegalMoves(ChessBoard board, Square pos);
+    void updateLegalMoves(ChessBoard board, Square currentSquare);
 
-    ArrayList<Square> calculateLegalMoves(ChessBoard board, Square pos);
+    ArrayList<Square> calculateLegalMoves(ChessBoard board, Square currentSquare);
 
     ChessColor getColor();
 

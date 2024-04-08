@@ -59,7 +59,7 @@ public class ChessBoard extends Grid<Square> {
 
     // OVERIDE??
     public Square get(Column col, int row) {
-        if (col == null)
+        if (col == null || row > 8 || row < 1)
             return null;
         return super.get(new CellPosition(row - 1, col.ordinal()));
     }
