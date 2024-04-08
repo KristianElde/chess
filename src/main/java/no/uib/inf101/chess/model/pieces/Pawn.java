@@ -29,13 +29,24 @@ public class Pawn implements IPiece {
     public ArrayList<Square> calculateLegalMoves(ChessBoard board, Square pos) {
         ArrayList<Square> legalMoves = new ArrayList<>();
 
-        Square oneAhead = board.get(pos.col(), pos.row() + 1);
+        int nextRow = (color == ChessColor.WHITE ? 1 : -1);
+
+        Square oneAhead = board.get(pos.col(), pos.row() + nextRow);
         if (oneAhead.getPiece() == null)
             legalMoves.add(oneAhead);
 
-        if (pos.row() == startRow()) {
-            Square twoAhead = board.get(pos.col(), pos.row() + 2);
+        Square twoAhead = board.get(pos.col(), pos.row() + 2 * nextRow);
+        if (pos.row() == startRow() && twoAhead.getPiece() == null)
             legalMoves.add(twoAhead);
+
+        Square rightAhead = board.get(pos.col().nextCol(), pos.row() + nextRow);
+        if (rightAhead != null && rightAhead.getPiece() != null && rightAhead.getPiece().getColor() != color) {
+            legalMoves.add(rightAhead);
+        }
+
+        Square leftAhead = board.get(pos.col().prevCol(), pos.row() + nextRow);
+        if (leftAhead != null && leftAhead.getPiece() != null && leftAhead.getPiece().getColor() != color) {
+            legalMoves.add(leftAhead);
         }
 
         return legalMoves;

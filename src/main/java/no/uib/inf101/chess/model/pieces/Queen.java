@@ -22,8 +22,9 @@ public class Queen implements IPiece {
 
     @Override
     public void updateLegalMoves(ChessBoard board, Square pos) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateLegalMoves'");
+        this.legalMoves = calculateLegalMoves(board, pos);
+    }
+
     }
 
     @Override

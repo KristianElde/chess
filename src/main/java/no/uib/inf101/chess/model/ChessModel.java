@@ -17,13 +17,7 @@ public class ChessModel implements ViewableModel, ControllableModel {
     public ChessModel() {
         board = new ChessBoard();
         toDraw = ChessColor.WHITE;
-
-        for (Square square : board) {
-            if (square.getPiece() != null && square.getPiece().getColor().equals(toDraw)
-                    && square.getPiece() instanceof Pawn) {
-                square.getPiece().updateLegalMoves(board, square);
-            }
-        }
+        updateLegalMoves(toDraw);
     }
 
     @Override
@@ -43,16 +37,16 @@ public class ChessModel implements ViewableModel, ControllableModel {
 
     @Override
     public void setSelectedSquare(Square newSelectedSquare) {
-        IPiece selectededPiece = newSelectedSquare.getPiece();
+        IPiece selectedPiece = newSelectedSquare.getPiece();
 
-        if (this.selectedSquare == null) {
-            if (selectededPiece != null && selectededPiece.getColor().equals(toDraw)) {
-                this.selectedSquare = newSelectedSquare;
-                return;
-            }
-        } else {
-            movePiece(selectedSquare, newSelectedSquare);
+        if (selectedPiece != null && selectedPiece.getColor().equals(toDraw)) {
+            this.selectedSquare = newSelectedSquare;
+            return;
         }
+
+        if (selectedSquare != null)
+            movePiece(selectedSquare, newSelectedSquare);
+
     }
 
     private void movePiece(Square from, Square to) {
@@ -63,13 +57,23 @@ public class ChessModel implements ViewableModel, ControllableModel {
             from.setPiece(null);
             to.setPiece(piece);
             toggleTurn();
+            updateLegalMoves(toDraw);
         }
 
         this.selectedSquare = null;
+
     }
 
     private void toggleTurn() {
         this.toDraw = this.toDraw.toggle();
     }
 
+    private void updateLegalMoves(ChessColor color) {
+        for (Square square : board) {
+            if (square.getPiece() != null && square.getPiece().getColor().equals(color)
+                    && square.getPiece() instanceof Pawn) {
+                square.getPiece().updateLegalMoves(board, square);
+            }
+        }
+    }
 }
