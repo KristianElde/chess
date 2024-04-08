@@ -5,23 +5,17 @@ import javax.swing.JPanel;
 import no.uib.inf101.chess.model.ChessBoard;
 import no.uib.inf101.chess.model.ChessModel;
 import no.uib.inf101.chess.model.Square;
+import no.uib.inf101.chess.model.pieces.IPiece;
 import no.uib.inf101.chess.view.design.ColorTheme;
 import no.uib.inf101.chess.view.design.DefaultColorTheme;
 import no.uib.inf101.chess.view.design.DefaultTextureTheme;
 import no.uib.inf101.chess.view.design.TextureTheme;
-import no.uib.inf101.grid.GridCell;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.ArrayList;
 
 public class ChessView extends JPanel {
 
@@ -68,24 +62,19 @@ public class ChessView extends JPanel {
         Rectangle2D window = new Rectangle2D.Double(HORIZONTAL_OUTERMARGIN, VERTICAL_OUTERMARGIN, width, height);
         CellPositionToPixelConverter cp = new CellPositionToPixelConverter(window, model.getDimension(), CELL_MARGIN);
 
-        drawCells(g, cp, model.getBoard(), colorTheme);
-        drawPieces(g, cp, model.getBoard(), textureTheme);
+        drawBoard(g, cp, model.getBoard(), colorTheme, textureTheme);
     }
 
-    private static void drawCells(Graphics2D g, CellPositionToPixelConverter cp, ChessBoard board,
-            ColorTheme colorTheme) {
+    private static void drawBoard(Graphics2D g, CellPositionToPixelConverter cp, ChessBoard board,
+            ColorTheme colorTheme, TextureTheme textureTheme) {
         for (Square square : board) {
             Rectangle2D rectangle = cp.getBoundsForCell(square);
             g.setColor(colorTheme.getSquareColor(square));
             g.fill(rectangle);
-        }
-    }
-
-    private static void drawPieces(Graphics2D g, CellPositionToPixelConverter cp, ChessBoard board,
-            TextureTheme textureTheme) {
-        for (Square square : board) {
-            if (square.getPiece() != null) {
-
+            IPiece piece = square.getPiece();
+            if (piece != null) {
+                BufferedImage img = Inf101Graphics.loadImageFromResources(textureTheme.getImgPath(piece));
+                Inf101Graphics.drawCenteredImage(g, img, rectangle.getCenterX(), rectangle.getCenterY(), 0.45);
             }
         }
     }

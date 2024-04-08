@@ -105,15 +105,15 @@ public class GridTest {
     grid.set(new CellPosition(1, 1), "b");
     grid.set(new CellPosition(2, 1), "c");
 
-    List<GridCell<String>> items = new ArrayList<>();
-    for (GridCell<String> coordinateItem : grid) {
+    List<String> items = new ArrayList<>();
+    for (String coordinateItem : grid) {
       items.add(coordinateItem);
     }
 
     assertEquals(3 * 2, items.size());
-    assertTrue(items.contains(new GridCell<String>(new CellPosition(0, 0), "a")));
-    assertTrue(items.contains(new GridCell<String>(new CellPosition(1, 1), "b")));
-    assertTrue(items.contains(new GridCell<String>(new CellPosition(2, 1), "c")));
-    assertTrue(items.contains(new GridCell<String>(new CellPosition(0, 1), "x")));
+    assertTrue(items.contains("a"));
+    assertTrue(items.contains("b"));
+    assertTrue(items.contains("c"));
+    assertTrue(items.contains("x"));
   }
 }

@@ -3,7 +3,6 @@ package no.uib.inf101.chess.view;
 import java.awt.geom.Rectangle2D;
 
 import no.uib.inf101.chess.model.Square;
-import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridDimension;
 
 /**

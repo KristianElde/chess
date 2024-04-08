@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.Square;
 
-public class Rook implements IPiece {
+public class King implements IPiece {
 
     private ChessColor color;
     private ArrayList<Square> legalMoves;
 
-    public Rook(ChessColor color) {
+    public King(ChessColor color) {
         this.color = color;
     }
 

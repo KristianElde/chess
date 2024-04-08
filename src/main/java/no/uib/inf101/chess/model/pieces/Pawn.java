@@ -7,8 +7,8 @@ import no.uib.inf101.chess.model.Square;
 
 public class Pawn implements IPiece {
 
-    ChessColor color;
-    ArrayList<Square> legalMoves;
+    private ChessColor color;
+    private ArrayList<Square> legalMoves;
 
     public Pawn(ChessColor color) {
         this.color = color;
@@ -26,8 +26,7 @@ public class Pawn implements IPiece {
 
     @Override
     public ChessColor getColor() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getColor'");
+        return this.color;
     }
 
 }
