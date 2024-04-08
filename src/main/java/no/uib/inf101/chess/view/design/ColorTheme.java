@@ -55,4 +55,6 @@ public interface ColorTheme {
      * @return The color of the score text.
      */
     Color getScoreColor();
+
+    Color getCoordinatesColor();
 }

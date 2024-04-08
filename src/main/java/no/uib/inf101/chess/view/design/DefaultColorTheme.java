@@ -13,9 +13,9 @@ public class DefaultColorTheme implements ColorTheme {
     @Override
     public Color getSquareColor(Square square) {
         if ((square.row() + square.col().ordinal()) % 2 == 0) {
-            return Color.black;
+            return Color.BLACK;
         } else {
-            return Color.white;
+            return Color.WHITE;
         }
 
     }
@@ -43,5 +43,10 @@ public class DefaultColorTheme implements ColorTheme {
     @Override
     public Color getScoreColor() {
         return Color.LIGHT_GRAY;
+    }
+
+    @Override
+    public Color getCoordinatesColor() {
+        return Color.BLACK;
     }
 }

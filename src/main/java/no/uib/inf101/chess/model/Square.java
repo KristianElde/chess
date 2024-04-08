@@ -1,7 +1,5 @@
 package no.uib.inf101.chess.model;
 
-import java.awt.Color;
-
 import no.uib.inf101.chess.model.pieces.IPiece;
 
 public class Square {

@@ -9,7 +9,7 @@ import no.uib.inf101.grid.GridDimension;
  * The CellPositionToPixelConverter class converts cell positions in a
  * grid to corresponding pixel bounds within a specified rectangle.
  */
-public class CellPositionToPixelConverter {
+public class SquareToPixelConverter {
 
   /**
    * The rectangle defining the bounds for the converted pixel positions.
@@ -30,7 +30,7 @@ public class CellPositionToPixelConverter {
    * @param gd     The grid dimension used for conversion.
    * @param margin The margin between cells.
    */
-  public CellPositionToPixelConverter(Rectangle2D box, GridDimension gd, double margin) {
+  public SquareToPixelConverter(Rectangle2D box, GridDimension gd, double margin) {
     this.box = box;
     this.gd = gd;
     this.margin = margin;
@@ -47,7 +47,7 @@ public class CellPositionToPixelConverter {
     double cellWidth = (this.box.getWidth() - this.margin * (this.gd.cols() + 1)) / this.gd.cols();
     double cellHeight = (this.box.getHeight() - this.margin * (this.gd.rows() + 1)) / this.gd.rows();
     double x = box.getX() + this.margin + pos.col().ordinal() * (cellWidth + this.margin);
-    double y = box.getY() + this.margin + (pos.row() - 1) * (cellHeight + this.margin);
+    double y = box.getY() + box.getHeight() - (this.margin + (pos.row() - 1)) * (cellHeight + this.margin);
 
     Rectangle2D rectangle = new Rectangle2D.Double(x, y, cellWidth, cellHeight);
 
