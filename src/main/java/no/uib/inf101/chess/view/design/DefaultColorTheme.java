@@ -49,4 +49,10 @@ public class DefaultColorTheme implements ColorTheme {
     public Color getCoordinatesColor() {
         return Color.BLACK;
     }
+
+    @Override
+    public Color getSelectedSquareColor() {
+        return Color.GREEN;
+    }
+
 }

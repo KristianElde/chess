@@ -12,7 +12,6 @@ import no.uib.inf101.chess.view.design.DefaultColorTheme;
 import no.uib.inf101.chess.view.design.DefaultTextureTheme;
 import no.uib.inf101.chess.view.design.TextureTheme;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -36,7 +35,7 @@ public class ChessView extends JPanel {
     private static final double CELL_SIZE = 80;
     private static final double CELL_MARGIN = 1;
     private static final int STANDARD_FONT_SIZE = 16;
-    private static final Font STANDARD_FONT = new Font("Arial", Font.PLAIN, STANDARD_FONT_SIZE);
+    private static final Font STANDARD_FONT = new Font("Calibri", Font.BOLD, STANDARD_FONT_SIZE);
 
     public ChessView(ChessModel model) {
         double windowWidth = (CELL_SIZE + CELL_MARGIN) * model.getDimension().cols() + CELL_MARGIN
@@ -73,6 +72,7 @@ public class ChessView extends JPanel {
 
         drawBoard(g, squareConverter, model.getBoard(), colorTheme, textureTheme);
         drawCoordinates(g);
+        drawSelectedSquare(g, squareConverter);
     }
 
     private static void drawBoard(Graphics2D g, SquareToPixelConverter cp, ChessBoard board,
@@ -96,7 +96,8 @@ public class ChessView extends JPanel {
             g.setColor(colorTheme.getCoordinatesColor());
             g.setFont(STANDARD_FONT);
             Inf101Graphics.drawCenteredString(g, String.valueOf(i), HORIZONTAL_OUTERMARGIN / 2, y);
-            Inf101Graphics.drawCenteredString(g, String.valueOf(i), getWidth() - HORIZONTAL_OUTERMARGIN / 2, y);
+            // Inf101Graphics.drawCenteredString(g, String.valueOf(i), getWidth() -
+            // HORIZONTAL_OUTERMARGIN / 2, y);
 
         }
 
@@ -105,9 +106,15 @@ public class ChessView extends JPanel {
                     + squareWidth / 2;
             g.setColor(colorTheme.getCoordinatesColor());
             g.setFont(STANDARD_FONT);
-            Inf101Graphics.drawCenteredString(g, column.toString(), x, VERTICAL_OUTERMARGIN / 2);
+            // Inf101Graphics.drawCenteredString(g, column.toString(), x,
+            // VERTICAL_OUTERMARGIN / 2);
             Inf101Graphics.drawCenteredString(g, column.toString(), x, getHeight() - VERTICAL_OUTERMARGIN / 2);
-
         }
+    }
+
+    private void drawSelectedSquare(Graphics2D g, SquareToPixelConverter squareConverter) {
+        Rectangle2D selectedSquare = squareConverter.getBoundsForCell(model.getSelectedSquare());
+        g.setColor(colorTheme.getSelectedSquareColor());
+        g.draw(selectedSquare);
     }
 }

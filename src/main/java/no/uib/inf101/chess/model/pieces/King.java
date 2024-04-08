@@ -16,8 +16,7 @@ public class King implements IPiece {
 
     @Override
     public ArrayList<Square> getLegalMoves() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getLegalMoves'");
+        return this.legalMoves;
     }
 
     @Override

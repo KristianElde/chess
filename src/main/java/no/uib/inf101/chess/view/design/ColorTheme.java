@@ -57,4 +57,6 @@ public interface ColorTheme {
     Color getScoreColor();
 
     Color getCoordinatesColor();
+
+    Color getSelectedSquareColor();
 }
