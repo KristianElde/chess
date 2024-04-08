@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import no.uib.inf101.chess.controller.ControllableModel;
 import no.uib.inf101.chess.model.pieces.IPiece;
+import no.uib.inf101.chess.model.pieces.Pawn;
 import no.uib.inf101.chess.view.ViewableModel;
 import no.uib.inf101.grid.GridDimension;
 
@@ -16,6 +17,13 @@ public class ChessModel implements ViewableModel, ControllableModel {
     public ChessModel() {
         board = new ChessBoard();
         toDraw = ChessColor.WHITE;
+
+        for (Square square : board) {
+            if (square.getPiece() != null && square.getPiece().getColor().equals(toDraw)
+                    && square.getPiece() instanceof Pawn) {
+                square.getPiece().updateLegalMoves(board, square);
+            }
+        }
     }
 
     @Override

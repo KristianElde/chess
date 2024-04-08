@@ -21,7 +21,7 @@ public class Knight implements IPiece {
     }
 
     @Override
-    public void updateLegalMoves() {
+    public void updateLegalMoves(ChessBoard board, Square pos) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateLegalMoves'");
     }
