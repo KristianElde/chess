@@ -52,7 +52,7 @@ public class DefaultColorTheme implements ColorTheme {
 
     @Override
     public Color getSelectedSquareColor() {
-        return Color.GREEN;
+        return new Color(71, 143, 57);
     }
 
 }

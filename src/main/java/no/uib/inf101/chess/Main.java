@@ -2,8 +2,13 @@ package no.uib.inf101.chess;
 
 import javax.swing.JFrame;
 
+import no.uib.inf101.chess.controller.ChessController;
 import no.uib.inf101.chess.model.ChessModel;
 import no.uib.inf101.chess.view.ChessView;
+import no.uib.inf101.chess.view.design.ColorTheme;
+import no.uib.inf101.chess.view.design.DefaultColorTheme;
+import no.uib.inf101.chess.view.design.DefaultTextureTheme;
+import no.uib.inf101.chess.view.design.TextureTheme;
 
 /**
  * Hello world!
@@ -14,7 +19,11 @@ public class Main {
 
   public static void main(String[] args) {
     ChessModel model = new ChessModel();
-    ChessView view = new ChessView(model);
+    ColorTheme colorTheme = new DefaultColorTheme();
+    TextureTheme textureTheme = new DefaultTextureTheme();
+    ChessView view = new ChessView(model, colorTheme, textureTheme);
+
+    new ChessController(model, view);
 
     JFrame frame = new JFrame(WINDOW_TITLE);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
