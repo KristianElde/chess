@@ -10,6 +10,7 @@ public class Pawn implements IPiece {
 
     private ChessColor color;
     private ArrayList<Square> legalMoves;
+    private boolean enPassentAllowed = false;
 
     public Pawn(ChessColor color) {
         this.color = color;
@@ -23,6 +24,7 @@ public class Pawn implements IPiece {
     @Override
     public void updateLegalMoves(ChessBoard board, Square currentSquare) {
         this.legalMoves = calculateLegalMoves(board, currentSquare);
+        this.enPassentAllowed = false;
     }
 
     @Override
@@ -50,12 +52,30 @@ public class Pawn implements IPiece {
             legalMoves.add(leftAhead);
         }
 
+        Square rightEnPassent = board.get(currentSquare.col().nextCol(), currentSquare.row());
+        if (rightEnPassent != null && rightEnPassent.getPiece() instanceof Pawn
+                && ((Pawn) rightEnPassent.getPiece()).getEnPassentAllowed())
+            legalMoves.add(rightAhead);
+
+        Square leftEnPassent = board.get(currentSquare.col().prevCol(), currentSquare.row());
+        if (leftEnPassent != null && leftEnPassent.getPiece() instanceof Pawn
+                && ((Pawn) leftEnPassent.getPiece()).getEnPassentAllowed())
+            legalMoves.add(leftAhead);
+
         return legalMoves;
     }
 
     @Override
     public ChessColor getColor() {
         return this.color;
+    }
+
+    public boolean getEnPassentAllowed() {
+        return this.enPassentAllowed;
+    }
+
+    public void setEnPassentAllowed(boolean bool) {
+        this.enPassentAllowed = bool;
     }
 
     private int startRow() {
