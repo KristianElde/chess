@@ -107,7 +107,7 @@ public class ChessModel implements ViewableModel, ControllableModel {
     }
 
     private boolean isEnPassentMove(Square from, Square to) {
-        if (from.col() != to.col() && from.row() != to.row() && from.getPiece() == null)
+        if (from.col() != to.col() && from.row() != to.row() && to.getPiece() == null)
             return true;
         return false;
     }

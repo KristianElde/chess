@@ -24,6 +24,7 @@ public class Pawn implements IPiece {
     @Override
     public void updateLegalMoves(ChessBoard board, Square currentSquare) {
         this.legalMoves = calculateLegalMoves(board, currentSquare);
+        this.enPassentAllowed = false;
     }
 
     @Override
