@@ -95,6 +95,7 @@ public class ChessModel implements ViewableModel, ControllableModel {
         return false;
     }
 
+    //
     private void performCastlingMove(Square kingFrom, Square kingTo, King king) {
         int row = (king.getColor() == ChessColor.WHITE ? 1 : 8);
         Column colFrom = (kingTo.col() == Column.C ? Column.A : Column.H);
