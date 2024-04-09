@@ -7,10 +7,11 @@ import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.Column;
 import no.uib.inf101.chess.model.Square;
 
-public class Rook implements IPiece {
+public class Rook implements IPiece, ICastleable {
 
     private ChessColor color;
     private ArrayList<Square> legalMoves;
+    private boolean allowCastling = true;
 
     public Rook(ChessColor color) {
         this.color = color;
@@ -66,6 +67,16 @@ public class Rook implements IPiece {
     @Override
     public ChessColor getColor() {
         return this.color;
+    }
+
+    @Override
+    public boolean getAllowCastling() {
+        return this.allowCastling;
+    }
+
+    @Override
+    public void stopAllowCastling() {
+        this.allowCastling = false;
     }
 
 }
