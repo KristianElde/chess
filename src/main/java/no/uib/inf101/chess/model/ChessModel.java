@@ -59,19 +59,19 @@ public class ChessModel implements ViewableModel, ControllableModel {
         IPiece piece = from.getPiece();
         ArrayList<Square> legalMoves = piece.getLegalMoves();
 
-        if (piece instanceof King && isCastleMove(from, to, (King) piece)) {
-            performCastlingMove(from, to, (King) piece);
-            afterMovePerformed(from, to, piece);
-            return true;
-        }
-
-        if (piece instanceof Pawn && isEnPassentMove(from, to)) {
-            performEnPassentMove(from, to, piece);
-            afterMovePerformed(from, to, piece);
-            return true;
-        }
-
         if (legalMoves.contains(to)) {
+            if (piece instanceof King && isCastleMove(from, to, (King) piece)) {
+                performCastlingMove(from, to, (King) piece);
+                afterMovePerformed(from, to, piece);
+                return true;
+            }
+
+            if (piece instanceof Pawn && isEnPassentMove(from, to)) {
+                performEnPassentMove(from, to, piece);
+                afterMovePerformed(from, to, piece);
+                return true;
+            }
+
             from.setPiece(null);
             to.setPiece(piece);
             afterMovePerformed(from, to, piece);
@@ -125,12 +125,24 @@ public class ChessModel implements ViewableModel, ControllableModel {
     }
 
     private void afterMovePerformed(Square from, Square to, IPiece piece) {
+
         if (piece instanceof ICastleable)
+            // Stop this piece from being involved in castle-move
             ((ICastleable) piece).stopAllowCastling();
+
         if (piece instanceof Pawn && isPawnDoubleStep(from, to))
+            // Allow moved pawn to be captured by en passent-move
             ((Pawn) piece).setEnPassentAllowed(true);
+
         if (piece instanceof King)
+            // Update kingposition if king is moved
             board.setKingSquare(to, toDraw);
+
+        updateLegalMoves(toDraw);
+        if (board.isThreatendBy(board.getKingSquare(toDraw.toggle()), toDraw))
+            // Set inCheck to true when king is threatened
+            board.setCheck(true, toDraw.toggle());
+
         this.selectedSquare = null;
         toggleTurn();
         updateLegalMoves(toDraw);
@@ -155,4 +167,5 @@ public class ChessModel implements ViewableModel, ControllableModel {
             }
         }
     }
+
 }

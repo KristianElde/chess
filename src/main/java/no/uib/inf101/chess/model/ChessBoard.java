@@ -85,10 +85,31 @@ public class ChessBoard extends Grid<Square> {
             this.blackKingSquare = kingSquare;
     }
 
+    public boolean getInCheck(ChessColor color) {
+        return (color == ChessColor.WHITE ? whiteInCheck : blackInCheck);
+    }
+
+    void setCheck(boolean isCheck, ChessColor color) {
+        if (color == ChessColor.WHITE)
+            this.whiteInCheck = isCheck;
+        else
+            this.blackInCheck = isCheck;
+    }
+
     // OVERIDE??
     public Square get(Column col, int row) {
         if (col == null || row > 8 || row < 1)
             return null;
         return super.get(new CellPosition(row - 1, col.ordinal()));
+    }
+
+    public boolean isThreatendBy(Square square, ChessColor threatenedBy) {
+        for (Square square2 : this) {
+            if (square2.getPiece() != null && square2.getPiece().getColor() == threatenedBy) {
+                if (square2.getPiece().getLegalMoves().contains(square))
+                    return true;
+            }
+        }
+        return false;
     }
 }

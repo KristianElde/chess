@@ -66,16 +66,23 @@ public class King implements IPiece, ICastleable {
 
         if (kingSideRook.getAllowCastling()) {
             if (board.get(Column.F, row).getPiece() == null && board.get(Column.G, row).getPiece() == null) {
-                Square castlingSquare = board.get(Column.G, row);
-                legalCastlingMoves.add(castlingSquare);
+                if (!board.isThreatendBy(board.get(Column.F, row), color.toggle())
+                        && !board.isThreatendBy(board.get(Column.G, row), color.toggle()) && !board.getInCheck(color)) {
+                    Square castlingSquare = board.get(Column.G, row);
+                    legalCastlingMoves.add(castlingSquare);
+                }
             }
         }
 
         if (queenSideRook.getAllowCastling()) {
             if (board.get(Column.B, row).getPiece() == null && board.get(Column.C, row).getPiece() == null
                     && board.get(Column.D, row).getPiece() == null) {
-                Square castlingSquare = board.get(Column.C, row);
-                legalCastlingMoves.add(castlingSquare);
+                if (!board.isThreatendBy(board.get(Column.B, row), color.toggle())
+                        && !board.isThreatendBy(board.get(Column.C, row), color.toggle())
+                        && !board.isThreatendBy(board.get(Column.D, row), color.toggle()) && !board.getInCheck(color)) {
+                    Square castlingSquare = board.get(Column.C, row);
+                    legalCastlingMoves.add(castlingSquare);
+                }
             }
         }
 
