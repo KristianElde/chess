@@ -29,6 +29,7 @@ public class ChessBoard extends Grid<Square> {
         Rook whiteKingSideRook = new Rook(ChessColor.WHITE);
         Rook whiteQueenSideRook = new Rook(ChessColor.WHITE);
         King whiteKing = new King(ChessColor.WHITE, whiteKingSideRook, whiteQueenSideRook);
+        // hei
 
         this.get(Column.A, 1).setPiece(whiteQueenSideRook);
         this.get(Column.B, 1).setPiece(new Knight(ChessColor.WHITE));
