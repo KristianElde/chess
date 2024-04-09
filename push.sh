@@ -8,14 +8,6 @@ set -e
 # Define branch variable
 branch="master" # Change to your default branch if different, e.g., "master"
 
-# Pull latest changes from GitLab
-# echo "Pulling latest changes from GitLab (origin)..."
-# git pull origin $branch
-
-# Optionally, pull latest changes from GitLab to ensure sync
-# echo "Pulling latest changes from GitHub..."
-# git pull github $branch
-
 # Add changes to git
 echo "Adding changes to git..."
 git add .
