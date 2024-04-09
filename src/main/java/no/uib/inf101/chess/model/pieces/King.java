@@ -15,8 +15,10 @@ public class King implements IPiece, ICastleable {
     private Rook kingSideRook;
     private Rook queenSideRook;
 
-    public King(ChessColor color) {
+    public King(ChessColor color, Rook kingSideRook, Rook queenSideRook) {
         this.color = color;
+        this.kingSideRook = kingSideRook;
+        this.queenSideRook = queenSideRook;
     }
 
     @Override
@@ -60,35 +62,20 @@ public class King implements IPiece, ICastleable {
         if (!allowCastling)
             return legalCastlingMoves;
 
+        int row = (color == ChessColor.WHITE ? 1 : 8);
+
         if (kingSideRook.getAllowCastling()) {
-            if (color == ChessColor.WHITE) {
-                if (board.get(Column.F, 1).getPiece() == null && board.get(Column.G, 1).getPiece() == null) {
-                    Square castlingSquare = board.get(Column.F, 1);
-                    legalCastlingMoves.add(castlingSquare);
-                }
-            }
-            if (color == ChessColor.BLACK) {
-                if (board.get(Column.B, 8).getPiece() == null && board.get(Column.C, 8).getPiece() == null) {
-                    Square castlingSquare = board.get(Column.B, 8);
-                    legalCastlingMoves.add(castlingSquare);
-                }
+            if (board.get(Column.F, row).getPiece() == null && board.get(Column.G, row).getPiece() == null) {
+                Square castlingSquare = board.get(Column.G, row);
+                legalCastlingMoves.add(castlingSquare);
             }
         }
 
         if (queenSideRook.getAllowCastling()) {
-            if (color == ChessColor.WHITE) {
-                if (board.get(Column.B, 1).getPiece() == null && board.get(Column.C, 1).getPiece() == null
-                        && board.get(Column.D, 1).getPiece() == null) {
-                    Square castlingSquare = board.get(Column.C, 1);
-                    legalCastlingMoves.add(castlingSquare);
-                }
-            }
-            if (color == ChessColor.BLACK) {
-                if (board.get(Column.E, 8).getPiece() == null && board.get(Column.F, 8).getPiece() == null
-                        && board.get(Column.G, 8).getPiece() == null) {
-                    Square castlingSquare = board.get(Column.F, 8);
-                    legalCastlingMoves.add(castlingSquare);
-                }
+            if (board.get(Column.B, row).getPiece() == null && board.get(Column.C, row).getPiece() == null
+                    && board.get(Column.D, row).getPiece() == null) {
+                Square castlingSquare = board.get(Column.C, row);
+                legalCastlingMoves.add(castlingSquare);
             }
         }
 

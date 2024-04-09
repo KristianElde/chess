@@ -13,9 +13,9 @@ public class DefaultColorTheme implements ColorTheme {
     @Override
     public Color getSquareColor(Square square) {
         if ((square.row() + square.col().ordinal()) % 2 == 0) {
-            return Color.BLACK;
-        } else {
             return Color.WHITE;
+        } else {
+            return Color.BLACK;
         }
 
     }
