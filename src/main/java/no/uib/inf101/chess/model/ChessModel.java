@@ -3,11 +3,7 @@ package no.uib.inf101.chess.model;
 import java.util.ArrayList;
 
 import no.uib.inf101.chess.controller.ControllableModel;
-import no.uib.inf101.chess.model.pieces.Bishop;
 import no.uib.inf101.chess.model.pieces.IPiece;
-import no.uib.inf101.chess.model.pieces.Pawn;
-import no.uib.inf101.chess.model.pieces.Queen;
-import no.uib.inf101.chess.model.pieces.Rook;
 import no.uib.inf101.chess.view.ViewableModel;
 import no.uib.inf101.grid.GridDimension;
 
