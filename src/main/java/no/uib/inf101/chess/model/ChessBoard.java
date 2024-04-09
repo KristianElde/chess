@@ -11,6 +11,11 @@ import no.uib.inf101.grid.Grid;
 
 public class ChessBoard extends Grid<Square> {
 
+    private Square whiteKingSquare;
+    private Square blackKingSquare;
+    private boolean whiteInCheck = false;
+    private boolean blackInCheck = false;
+
     public ChessBoard() {
         super(8, 8);
 
@@ -63,6 +68,20 @@ public class ChessBoard extends Grid<Square> {
         this.get(Column.F, 8).setPiece(new Bishop(ChessColor.BLACK));
         this.get(Column.G, 8).setPiece(new Knight(ChessColor.BLACK));
         this.get(Column.H, 8).setPiece(blackKingSideRook);
+
+        this.whiteKingSquare = this.get(Column.E, 1);
+        this.blackKingSquare = this.get(Column.E, 8);
+    }
+
+    Square getKingSquare(ChessColor color) {
+        return (color == ChessColor.WHITE ? whiteKingSquare : blackKingSquare);
+    }
+
+    void setKingSquare(Square kingSquare, ChessColor color) {
+        if (color == ChessColor.WHITE)
+            this.whiteKingSquare = kingSquare;
+        else
+            this.blackKingSquare = kingSquare;
     }
 
     // OVERIDE??

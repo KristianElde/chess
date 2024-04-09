@@ -39,9 +39,9 @@ public class ChessView extends JPanel {
     private static final Font STANDARD_FONT = new Font("Calibri", Font.BOLD, STANDARD_FONT_SIZE);
 
     public ChessView(ChessModel model, ColorTheme colorTheme, TextureTheme textureTheme) {
-        double windowWidth = (CELL_SIZE + CELL_MARGIN) * model.getDimension().cols() + CELL_MARGIN
+        double windowWidth = (CELL_SIZE + CELL_MARGIN) * model.getBoard().cols() + CELL_MARGIN
                 + HORIZONTAL_OUTERMARGIN;
-        double windowHeight = (CELL_SIZE + CELL_MARGIN) * model.getDimension().rows() + CELL_MARGIN
+        double windowHeight = (CELL_SIZE + CELL_MARGIN) * model.getBoard().rows() + CELL_MARGIN
                 + VERTICAL_OUTERMARGIN;
         this.boardWidth = windowWidth - 2 * HORIZONTAL_OUTERMARGIN;
         this.boardHeight = windowHeight - 2 * VERTICAL_OUTERMARGIN;
@@ -69,7 +69,7 @@ public class ChessView extends JPanel {
         double height = this.getHeight() - 2 * VERTICAL_OUTERMARGIN;
 
         Rectangle2D baseBox = new Rectangle2D.Double(HORIZONTAL_OUTERMARGIN, VERTICAL_OUTERMARGIN, width, height);
-        SquareToPixelConverter squareConverter = new SquareToPixelConverter(baseBox, model.getDimension(), CELL_MARGIN);
+        SquareToPixelConverter squareConverter = new SquareToPixelConverter(baseBox, model.getBoard(), CELL_MARGIN);
 
         drawBoard(g, squareConverter, model.getBoard(), colorTheme, textureTheme);
         drawCoordinates(g);

@@ -8,13 +8,13 @@ import no.uib.inf101.chess.model.pieces.IPiece;
 import no.uib.inf101.chess.model.pieces.King;
 import no.uib.inf101.chess.model.pieces.Pawn;
 import no.uib.inf101.chess.view.ViewableModel;
-import no.uib.inf101.grid.GridDimension;
 
 public class ChessModel implements ViewableModel, ControllableModel {
 
     private ChessBoard board;
     private Square selectedSquare;
     private ChessColor toDraw;
+    private GameState gameState = GameState.ACTIVE;
 
     public ChessModel() {
         board = new ChessBoard();
@@ -28,13 +28,17 @@ public class ChessModel implements ViewableModel, ControllableModel {
     }
 
     @Override
-    public GridDimension getDimension() {
-        return board;
+    public Square getSelectedSquare() {
+        return selectedSquare;
     }
 
     @Override
-    public Square getSelectedSquare() {
-        return selectedSquare;
+    public GameState getGameState() {
+        return this.gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
     }
 
     @Override
@@ -123,9 +127,10 @@ public class ChessModel implements ViewableModel, ControllableModel {
     private void afterMovePerformed(Square from, Square to, IPiece piece) {
         if (piece instanceof ICastleable)
             ((ICastleable) piece).stopAllowCastling();
-        if (piece instanceof Pawn && isPawnDoubleStep(from, to)) {
+        if (piece instanceof Pawn && isPawnDoubleStep(from, to))
             ((Pawn) piece).setEnPassentAllowed(true);
-        }
+        if (piece instanceof King)
+            board.setKingSquare(to, toDraw);
         this.selectedSquare = null;
         toggleTurn();
         updateLegalMoves(toDraw);
