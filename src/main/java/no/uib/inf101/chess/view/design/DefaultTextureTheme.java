@@ -2,7 +2,7 @@ package no.uib.inf101.chess.view.design;
 
 import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.pieces.Bishop;
-import no.uib.inf101.chess.model.pieces.IPiece;
+import no.uib.inf101.chess.model.pieces.Piece;
 import no.uib.inf101.chess.model.pieces.King;
 import no.uib.inf101.chess.model.pieces.Knight;
 import no.uib.inf101.chess.model.pieces.Pawn;
@@ -12,7 +12,7 @@ import no.uib.inf101.chess.model.pieces.Rook;
 public class DefaultTextureTheme implements TextureTheme {
 
     @Override
-    public String getImgPath(IPiece piece) {
+    public String getImgPath(Piece piece) {
         ChessColor color = piece.getColor();
         if (piece instanceof Pawn) {
             return (color == ChessColor.WHITE ? "wP.png" : "bP.png");

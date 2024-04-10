@@ -7,23 +7,15 @@ import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.Column;
 import no.uib.inf101.chess.model.Square;
 
-public class Bishop implements IPiece {
-
-    private ChessColor color;
-    private ArrayList<Square> legalMoves;
+public class Bishop extends Piece {
 
     public Bishop(ChessColor color) {
-        this.color = color;
-    }
-
-    @Override
-    public ArrayList<Square> getLegalMoves() {
-        return this.legalMoves;
+        super(color);
     }
 
     @Override
     public void updateLegalMoves(ChessBoard board, Square currentSquare) {
-        this.legalMoves = calculateLegalMoves(board, currentSquare);
+        setLegalMoves(calculateLegalMoves(board, currentSquare));
     }
 
     @Override
@@ -44,7 +36,7 @@ public class Bishop implements IPiece {
                     if (candidateSquare.getPiece() == null)
                         legalMoves.add(candidateSquare);
                     else {
-                        if (!candidateSquare.getPiece().getColor().equals(color))
+                        if (!candidateSquare.getPiece().getColor().equals(getColor()))
                             legalMoves.add(candidateSquare);
                         break;
                     }
@@ -53,11 +45,6 @@ public class Bishop implements IPiece {
         }
 
         return legalMoves;
-    }
-
-    @Override
-    public ChessColor getColor() {
-        return this.color;
     }
 
 }

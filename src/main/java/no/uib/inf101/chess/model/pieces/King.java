@@ -7,28 +7,21 @@ import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.Column;
 import no.uib.inf101.chess.model.Square;
 
-public class King implements IPiece, ICastleable {
+public class King extends CastleablePiece {
 
-    private ChessColor color;
-    private ArrayList<Square> legalMoves;
     private boolean allowCastling = true;
     private Rook kingSideRook;
     private Rook queenSideRook;
 
     public King(ChessColor color, Rook kingSideRook, Rook queenSideRook) {
-        this.color = color;
+        super(color);
         this.kingSideRook = kingSideRook;
         this.queenSideRook = queenSideRook;
     }
 
     @Override
-    public ArrayList<Square> getLegalMoves() {
-        return this.legalMoves;
-    }
-
-    @Override
     public void updateLegalMoves(ChessBoard board, Square currentSquare) {
-        this.legalMoves = calculateLegalMoves(board, currentSquare);
+        setLegalMoves(calculateLegalMoves(board, currentSquare));
     }
 
     @Override
@@ -47,12 +40,19 @@ public class King implements IPiece, ICastleable {
 
         for (Square candidateSquare : candidateSquares) {
             if (candidateSquare != null
-                    && (candidateSquare.getPiece() == null || !candidateSquare.getPiece().getColor().equals(color))) {
+                    && (candidateSquare.getPiece() == null || candidateSquare.getPiece().getColor() != getColor())) {
                 legalMoves.add(candidateSquare);
             }
         }
 
         legalMoves.addAll(calculateCastlingMoves(board));
+
+        ArrayList<Square> illegalMoves = new ArrayList<>();
+        for (Square move : legalMoves) {
+            if (!board.testMoveIsLegal(currentSquare, move, this))
+                illegalMoves.add(move);
+        }
+        legalMoves.removeAll(illegalMoves);
 
         return legalMoves;
     }
@@ -62,12 +62,13 @@ public class King implements IPiece, ICastleable {
         if (!allowCastling)
             return legalCastlingMoves;
 
-        int row = (color == ChessColor.WHITE ? 1 : 8);
+        int row = (getColor() == ChessColor.WHITE ? 1 : 8);
 
         if (kingSideRook.getAllowCastling()) {
             if (board.get(Column.F, row).getPiece() == null && board.get(Column.G, row).getPiece() == null) {
-                if (!board.isThreatendBy(board.get(Column.F, row), color.toggle())
-                        && !board.isThreatendBy(board.get(Column.G, row), color.toggle()) && !board.getInCheck(color)) {
+                if (!board.isThreatendBy(board.get(Column.F, row), getColor().toggle())
+                        && !board.isThreatendBy(board.get(Column.G, row), getColor().toggle())
+                        && !board.getInCheck(getColor())) {
                     Square castlingSquare = board.get(Column.G, row);
                     legalCastlingMoves.add(castlingSquare);
                 }
@@ -77,9 +78,10 @@ public class King implements IPiece, ICastleable {
         if (queenSideRook.getAllowCastling()) {
             if (board.get(Column.B, row).getPiece() == null && board.get(Column.C, row).getPiece() == null
                     && board.get(Column.D, row).getPiece() == null) {
-                if (!board.isThreatendBy(board.get(Column.B, row), color.toggle())
-                        && !board.isThreatendBy(board.get(Column.C, row), color.toggle())
-                        && !board.isThreatendBy(board.get(Column.D, row), color.toggle()) && !board.getInCheck(color)) {
+                if (!board.isThreatendBy(board.get(Column.B, row), getColor().toggle())
+                        && !board.isThreatendBy(board.get(Column.C, row), getColor().toggle())
+                        && !board.isThreatendBy(board.get(Column.D, row), getColor().toggle())
+                        && !board.getInCheck(getColor())) {
                     Square castlingSquare = board.get(Column.C, row);
                     legalCastlingMoves.add(castlingSquare);
                 }
@@ -87,21 +89,6 @@ public class King implements IPiece, ICastleable {
         }
 
         return legalCastlingMoves;
-    }
-
-    @Override
-    public ChessColor getColor() {
-        return this.color;
-    }
-
-    @Override
-    public boolean getAllowCastling() {
-        return this.allowCastling;
-    }
-
-    @Override
-    public void setAllowCastling(boolean allowCastling) {
-        this.allowCastling = allowCastling;
     }
 
 }

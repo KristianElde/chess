@@ -1,8 +1,8 @@
 package no.uib.inf101.chess.view.design;
 
-import no.uib.inf101.chess.model.pieces.IPiece;
+import no.uib.inf101.chess.model.pieces.Piece;
 
 public interface TextureTheme {
-    String getImgPath(IPiece piece);
+    String getImgPath(Piece piece);
 
 }

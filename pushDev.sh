@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Script to push code to both GitHub and GitLab
+# Script to add, commit and push to origin/dev
 
 # Exit script if any command fails
 set -e
 
 # Define branch variable
-branch="master"
+branch="dev"
 
 # Add changes to git
 echo "Adding changes to git..."
@@ -18,11 +18,7 @@ read commitMessage
 git commit -m "$commitMessage"
 
 # Push changes to GitLab
-echo "Pushing changes to GitLab (origin)..."
+echo "Pushing changes to GitLab (origin/dev)..."
 git push origin $branch
 
-# Push changes to GitHub
-echo "Pushing changes to GitHub..."
-git push github $branch
-
-echo "Successfully pushed to both GitHub and GitLab."
+echo "Successfully pushed to GitLab(origin/dev)."

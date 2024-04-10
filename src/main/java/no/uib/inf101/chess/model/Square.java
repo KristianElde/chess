@@ -1,11 +1,11 @@
 package no.uib.inf101.chess.model;
 
-import no.uib.inf101.chess.model.pieces.IPiece;
+import no.uib.inf101.chess.model.pieces.Piece;
 
 public class Square {
     private Column col;
     private int row;
-    private IPiece piece;
+    private Piece piece;
 
     public Square(Column col, int row) {
         this.col = col;
@@ -20,11 +20,11 @@ public class Square {
         return row;
     }
 
-    public IPiece getPiece() {
+    public Piece getPiece() {
         return piece;
     }
 
-    void setPiece(IPiece piece) {
+    void setPiece(Piece piece) {
         this.piece = piece;
     }
 }

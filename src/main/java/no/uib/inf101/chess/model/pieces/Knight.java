@@ -6,23 +6,15 @@ import no.uib.inf101.chess.model.ChessBoard;
 import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.Square;
 
-public class Knight implements IPiece {
-
-    private ChessColor color;
-    private ArrayList<Square> legalMoves;
+public class Knight extends Piece {
 
     public Knight(ChessColor color) {
-        this.color = color;
-    }
-
-    @Override
-    public ArrayList<Square> getLegalMoves() {
-        return this.legalMoves;
+        super(color);
     }
 
     @Override
     public void updateLegalMoves(ChessBoard board, Square currentSquare) {
-        this.legalMoves = calculateLegalMoves(board, currentSquare);
+        setLegalMoves(calculateLegalMoves(board, currentSquare));
     }
 
     @Override
@@ -41,7 +33,8 @@ public class Knight implements IPiece {
 
         for (Square candidateSquare : candidateSquares) {
             if (candidateSquare != null
-                    && (candidateSquare.getPiece() == null || !candidateSquare.getPiece().getColor().equals(color))) {
+                    && (candidateSquare.getPiece() == null
+                            || !candidateSquare.getPiece().getColor().equals(getColor()))) {
                 legalMoves.add(candidateSquare);
             }
         }
@@ -49,8 +42,4 @@ public class Knight implements IPiece {
         return legalMoves;
     }
 
-    @Override
-    public ChessColor getColor() {
-        return this.color;
-    }
 }

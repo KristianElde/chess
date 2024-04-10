@@ -7,24 +7,15 @@ import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.Column;
 import no.uib.inf101.chess.model.Square;
 
-public class Rook implements IPiece, ICastleable {
-
-    private ChessColor color;
-    private ArrayList<Square> legalMoves;
-    private boolean allowCastling = true;
+public class Rook extends CastleablePiece {
 
     public Rook(ChessColor color) {
-        this.color = color;
-    }
-
-    @Override
-    public ArrayList<Square> getLegalMoves() {
-        return this.legalMoves;
+        super(color);
     }
 
     @Override
     public void updateLegalMoves(ChessBoard board, Square currentSquare) {
-        this.legalMoves = calculateLegalMoves(board, currentSquare);
+        setLegalMoves(calculateLegalMoves(board, currentSquare));
     }
 
     @Override
@@ -40,7 +31,7 @@ public class Rook implements IPiece, ICastleable {
                 if (candidateSquare.getPiece() == null)
                     legalMoves.add(candidateSquare);
                 else {
-                    if (!candidateSquare.getPiece().getColor().equals(color))
+                    if (candidateSquare.getPiece().getColor() != getColor())
                         legalMoves.add(candidateSquare);
                     break;
                 }
@@ -54,7 +45,7 @@ public class Rook implements IPiece, ICastleable {
                 if (candidateSquare.getPiece() == null)
                     legalMoves.add(candidateSquare);
                 else {
-                    if (!candidateSquare.getPiece().getColor().equals(color))
+                    if (candidateSquare.getPiece().getColor() == getColor())
                         legalMoves.add(candidateSquare);
                     break;
                 }
@@ -62,21 +53,6 @@ public class Rook implements IPiece, ICastleable {
         }
 
         return legalMoves;
-    }
-
-    @Override
-    public ChessColor getColor() {
-        return this.color;
-    }
-
-    @Override
-    public boolean getAllowCastling() {
-        return this.allowCastling;
-    }
-
-    @Override
-    public void setAllowCastling(boolean allowCastling) {
-        this.allowCastling = allowCastling;
     }
 
 }

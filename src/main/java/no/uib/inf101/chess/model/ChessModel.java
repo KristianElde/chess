@@ -1,7 +1,7 @@
 package no.uib.inf101.chess.model;
 
 import no.uib.inf101.chess.controller.ControllableModel;
-import no.uib.inf101.chess.model.pieces.IPiece;
+import no.uib.inf101.chess.model.pieces.Piece;
 import no.uib.inf101.chess.view.ViewableModel;
 
 public class ChessModel implements ViewableModel, ControllableModel {
@@ -35,7 +35,7 @@ public class ChessModel implements ViewableModel, ControllableModel {
 
     @Override
     public void setSelectedSquare(Square newSelectedSquare) {
-        IPiece newSelectedPiece = newSelectedSquare.getPiece();
+        Piece newSelectedPiece = newSelectedSquare.getPiece();
 
         if (newSelectedPiece != null && newSelectedPiece.getColor().equals(board.getToDraw())) {
             this.selectedSquare = newSelectedSquare;
@@ -43,10 +43,10 @@ public class ChessModel implements ViewableModel, ControllableModel {
         }
 
         if (selectedSquare != null) {
-            IPiece selectedPiece = selectedSquare.getPiece();
+            Piece selectedPiece = selectedSquare.getPiece();
             if (selectedPiece.getLegalMoves().contains(newSelectedSquare)) {
                 board.movePiece(selectedSquare, newSelectedSquare, selectedPiece);
-                board.afterMovePerformed(selectedSquare, newSelectedSquare, selectedPiece);
+                board.afterMovePiece(selectedSquare, newSelectedSquare, selectedPiece);
             }
             this.selectedSquare = null;
         }

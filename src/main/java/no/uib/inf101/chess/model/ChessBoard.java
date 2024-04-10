@@ -1,8 +1,8 @@
 package no.uib.inf101.chess.model;
 
 import no.uib.inf101.chess.model.pieces.Bishop;
-import no.uib.inf101.chess.model.pieces.ICastleable;
-import no.uib.inf101.chess.model.pieces.IPiece;
+import no.uib.inf101.chess.model.pieces.CastleablePiece;
+import no.uib.inf101.chess.model.pieces.Piece;
 import no.uib.inf101.chess.model.pieces.King;
 import no.uib.inf101.chess.model.pieces.Knight;
 import no.uib.inf101.chess.model.pieces.Pawn;
@@ -76,6 +76,7 @@ public class ChessBoard extends Grid<Square> {
         whiteKingSquare = get(Column.E, 1);
         blackKingSquare = get(Column.E, 8);
 
+        updateLegalMoves(toDraw.toggle());
         updateLegalMoves(toDraw);
     }
 
@@ -112,8 +113,8 @@ public class ChessBoard extends Grid<Square> {
         return super.get(new CellPosition(row - 1, col.ordinal()));
     }
 
-    IPiece movePiece(Square from, Square to, IPiece piece) {
-        IPiece capturedPiece = to.getPiece();
+    Piece movePiece(Square from, Square to, Piece piece) {
+        Piece capturedPiece = to.getPiece();
 
         // Castle move
         if (piece instanceof King && isCastleMove(from, to, (King) piece)) {
@@ -133,18 +134,18 @@ public class ChessBoard extends Grid<Square> {
         return capturedPiece;
     }
 
-    public boolean testMove(Square from, Square to, IPiece piece) {
+    public boolean testMoveIsLegal(Square from, Square to, Piece piece) {
         boolean legalMove = true;
 
-        IPiece capturedPiece = movePiece(from, to, piece);
-        if (isThreatendBy(getKingSquare(toDraw), toDraw))
+        Piece capturedPiece = movePiece(from, to, piece);
+        if (isThreatendBy(to, toDraw.toggle()))
             legalMove = false;
 
         undoMove(from, to, piece, capturedPiece);
         return legalMove;
     }
 
-    private void undoMove(Square from, Square to, IPiece piece, IPiece capturedPiece) {
+    private void undoMove(Square from, Square to, Piece piece, Piece capturedPiece) {
 
         if (piece instanceof King && isCastleMove(from, to, (King) piece))
             undoCastlingMove(from, to, (King) piece, ((Rook) capturedPiece));
@@ -169,13 +170,13 @@ public class ChessBoard extends Grid<Square> {
         return false;
     }
 
-    private IPiece performCastlingMove(Square kingFrom, Square kingTo, King king) {
+    private Piece performCastlingMove(Square kingFrom, Square kingTo, King king) {
         int row = (king.getColor() == ChessColor.WHITE ? 1 : 8);
         Column colFrom = (kingTo.col() == Column.C ? Column.A : Column.H);
         Column colTo = (kingTo.col() == Column.C ? Column.D : Column.F);
 
         Square rookFrom = get(colFrom, row);
-        IPiece rook = rookFrom.getPiece();
+        Piece rook = rookFrom.getPiece();
         Square rookTo = get(colTo, row);
 
         kingFrom.setPiece(null);
@@ -209,9 +210,9 @@ public class ChessBoard extends Grid<Square> {
         return false;
     }
 
-    private IPiece performEnPassentMove(Square from, Square to, IPiece pawn) {
+    private Piece performEnPassentMove(Square from, Square to, Piece pawn) {
         Square capturedPawnSquare = get(to.col(), from.row());
-        IPiece capturedPawn = capturedPawnSquare.getPiece();
+        Piece capturedPawn = capturedPawnSquare.getPiece();
 
         from.setPiece(null);
         to.setPiece(pawn);
@@ -220,7 +221,7 @@ public class ChessBoard extends Grid<Square> {
         return capturedPawn;
     }
 
-    private void undoEnPassentMove(Square from, Square to, IPiece pawn, Pawn capturedPawn) {
+    private void undoEnPassentMove(Square from, Square to, Piece pawn, Pawn capturedPawn) {
         Square capturedPawnSquare = get(to.col(), from.row());
 
         from.setPiece(pawn);
@@ -230,12 +231,12 @@ public class ChessBoard extends Grid<Square> {
         capturedPawn.setEnPassentAllowed(true);
     }
 
-    void afterMovePerformed(Square from, Square to, IPiece piece) {
+    void afterMovePiece(Square from, Square to, Piece piece) {
         updateLegalMoves(toDraw);
 
-        if (piece instanceof ICastleable)
+        if (piece instanceof CastleablePiece)
             // Stop this piece from being involved in castle-move
-            ((ICastleable) piece).setAllowCastling(false);
+            ((CastleablePiece) piece).setAllowCastling(false);
 
         if (piece instanceof Pawn && isPawnDoubleStep(from, to))
             // Allow moved pawn to be captured by en passent-move
@@ -268,7 +269,7 @@ public class ChessBoard extends Grid<Square> {
 
     private void updateLegalMoves(ChessColor color) {
         for (Square square : this) {
-            IPiece piece = square.getPiece();
+            Piece piece = square.getPiece();
             if (piece != null && piece.getColor().equals(color)) {
                 square.getPiece().updateLegalMoves(this, square);
             }

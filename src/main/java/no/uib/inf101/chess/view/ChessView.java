@@ -6,7 +6,7 @@ import no.uib.inf101.chess.model.ChessBoard;
 import no.uib.inf101.chess.model.ChessModel;
 import no.uib.inf101.chess.model.Column;
 import no.uib.inf101.chess.model.Square;
-import no.uib.inf101.chess.model.pieces.IPiece;
+import no.uib.inf101.chess.model.pieces.Piece;
 import no.uib.inf101.chess.view.design.ColorTheme;
 import no.uib.inf101.chess.view.design.TextureTheme;
 
@@ -85,7 +85,7 @@ public class ChessView extends JPanel {
             Rectangle2D rectangle = cp.getBoundsForCell(square);
             g.setColor(colorTheme.getSquareColor(square));
             g.fill(rectangle);
-            IPiece piece = square.getPiece();
+            Piece piece = square.getPiece();
             if (piece != null) {
                 BufferedImage img = Inf101Graphics.loadImageFromResources(textureTheme.getImgPath(piece));
                 Inf101Graphics.drawCenteredImage(g, img, rectangle.getCenterX(), rectangle.getCenterY(), 0.45);
@@ -123,7 +123,7 @@ public class ChessView extends JPanel {
     }
 
     private void drawLegalMoves(Graphics2D g, SquareToPixelConverter squareConverter) {
-        IPiece selectedPiece = model.getSelectedSquare().getPiece();
+        Piece selectedPiece = model.getSelectedSquare().getPiece();
         ArrayList<Square> legalMoves = selectedPiece.getLegalMoves();
 
         for (Square square : legalMoves) {
