@@ -4,6 +4,6 @@ public interface ICastleable {
 
     boolean getAllowCastling();
 
-    void stopAllowCastling();
+    void setAllowCastling(boolean allowCastling);
 
 }

@@ -75,8 +75,8 @@ public class Rook implements IPiece, ICastleable {
     }
 
     @Override
-    public void stopAllowCastling() {
-        this.allowCastling = false;
+    public void setAllowCastling(boolean allowCastling) {
+        this.allowCastling = allowCastling;
     }
 
 }
