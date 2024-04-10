@@ -105,7 +105,7 @@ public class ChessBoard extends Grid<Square> {
         return toDraw;
     }
 
-    // OVERIDE??
+    // OVERIDE?
     public Square get(Column col, int row) {
         if (col == null || row > 8 || row < 1)
             return null;
