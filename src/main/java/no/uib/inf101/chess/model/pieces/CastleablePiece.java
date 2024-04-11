@@ -13,7 +13,7 @@ public abstract class CastleablePiece extends Piece {
     public boolean getAllowCastling() {
         return allowCastling;
     }
-
+    //
     public void setAllowCastling(boolean allowCastling) {
         this.allowCastling = allowCastling;
     }
