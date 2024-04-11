@@ -142,6 +142,7 @@ public class ChessBoard extends Grid<Square> {
             legalMove = false;
 
         undoMove(from, to, piece, capturedPiece);
+
         return legalMove;
     }
 
@@ -231,7 +232,7 @@ public class ChessBoard extends Grid<Square> {
         capturedPawn.setEnPassentAllowed(true);
     }
 
-    void afterMovePiece(Square from, Square to, Piece piece) {
+    void setStateVariablesAfterMove(Square from, Square to, Piece piece) {
         updateLegalMoves(toDraw);
 
         if (piece instanceof CastleablePiece)
