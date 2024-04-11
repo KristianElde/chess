@@ -46,7 +46,7 @@ public class ChessModel implements ViewableModel, ControllableModel {
             Piece selectedPiece = selectedSquare.getPiece();
             if (selectedPiece.getLegalMoves().contains(newSelectedSquare)) {
                 board.movePiece(selectedSquare, newSelectedSquare, selectedPiece);
-                board.afterMovePiece(selectedSquare, newSelectedSquare, selectedPiece);
+                board.setStateVariablesAfterMove(selectedSquare, newSelectedSquare, selectedPiece);
             }
             this.selectedSquare = null;
         }

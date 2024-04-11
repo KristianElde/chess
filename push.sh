@@ -5,6 +5,10 @@
 # Exit script if any command fails
 set -e
 
+# Hack: add coment in a file
+
+echo "." >> hack.txt
+
 # Define branch variable
 branch="master"
 
