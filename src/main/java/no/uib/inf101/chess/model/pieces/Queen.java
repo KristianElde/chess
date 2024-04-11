@@ -73,6 +73,8 @@ public class Queen extends Piece {
             }
         }
 
+        legalMoves = removeInCheckMoves(legalMoves, board, currentSquare);
+
         return legalMoves;
     }
 }

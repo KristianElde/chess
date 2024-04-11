@@ -55,6 +55,8 @@ public class Pawn extends Piece {
                 && ((Pawn) leftEnPassent.getPiece()).getEnPassentAllowed())
             legalMoves.add(leftAhead);
 
+        legalMoves = removeInCheckMoves(legalMoves, board, currentSquare);
+
         return legalMoves;
     }
 

@@ -138,7 +138,7 @@ public class ChessBoard extends Grid<Square> {
         boolean legalMove = true;
 
         Piece capturedPiece = movePiece(from, to, piece);
-        if (isThreatendBy(to, toDraw.toggle()))
+        if (isThreatendBy(getKingSquare(toDraw), toDraw.toggle()))
             legalMove = false;
 
         undoMove(from, to, piece, capturedPiece);

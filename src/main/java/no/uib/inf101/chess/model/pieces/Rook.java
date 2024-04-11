@@ -52,6 +52,8 @@ public class Rook extends CastleablePiece {
             }
         }
 
+        legalMoves = removeInCheckMoves(legalMoves, board, currentSquare);
+
         return legalMoves;
     }
 

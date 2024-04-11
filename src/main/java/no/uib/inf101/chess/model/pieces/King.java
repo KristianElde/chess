@@ -47,12 +47,7 @@ public class King extends CastleablePiece {
 
         legalMoves.addAll(calculateCastlingMoves(board));
 
-        ArrayList<Square> illegalMoves = new ArrayList<>();
-        for (Square move : legalMoves) {
-            if (!board.testMoveIsLegal(currentSquare, move, this))
-                illegalMoves.add(move);
-        }
-        legalMoves.removeAll(illegalMoves);
+        legalMoves = removeInCheckMoves(legalMoves, board, currentSquare);
 
         return legalMoves;
     }
