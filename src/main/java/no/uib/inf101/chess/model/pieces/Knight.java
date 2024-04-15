@@ -13,12 +13,12 @@ public class Knight extends Piece {
     }
 
     @Override
-    public void updateLegalMoves(ChessBoard board, Square currentSquare) {
-        setLegalMoves(calculateLegalMoves(board, currentSquare));
+    public void updateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive) {
+        setLegalMoves(calculateLegalMoves(board, currentSquare, primitive));
     }
 
     @Override
-    public ArrayList<Square> calculateLegalMoves(ChessBoard board, Square currentSquare) {
+    public ArrayList<Square> calculateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive) {
         ArrayList<Square> legalMoves = new ArrayList<>();
         ArrayList<Square> candidateSquares = new ArrayList<>();
 
@@ -39,7 +39,8 @@ public class Knight extends Piece {
             }
         }
 
-        legalMoves = removeInCheckMoves(legalMoves, board, currentSquare);
+        if (!primitive)
+            legalMoves = removeInCheckMoves(legalMoves, board, currentSquare);
 
         return legalMoves;
     }

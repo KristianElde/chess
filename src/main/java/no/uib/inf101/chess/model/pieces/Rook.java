@@ -14,12 +14,12 @@ public class Rook extends CastleablePiece {
     }
 
     @Override
-    public void updateLegalMoves(ChessBoard board, Square currentSquare) {
-        setLegalMoves(calculateLegalMoves(board, currentSquare));
+    public void updateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive) {
+        setLegalMoves(calculateLegalMoves(board, currentSquare, primitive));
     }
 
     @Override
-    public ArrayList<Square> calculateLegalMoves(ChessBoard board, Square currentSquare) {
+    public ArrayList<Square> calculateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive) {
         ArrayList<Square> legalMoves = new ArrayList<>();
 
         int[] stepDirections = { -1, 1 };
@@ -45,14 +45,15 @@ public class Rook extends CastleablePiece {
                 if (candidateSquare.getPiece() == null)
                     legalMoves.add(candidateSquare);
                 else {
-                    if (candidateSquare.getPiece().getColor() == getColor())
+                    if (candidateSquare.getPiece().getColor() != getColor())
                         legalMoves.add(candidateSquare);
                     break;
                 }
             }
         }
 
-        legalMoves = removeInCheckMoves(legalMoves, board, currentSquare);
+        if (!primitive)
+            legalMoves = removeInCheckMoves(legalMoves, board, currentSquare);
 
         return legalMoves;
     }
