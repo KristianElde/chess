@@ -12,18 +12,17 @@ import no.uib.inf101.chess.view.design.DefaultTextureTheme;
 import no.uib.inf101.chess.view.design.FontTheme;
 import no.uib.inf101.chess.view.design.TextureTheme;
 
-/**
- * Hello world!
- */
 public class Main {
 
   public static final String WINDOW_TITLE = "INF101 Chess - Kristian Elde Johansen";
 
   public static void main(String[] args) {
     ChessModel model = new ChessModel();
+
     ColorTheme colorTheme = new DefaultColorTheme();
     TextureTheme textureTheme = new DefaultTextureTheme();
     FontTheme fontTheme = new DefaultFontTheme();
+
     ChessView view = new ChessView(model, colorTheme, textureTheme, fontTheme);
 
     new ChessController(model, view);
