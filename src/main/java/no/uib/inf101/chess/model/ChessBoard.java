@@ -95,10 +95,15 @@ public class ChessBoard extends Grid<Square> {
     }
 
     void setCheck(boolean isCheck, ChessColor color) {
-        if (color == ChessColor.WHITE)
+        if (color == ChessColor.WHITE) {
             whiteInCheck = isCheck;
-        else
+            System.out.println(String.format("Set %s inCheck to: %s", color, isCheck));
+        } else {
             blackInCheck = isCheck;
+            System.out.println(String.format("Set %s inCheck to: %s", color, isCheck));
+
+        }
+        blackInCheck = isCheck;
     }
 
     public ChessColor getToDraw() {
@@ -117,10 +122,10 @@ public class ChessBoard extends Grid<Square> {
 
         // Castle move
         if (piece instanceof King && isCastleMove(from, to, (King) piece)) {
-            capturedPiece = performCastlingMove(from, to, (King) piece);
+            Piece castledRook = performCastlingMove(from, to, (King) piece);
 
             setStateVariablesAfterMove(from, to, piece);
-            return capturedPiece;
+            return castledRook;
         }
 
         // En passent move
@@ -129,6 +134,12 @@ public class ChessBoard extends Grid<Square> {
 
             setStateVariablesAfterMove(from, to, piece);
             ((Pawn) capturedPiece).setCapturedByEnPassent(true);
+            return capturedPiece;
+        }
+
+        if (piece instanceof Pawn && isPawnPromotion(from, to, piece)) {
+            performPawnPromotionMove(from, to);
+            setStateVariablesAfterMove(from, to, piece);
             return capturedPiece;
         }
 
@@ -141,7 +152,7 @@ public class ChessBoard extends Grid<Square> {
     }
 
     public boolean testMoveIsLegal(Square from, Square to, Piece piece) {
-        boolean legalMove = true;
+        boolean isLegalMove = true;
         boolean isCheck = isInCheck(toDraw);
         boolean allowCastling = false;
         if (piece instanceof CastleablePiece)
@@ -149,12 +160,12 @@ public class ChessBoard extends Grid<Square> {
 
         Piece capturedPiece = movePiece(from, to, piece);
         if (isThreatendBy(getKingSquare(piece.getColor()), piece.getColor().toggle()))
-            legalMove = false;
+            isLegalMove = false;
 
         resetStateVariablesAfterMove(from, to, piece, capturedPiece, isCheck, allowCastling);
         undoMove(from, to, piece, capturedPiece);
 
-        return legalMove;
+        return isLegalMove;
     }
 
     private void undoMove(Square from, Square to, Piece piece, Piece capturedPiece) {
@@ -243,7 +254,6 @@ public class ChessBoard extends Grid<Square> {
     }
 
     void setStateVariablesAfterMove(Square from, Square to, Piece piece) {
-        // updateLegalMoves(toDraw);
 
         if (piece instanceof CastleablePiece)
             // Stop this piece from being involved in castle-move
@@ -264,7 +274,6 @@ public class ChessBoard extends Grid<Square> {
             setCheck(true, toDraw.toggle());
 
         toggleTurn();
-        // updateLegalMoves(toDraw);
     }
 
     private void resetStateVariablesAfterMove(Square from, Square to, Piece piece, Piece capturedPiece,
@@ -286,10 +295,23 @@ public class ChessBoard extends Grid<Square> {
             setKingSquare(from, toDraw);
 
         setCheck(isCheck, toDraw);
+
+        setCheck(false, toDraw.toggle());
     }
 
     private boolean isPawnDoubleStep(Square from, Square to) {
         return from.row() == 2 && to.row() == 4 || from.row() == 7 && to.row() == 5;
+    }
+
+    private boolean isPawnPromotion(Square from, Square to, Piece piece) {
+        int lastRow = (piece.getColor() == ChessColor.WHITE ? 8 : 1);
+
+        return to.row() == lastRow;
+    }
+
+    private void performPawnPromotionMove(Square from, Square to) {
+        from.setPiece(null);
+        to.setPiece(new Queen(toDraw));
     }
 
     private void toggleTurn() {

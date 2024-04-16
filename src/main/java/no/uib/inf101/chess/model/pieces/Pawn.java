@@ -28,7 +28,7 @@ public class Pawn extends Piece {
         int nextRow = (getColor() == ChessColor.WHITE ? 1 : -1);
 
         Square oneAhead = board.get(currentSquare.col(), currentSquare.row() + nextRow);
-        if (oneAhead.getPiece() == null) {
+        if (oneAhead != null && oneAhead.getPiece() == null) {
             legalMoves.add(oneAhead);
 
             Square twoAhead = board.get(currentSquare.col(), currentSquare.row() + 2 * nextRow);
