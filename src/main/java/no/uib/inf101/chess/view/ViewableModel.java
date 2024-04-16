@@ -11,6 +11,10 @@ public interface ViewableModel {
 
     Square getSelectedSquare();
 
+    Square getLastMoveFrom();
+
+    Square getLastMoveTo();
+
     GameState getGameState();
 
     ChessColor getWinner();

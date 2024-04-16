@@ -121,31 +121,24 @@ public class ChessBoard extends Grid<Square> {
         Piece capturedPiece = to.getPiece();
 
         // Castle move
-        if (piece instanceof King && isCastleMove(from, to, (King) piece)) {
-            Piece castledRook = performCastlingMove(from, to, (King) piece);
-
-            setStateVariablesAfterMove(from, to, piece);
-            return castledRook;
-        }
+        if (piece instanceof King && isCastleMove(from, to, (King) piece))
+            capturedPiece = performCastlingMove(from, to, (King) piece);
 
         // En passent move
-        if (piece instanceof Pawn && isEnPassentMove(from, to)) {
+        else if (piece instanceof Pawn && isEnPassentMove(from, to)) {
             capturedPiece = performEnPassentMove(from, to, piece);
-
-            setStateVariablesAfterMove(from, to, piece);
             ((Pawn) capturedPiece).setCapturedByEnPassent(true);
             return capturedPiece;
         }
 
-        if (piece instanceof Pawn && isPawnPromotion(from, to, piece)) {
+        else if (piece instanceof Pawn && isPawnPromotion(from, to, piece))
             performPawnPromotionMove(from, to);
-            setStateVariablesAfterMove(from, to, piece);
-            return capturedPiece;
-        }
 
         // Regular move
-        from.setPiece(null);
-        to.setPiece(piece);
+        else {
+            from.setPiece(null);
+            to.setPiece(piece);
+        }
 
         setStateVariablesAfterMove(from, to, piece);
         return capturedPiece;
@@ -310,6 +303,8 @@ public class ChessBoard extends Grid<Square> {
     }
 
     private void performPawnPromotionMove(Square from, Square to) {
+        // Piece promotePawnTo =
+
         from.setPiece(null);
         to.setPiece(new Queen(toDraw));
     }

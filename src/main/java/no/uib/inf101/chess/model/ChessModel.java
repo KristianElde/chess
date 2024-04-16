@@ -8,6 +8,8 @@ public class ChessModel implements ViewableModel, ControllableModel {
 
     private ChessBoard board;
     private Square selectedSquare;
+    private Square lastMoveFrom;
+    private Square lastMoveTo;
     private GameState gameState = GameState.ACTIVE;
     private ChessColor winner;
 
@@ -49,6 +51,7 @@ public class ChessModel implements ViewableModel, ControllableModel {
             Piece selectedPiece = selectedSquare.getPiece();
             if (selectedPiece.getLegalMoves().contains(newSelectedSquare)) {
                 board.movePiece(selectedSquare, newSelectedSquare, selectedPiece);
+                setLastMove(selectedSquare, newSelectedSquare);
                 board.updateLegalMoves(board.getToDraw(), false);
                 if (!anyLegalMoves(board.getToDraw())) {
                     this.gameState = (board.isInCheck(board.getToDraw()) ? GameState.CHECKMATE : GameState.STALEMATE);
@@ -68,6 +71,21 @@ public class ChessModel implements ViewableModel, ControllableModel {
                     return true;
         }
         return false;
+    }
+
+    @Override
+    public Square getLastMoveFrom() {
+        return lastMoveFrom;
+    }
+
+    @Override
+    public Square getLastMoveTo() {
+        return lastMoveTo;
+    }
+
+    private void setLastMove(Square from, Square to) {
+        lastMoveFrom = from;
+        lastMoveTo = to;
     }
 
 }

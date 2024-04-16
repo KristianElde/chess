@@ -74,6 +74,8 @@ public class ChessView extends JPanel {
 
         drawBoard(g, squareConverter, model.getBoard(), colorTheme, textureTheme);
         drawCoordinates(g);
+        if (model.getLastMoveFrom() != null)
+            drawLastMove(g, squareConverter);
         if (model.getSelectedSquare() != null) {
             drawSelectedSquare(g, squareConverter);
             drawLegalMoves(g, squareConverter);
@@ -81,6 +83,7 @@ public class ChessView extends JPanel {
 
         if (model.getGameState() == GameState.CHECKMATE || model.getGameState() == GameState.STALEMATE)
             drawGameOver(g, baseBox);
+
     }
 
     private static void drawBoard(Graphics2D g, SquareToPixelConverter cp, ChessBoard board,
@@ -140,6 +143,15 @@ public class ChessView extends JPanel {
             g.setColor(colorTheme.getSelectedSquareColor());
             g.fill(circle);
         }
+    }
+
+    private void drawLastMove(Graphics2D g, SquareToPixelConverter squareConverter) {
+        Rectangle2D lastMoveFrom = squareConverter.getBoundsForCell(model.getLastMoveFrom());
+        Rectangle2D lastMoveTo = squareConverter.getBoundsForCell(model.getLastMoveTo());
+        g.setColor(colorTheme.getLastMoveSquareColor());
+        g.setStroke(new BasicStroke(3));
+        g.draw(lastMoveFrom);
+        g.draw(lastMoveTo);
     }
 
     private void drawGameOver(Graphics2D g, Rectangle2D baseBox) {

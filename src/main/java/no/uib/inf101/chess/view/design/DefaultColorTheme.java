@@ -55,4 +55,9 @@ public class DefaultColorTheme implements ColorTheme {
         return new Color(71, 143, 57);
     }
 
+    @Override
+    public Color getLastMoveSquareColor() {
+        return Color.ORANGE;
+    }
+
 }
