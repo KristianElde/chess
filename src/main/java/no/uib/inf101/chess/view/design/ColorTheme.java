@@ -59,4 +59,6 @@ public interface ColorTheme {
     Color getCoordinatesColor();
 
     Color getSelectedSquareColor();
+
+    Color getLastMoveSquareColor();
 }

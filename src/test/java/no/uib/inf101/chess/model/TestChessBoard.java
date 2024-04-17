@@ -1,0 +1,53 @@
+package no.uib.inf101.chess.model;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+import no.uib.inf101.chess.model.pieces.King;
+import no.uib.inf101.chess.model.pieces.Rook;
+
+public class TestChessBoard {
+
+    @Test
+    void constructorTest() {
+        ChessBoard board = new ChessBoard();
+
+        assertNotNull(board);
+        assertEquals(ChessColor.WHITE, board.getToDraw());
+
+        // Check that white rook is at A1
+        assertTrue(board.get(Column.A, 1).getPiece() instanceof Rook);
+        assertTrue(board.get(Column.A, 1).getPiece().getColor() == ChessColor.WHITE);
+
+        // Check that Black king is at E8
+        assertTrue(board.get(Column.E, 8).getPiece() instanceof King);
+        assertTrue(board.get(Column.E, 8).getPiece().getColor() == ChessColor.BLACK);
+    }
+
+    @Test
+    void movePieceTest() {
+        ChessBoard board = new ChessBoard();
+
+        // Check that pawn to E4 does not result in a capture
+        assertEquals(null,
+                board.movePiece(board.get(Column.E, 2), board.get(Column.E, 4), board.get(Column.E, 2).getPiece()));
+
+        // Move black Pawn to D5
+        board.movePiece(board.get(Column.D, 7), board.get(Column.D, 5), board.get(Column.D, 7).getPiece());
+
+        // Check that Pawn capture on D5 returns captured pawn
+        assertEquals(board.get(Column.D, 5).getPiece(),
+                board.movePiece(board.get(Column.E, 4), board.get(Column.D, 5), board.get(Column.E, 4).getPiece()));
+
+        // Move black pawn to E5
+        board.movePiece(board.get(Column.E, 7), board.get(Column.E, 5), board.get(Column.E, 7).getPiece());
+
+        // Check that en passent move returns captured pawn
+        assertEquals(board.get(Column.E, 5).getPiece(),
+                board.movePiece(board.get(Column.D, 5), board.get(Column.E, 6), board.get(Column.D, 5).getPiece()));
+    }
+
+}

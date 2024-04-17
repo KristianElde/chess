@@ -5,14 +5,15 @@ import javax.swing.JPanel;
 import no.uib.inf101.chess.model.ChessBoard;
 import no.uib.inf101.chess.model.ChessModel;
 import no.uib.inf101.chess.model.Column;
+import no.uib.inf101.chess.model.GameState;
 import no.uib.inf101.chess.model.Square;
 import no.uib.inf101.chess.model.pieces.Piece;
 import no.uib.inf101.chess.view.design.ColorTheme;
+import no.uib.inf101.chess.view.design.FontTheme;
 import no.uib.inf101.chess.view.design.TextureTheme;
 
 import java.awt.BasicStroke;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
@@ -25,6 +26,7 @@ public class ChessView extends JPanel {
     private ViewableModel model;
     private ColorTheme colorTheme;
     private TextureTheme textureTheme;
+    private FontTheme fontTheme;
 
     double boardWidth;
     double boardHeight;
@@ -35,10 +37,8 @@ public class ChessView extends JPanel {
     public static final double HORIZONTAL_OUTERMARGIN = 50;
     private static final double CELL_SIZE = 80;
     private static final double CELL_MARGIN = 1;
-    private static final int STANDARD_FONT_SIZE = 16;
-    private static final Font STANDARD_FONT = new Font("Calibri", Font.BOLD, STANDARD_FONT_SIZE);
 
-    public ChessView(ChessModel model, ColorTheme colorTheme, TextureTheme textureTheme) {
+    public ChessView(ChessModel model, ColorTheme colorTheme, TextureTheme textureTheme, FontTheme fontTheme) {
         double windowWidth = (CELL_SIZE + CELL_MARGIN) * model.getBoard().cols() + CELL_MARGIN
                 + HORIZONTAL_OUTERMARGIN;
         double windowHeight = (CELL_SIZE + CELL_MARGIN) * model.getBoard().rows() + CELL_MARGIN
@@ -53,6 +53,7 @@ public class ChessView extends JPanel {
         this.model = model;
         this.colorTheme = colorTheme;
         this.textureTheme = textureTheme;
+        this.fontTheme = fontTheme;
         this.setBackground(this.colorTheme.getBackgroundColor());
     }
 
@@ -64,7 +65,7 @@ public class ChessView extends JPanel {
         drawGame(g2);
     }
 
-    public void drawGame(Graphics2D g) {
+    private void drawGame(Graphics2D g) {
         double width = this.getWidth() - 2 * HORIZONTAL_OUTERMARGIN;
         double height = this.getHeight() - 2 * VERTICAL_OUTERMARGIN;
 
@@ -73,10 +74,16 @@ public class ChessView extends JPanel {
 
         drawBoard(g, squareConverter, model.getBoard(), colorTheme, textureTheme);
         drawCoordinates(g);
+        if (model.getLastMoveFrom() != null)
+            drawLastMove(g, squareConverter);
         if (model.getSelectedSquare() != null) {
             drawSelectedSquare(g, squareConverter);
             drawLegalMoves(g, squareConverter);
         }
+
+        if (model.getGameState() == GameState.CHECKMATE || model.getGameState() == GameState.STALEMATE)
+            drawGameOver(g, baseBox);
+
     }
 
     private static void drawBoard(Graphics2D g, SquareToPixelConverter cp, ChessBoard board,
@@ -98,7 +105,7 @@ public class ChessView extends JPanel {
             double y = getHeight()
                     - (VERTICAL_OUTERMARGIN + CELL_MARGIN + (i - 1) * (squareHeight) + squareHeight / 2);
             g.setColor(colorTheme.getCoordinatesColor());
-            g.setFont(STANDARD_FONT);
+            g.setFont(fontTheme.getDefaultFont());
             Inf101Graphics.drawCenteredString(g, String.valueOf(i), HORIZONTAL_OUTERMARGIN / 2, y);
             // Inf101Graphics.drawCenteredString(g, String.valueOf(i), getWidth() -
             // HORIZONTAL_OUTERMARGIN / 2, y);
@@ -108,7 +115,7 @@ public class ChessView extends JPanel {
             double x = HORIZONTAL_OUTERMARGIN + CELL_MARGIN + column.ordinal() * (squareWidth)
                     + squareWidth / 2;
             g.setColor(colorTheme.getCoordinatesColor());
-            g.setFont(STANDARD_FONT);
+            g.setFont(fontTheme.getDefaultFont());
             // Inf101Graphics.drawCenteredString(g, column.toString(), x,
             // VERTICAL_OUTERMARGIN / 2);
             Inf101Graphics.drawCenteredString(g, column.toString(), x, getHeight() - VERTICAL_OUTERMARGIN / 2);
@@ -135,6 +142,40 @@ public class ChessView extends JPanel {
                     diameter);
             g.setColor(colorTheme.getSelectedSquareColor());
             g.fill(circle);
+        }
+    }
+
+    private void drawLastMove(Graphics2D g, SquareToPixelConverter squareConverter) {
+        Rectangle2D lastMoveFrom = squareConverter.getBoundsForCell(model.getLastMoveFrom());
+        Rectangle2D lastMoveTo = squareConverter.getBoundsForCell(model.getLastMoveTo());
+        g.setColor(colorTheme.getLastMoveSquareColor());
+        g.setStroke(new BasicStroke(3));
+        g.draw(lastMoveFrom);
+        g.draw(lastMoveTo);
+    }
+
+    private void drawGameOver(Graphics2D g, Rectangle2D baseBox) {
+        g.setColor(colorTheme.getGameOverScreenColor());
+        g.fill(baseBox);
+
+        if (model.getGameState() == GameState.CHECKMATE) {
+            String s = String.format("%s is CHECKMATE!", model.getWinner().toggle());
+            String s2 = String.format("%s won the game.", model.getWinner());
+            g.setColor(colorTheme.getGameOverTextColor());
+            g.setFont(fontTheme.getGameOverScreenFont());
+            Inf101Graphics.drawCenteredString(g, s, getBounds().width / 2, getBounds().height / 2);
+            g.setFont(fontTheme.getGameOverScreenFont());
+            Inf101Graphics.drawCenteredString(g, s2, getBounds().width / 2,
+                    getBounds().height / 2 + fontTheme.getGameOverScreenFont().getSize());
+        } else {
+            String s = "STALEMATE!";
+            String s2 = "The game ended in a draw.";
+            g.setColor(colorTheme.getGameOverTextColor());
+            g.setFont(fontTheme.getGameOverScreenFont());
+            Inf101Graphics.drawCenteredString(g, s, getBounds().width / 2, getBounds().height / 2);
+            g.setFont(fontTheme.getGameOverScreenFont());
+            Inf101Graphics.drawCenteredString(g, s2, getBounds().width / 2,
+                    getBounds().height / 2 + fontTheme.getGameOverScreenFont().getSize());
         }
     }
 }

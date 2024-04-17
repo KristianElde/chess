@@ -9,25 +9,26 @@ import no.uib.inf101.chess.model.Square;
 public class Pawn extends Piece {
 
     private boolean enPassentAllowed = false;
+    private boolean capturedByEnPassent = false;
 
     public Pawn(ChessColor color) {
         super(color);
     }
 
     @Override
-    public void updateLegalMoves(ChessBoard board, Square currentSquare) {
-        setLegalMoves(calculateLegalMoves(board, currentSquare));
+    public void updateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive) {
+        setLegalMoves(calculateLegalMoves(board, currentSquare, primitive));
         this.enPassentAllowed = false;
     }
 
     @Override
-    public ArrayList<Square> calculateLegalMoves(ChessBoard board, Square currentSquare) {
+    public ArrayList<Square> calculateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive) {
         ArrayList<Square> legalMoves = new ArrayList<>();
 
         int nextRow = (getColor() == ChessColor.WHITE ? 1 : -1);
 
         Square oneAhead = board.get(currentSquare.col(), currentSquare.row() + nextRow);
-        if (oneAhead.getPiece() == null) {
+        if (oneAhead != null && oneAhead.getPiece() == null) {
             legalMoves.add(oneAhead);
 
             Square twoAhead = board.get(currentSquare.col(), currentSquare.row() + 2 * nextRow);
@@ -55,7 +56,8 @@ public class Pawn extends Piece {
                 && ((Pawn) leftEnPassent.getPiece()).getEnPassentAllowed())
             legalMoves.add(leftAhead);
 
-        legalMoves = removeInCheckMoves(legalMoves, board, currentSquare);
+        if (!primitive)
+            legalMoves = removeInCheckMoves(legalMoves, board, currentSquare);
 
         return legalMoves;
     }
@@ -66,6 +68,14 @@ public class Pawn extends Piece {
 
     public void setEnPassentAllowed(boolean bool) {
         enPassentAllowed = bool;
+    }
+
+    public boolean getCaptureByEnPassent() {
+        return capturedByEnPassent;
+    }
+
+    public void setCapturedByEnPassent(boolean capturedByEnPassent) {
+        this.capturedByEnPassent = capturedByEnPassent;
     }
 
     private int startRow() {

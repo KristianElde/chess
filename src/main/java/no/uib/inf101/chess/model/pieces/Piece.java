@@ -30,9 +30,9 @@ public abstract class Piece implements MoveablePiece {
     ArrayList<Square> removeInCheckMoves(ArrayList<Square> legalMoves, ChessBoard board, Square currentSquare) {
         ArrayList<Square> illegalMoves = new ArrayList<>();
 
-        for (Square move : legalMoves) {
-            if (!board.testMoveIsLegal(currentSquare, move, this))
-                illegalMoves.add(move);
+        for (Square toSquare : legalMoves) {
+            if (!board.testMoveIsLegal(currentSquare, toSquare, this))
+                illegalMoves.add(toSquare);
         }
 
         legalMoves.removeAll(illegalMoves);

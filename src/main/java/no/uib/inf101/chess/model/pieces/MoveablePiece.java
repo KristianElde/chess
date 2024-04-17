@@ -7,8 +7,8 @@ import no.uib.inf101.chess.model.Square;
 
 public interface MoveablePiece {
 
-    void updateLegalMoves(ChessBoard board, Square currentSquare);
+    void updateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive);
 
-    ArrayList<Square> calculateLegalMoves(ChessBoard board, Square currentSquare);
+    ArrayList<Square> calculateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive);
 
 }

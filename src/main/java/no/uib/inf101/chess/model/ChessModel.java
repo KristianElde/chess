@@ -8,7 +8,10 @@ public class ChessModel implements ViewableModel, ControllableModel {
 
     private ChessBoard board;
     private Square selectedSquare;
+    private Square lastMoveFrom;
+    private Square lastMoveTo;
     private GameState gameState = GameState.ACTIVE;
+    private ChessColor winner;
 
     public ChessModel() {
         board = new ChessBoard();
@@ -26,11 +29,22 @@ public class ChessModel implements ViewableModel, ControllableModel {
 
     @Override
     public GameState getGameState() {
-        return this.gameState;
+        return gameState;
     }
 
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
+    @Override
+    public ChessColor getWinner() {
+        return winner;
+    }
+
+    @Override
+    public Square getLastMoveFrom() {
+        return lastMoveFrom;
+    }
+
+    @Override
+    public Square getLastMoveTo() {
+        return lastMoveTo;
     }
 
     @Override
@@ -39,6 +53,7 @@ public class ChessModel implements ViewableModel, ControllableModel {
 
         if (newSelectedPiece != null && newSelectedPiece.getColor().equals(board.getToDraw())) {
             this.selectedSquare = newSelectedSquare;
+
             return;
         }
 
@@ -46,10 +61,31 @@ public class ChessModel implements ViewableModel, ControllableModel {
             Piece selectedPiece = selectedSquare.getPiece();
             if (selectedPiece.getLegalMoves().contains(newSelectedSquare)) {
                 board.movePiece(selectedSquare, newSelectedSquare, selectedPiece);
-                board.setStateVariablesAfterMove(selectedSquare, newSelectedSquare, selectedPiece);
+                setLastMove(selectedSquare, newSelectedSquare);
+                board.updateLegalMoves(board.getToDraw(), false);
+                if (!anyLegalMoves(board.getToDraw())) {
+                    this.gameState = (board.isInCheck(board.getToDraw()) ? GameState.CHECKMATE : GameState.STALEMATE);
+                    if (gameState == GameState.CHECKMATE)
+                        winner = board.getToDraw().toggle();
+                }
+
             }
             this.selectedSquare = null;
         }
+    }
+
+    private boolean anyLegalMoves(ChessColor color) {
+        for (Square square : board) {
+            if (square.getPiece() != null && square.getPiece().getColor() == color)
+                if (!square.getPiece().getLegalMoves().isEmpty())
+                    return true;
+        }
+        return false;
+    }
+
+    private void setLastMove(Square from, Square to) {
+        lastMoveFrom = from;
+        lastMoveTo = to;
     }
 
 }

@@ -4,7 +4,7 @@ import no.uib.inf101.chess.model.ChessColor;
 
 public abstract class CastleablePiece extends Piece {
 
-    private boolean allowCastling = true;
+    protected boolean allowCastling = true;
 
     public CastleablePiece(ChessColor color) {
         super(color);
