@@ -8,8 +8,8 @@ import no.uib.inf101.chess.model.Square;
 
 public abstract class Piece implements MoveablePiece {
 
-    protected ArrayList<Square> legalMoves = new ArrayList<>();
-    protected ChessColor color;
+    private ArrayList<Square> legalMoves = new ArrayList<>();
+    private ChessColor color;
 
     public Piece(ChessColor color) {
         this.color = color;

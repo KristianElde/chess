@@ -38,6 +38,16 @@ public class ChessModel implements ViewableModel, ControllableModel {
     }
 
     @Override
+    public Square getLastMoveFrom() {
+        return lastMoveFrom;
+    }
+
+    @Override
+    public Square getLastMoveTo() {
+        return lastMoveTo;
+    }
+
+    @Override
     public void setSelectedSquare(Square newSelectedSquare) {
         Piece newSelectedPiece = newSelectedSquare.getPiece();
 
@@ -71,16 +81,6 @@ public class ChessModel implements ViewableModel, ControllableModel {
                     return true;
         }
         return false;
-    }
-
-    @Override
-    public Square getLastMoveFrom() {
-        return lastMoveFrom;
-    }
-
-    @Override
-    public Square getLastMoveTo() {
-        return lastMoveTo;
     }
 
     private void setLastMove(Square from, Square to) {

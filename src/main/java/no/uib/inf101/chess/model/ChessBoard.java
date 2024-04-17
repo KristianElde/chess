@@ -19,7 +19,7 @@ public class ChessBoard extends Grid<Square> {
     private boolean whiteInCheck = false;
     private boolean blackInCheck = false;
 
-    public ChessBoard() {
+    ChessBoard() {
         super(8, 8);
 
         for (int row = 1; row < 9; row++) {
@@ -79,34 +79,30 @@ public class ChessBoard extends Grid<Square> {
         updateLegalMoves(toDraw, true);
     }
 
-    Square getKingSquare(ChessColor color) {
+    private Square getKingSquare(ChessColor color) {
         return (color == ChessColor.WHITE ? whiteKingSquare : blackKingSquare);
     }
 
-    void setKingSquare(Square kingSquare, ChessColor color) {
+    private void setKingSquare(Square kingSquare, ChessColor color) {
         if (color == ChessColor.WHITE)
             whiteKingSquare = kingSquare;
         else
             blackKingSquare = kingSquare;
     }
 
-    public boolean isInCheck(ChessColor color) {
+    boolean isInCheck(ChessColor color) {
         return (color == ChessColor.WHITE ? whiteInCheck : blackInCheck);
     }
 
-    void setCheck(boolean isCheck, ChessColor color) {
+    private void setCheck(boolean isCheck, ChessColor color) {
         if (color == ChessColor.WHITE) {
             whiteInCheck = isCheck;
-            System.out.println(String.format("Set %s inCheck to: %s", color, isCheck));
         } else {
             blackInCheck = isCheck;
-            System.out.println(String.format("Set %s inCheck to: %s", color, isCheck));
-
         }
-        blackInCheck = isCheck;
     }
 
-    public ChessColor getToDraw() {
+    ChessColor getToDraw() {
         return toDraw;
     }
 
@@ -246,7 +242,7 @@ public class ChessBoard extends Grid<Square> {
         capturedPawnSquare.setPiece(capturedPawn);
     }
 
-    void setStateVariablesAfterMove(Square from, Square to, Piece piece) {
+    private void setStateVariablesAfterMove(Square from, Square to, Piece piece) {
 
         if (piece instanceof CastleablePiece)
             // Stop this piece from being involved in castle-move
