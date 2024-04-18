@@ -1,5 +1,6 @@
 package no.uib.inf101.chess.model.pieces;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -47,8 +48,8 @@ public class TestPawn {
         // Check if move one ahead is a legal move
         assertTrue(pawn.getLegalMoves().contains(model.getBoard().get(Column.D, 5)));
 
-        // Check that there is noe more legal moves
-        assertTrue(pawn.getLegalMoves().size() == 2);
+        // Check that there is no more legal moves
+        assertEquals(2, pawn.getLegalMoves().size());
     }
 
     @Test
@@ -78,8 +79,8 @@ public class TestPawn {
         // Check if enPassent is a legal move
         assertTrue(pawn.getLegalMoves().contains(model.getBoard().get(Column.C, 6)));
 
-        // Check that there is noe more legal moves
-        assertTrue(pawn.getLegalMoves().size() == 2);
+        // Check that there is no more legal moves
+        assertEquals(2, pawn.getLegalMoves().size());
     }
 
     @Test

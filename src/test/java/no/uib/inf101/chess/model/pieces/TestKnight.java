@@ -36,7 +36,7 @@ public class TestKnight {
         assertTrue(knight.getLegalMoves().contains(model.getBoard().get(Column.F, 5)));
         assertTrue(knight.getLegalMoves().contains(model.getBoard().get(Column.F, 3)));
 
-        // Check that there is noe more legal moves
+        // Check that there is no more legal moves
         assertEquals(8, knight.getLegalMoves().size());
     }
 }
