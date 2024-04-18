@@ -17,7 +17,7 @@ public class Pawn extends Piece {
 
     @Override
     public void updateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive) {
-        setLegalMoves(calculateLegalMoves(board, currentSquare, primitive));
+        legalMoves = calculateLegalMoves(board, currentSquare, primitive);
         this.enPassentAllowed = false;
     }
 
@@ -26,13 +26,14 @@ public class Pawn extends Piece {
         ArrayList<Square> legalMoves = new ArrayList<>();
 
         int nextRow = (getColor() == ChessColor.WHITE ? 1 : -1);
+        int startRow = (getColor() == ChessColor.WHITE ? 2 : 7);
 
         Square oneAhead = board.get(currentSquare.col(), currentSquare.row() + nextRow);
         if (oneAhead != null && oneAhead.getPiece() == null) {
             legalMoves.add(oneAhead);
 
             Square twoAhead = board.get(currentSquare.col(), currentSquare.row() + 2 * nextRow);
-            if (currentSquare.row() == startRow() && twoAhead.getPiece() == null)
+            if (currentSquare.row() == startRow && twoAhead.getPiece() == null)
                 legalMoves.add(twoAhead);
         }
 
@@ -76,10 +77,6 @@ public class Pawn extends Piece {
 
     public void setCapturedByEnPassent(boolean capturedByEnPassent) {
         this.capturedByEnPassent = capturedByEnPassent;
-    }
-
-    private int startRow() {
-        return (getColor() == ChessColor.WHITE ? 2 : 7);
     }
 
 }

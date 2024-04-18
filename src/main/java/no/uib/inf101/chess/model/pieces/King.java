@@ -9,18 +9,13 @@ import no.uib.inf101.chess.model.Square;
 
 public class King extends CastleablePiece {
 
-    private Rook kingSideRook;
-    private Rook queenSideRook;
-
-    public King(ChessColor color, Rook kingSideRook, Rook queenSideRook) {
+    public King(ChessColor color) {
         super(color);
-        this.kingSideRook = kingSideRook;
-        this.queenSideRook = queenSideRook;
     }
 
     @Override
     public void updateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive) {
-        setLegalMoves(calculateLegalMoves(board, currentSquare, primitive));
+        legalMoves = calculateLegalMoves(board, currentSquare, primitive);
     }
 
     @Override
@@ -58,18 +53,8 @@ public class King extends CastleablePiece {
 
         int row = (getColor() == ChessColor.WHITE ? 1 : 8);
 
-        if (kingSideRook.getAllowCastling()) {
-            if (board.get(Column.F, row).getPiece() == null && board.get(Column.G, row).getPiece() == null) {
-                if (!board.isThreatendBy(board.get(Column.E, row), getColor().toggle())
-                        && !board.isThreatendBy(board.get(Column.F, row), getColor().toggle())
-                        && !board.isThreatendBy(board.get(Column.G, row), getColor().toggle())) {
-                    Square castlingSquare = board.get(Column.G, row);
-                    legalCastlingMoves.add(castlingSquare);
-                }
-            }
-        }
-
-        if (queenSideRook.getAllowCastling()) {
+        Piece piece = board.get(Column.A, row).getPiece();
+        if (piece instanceof Rook && ((Rook) piece).getAllowCastling()) {
             if (board.get(Column.B, row).getPiece() == null && board.get(Column.C, row).getPiece() == null
                     && board.get(Column.D, row).getPiece() == null) {
                 if (!board.isThreatendBy(board.get(Column.C, row), getColor().toggle())
@@ -80,6 +65,41 @@ public class King extends CastleablePiece {
                 }
             }
         }
+        piece = board.get(Column.H, row).getPiece();
+        if (piece instanceof Rook && ((Rook) piece).getAllowCastling()) {
+            if (board.get(Column.F, row).getPiece() == null && board.get(Column.G, row).getPiece() == null) {
+                if (!board.isThreatendBy(board.get(Column.E, row), getColor().toggle())
+                        && !board.isThreatendBy(board.get(Column.F, row), getColor().toggle())
+                        && !board.isThreatendBy(board.get(Column.G, row), getColor().toggle())) {
+                    Square castlingSquare = board.get(Column.G, row);
+                    legalCastlingMoves.add(castlingSquare);
+                }
+            }
+        }
+        // if (kingSideRook.getAllowCastling()) {
+        // if (board.get(Column.F, row).getPiece() == null && board.get(Column.G,
+        // row).getPiece() == null) {
+        // if (!board.isThreatendBy(board.get(Column.E, row), getColor().toggle())
+        // && !board.isThreatendBy(board.get(Column.F, row), getColor().toggle())
+        // && !board.isThreatendBy(board.get(Column.G, row), getColor().toggle())) {
+        // Square castlingSquare = board.get(Column.G, row);
+        // legalCastlingMoves.add(castlingSquare);
+        // }
+        // }
+        // }
+
+        // if (queenSideRook.getAllowCastling()) {
+        // if (board.get(Column.B, row).getPiece() == null && board.get(Column.C,
+        // row).getPiece() == null
+        // && board.get(Column.D, row).getPiece() == null) {
+        // if (!board.isThreatendBy(board.get(Column.C, row), getColor().toggle())
+        // && !board.isThreatendBy(board.get(Column.D, row), getColor().toggle())
+        // && !board.isThreatendBy(board.get(Column.E, row), getColor().toggle())) {
+        // Square castlingSquare = board.get(Column.C, row);
+        // legalCastlingMoves.add(castlingSquare);
+        // }
+        // }
+        // }
 
         return legalCastlingMoves;
     }

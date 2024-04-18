@@ -1,12 +1,15 @@
 package no.uib.inf101.chess.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import no.uib.inf101.chess.model.pieces.Bishop;
 import no.uib.inf101.chess.model.pieces.King;
+import no.uib.inf101.chess.model.pieces.Knight;
 import no.uib.inf101.chess.model.pieces.Rook;
 
 public class TestChessBoard {
@@ -25,6 +28,32 @@ public class TestChessBoard {
         // Check that Black king is at E8
         assertTrue(board.get(Column.E, 8).getPiece() instanceof King);
         assertTrue(board.get(Column.E, 8).getPiece().getColor() == ChessColor.BLACK);
+    }
+
+    @Test
+    void stringToBoardTest() {
+        String revBoardString = """
+                rnbqkbnr
+                ppp--ppp
+                ----p---
+                -B-p----
+                ---P----
+                ----P---
+                PPP--PPP
+                RNBQK-NR""";
+
+        ChessBoard board = ChessBoard.stringToBoard(revBoardString, ChessColor.BLACK);
+
+        assertNotNull(board);
+        assertEquals(ChessColor.BLACK, board.getToDraw());
+        assertFalse(board.isInCheck(ChessColor.WHITE));
+        assertTrue(board.isInCheck(ChessColor.BLACK));
+        assertTrue(board.get(Column.A, 1).getPiece() instanceof Rook
+                && board.get(Column.A, 1).getPiece().getColor() == ChessColor.WHITE);
+        assertTrue(board.get(Column.B, 5).getPiece() instanceof Bishop
+                && board.get(Column.B, 5).getPiece().getColor() == ChessColor.WHITE);
+        assertTrue(board.get(Column.G, 8).getPiece() instanceof Knight
+                && board.get(Column.G, 8).getPiece().getColor() == ChessColor.BLACK);
     }
 
     @Test

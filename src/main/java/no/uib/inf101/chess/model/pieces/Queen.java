@@ -15,7 +15,7 @@ public class Queen extends Piece {
 
     @Override
     public void updateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive) {
-        setLegalMoves(calculateLegalMoves(board, currentSquare, primitive));
+        legalMoves = calculateLegalMoves(board, currentSquare, primitive);
     }
 
     @Override
