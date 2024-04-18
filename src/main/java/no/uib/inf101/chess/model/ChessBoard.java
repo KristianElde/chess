@@ -173,7 +173,6 @@ public class ChessBoard extends Grid<Square> {
         else if (piece instanceof Pawn && isEnPassentMove(from, to)) {
             capturedPiece = performEnPassentMove(from, to, piece);
             ((Pawn) capturedPiece).setCapturedByEnPassent(true);
-            return capturedPiece;
         }
 
         else if (piece instanceof Pawn && isPawnPromotion(from, to, piece))
