@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.ChessModel;
 import no.uib.inf101.chess.model.Column;
+import no.uib.inf101.chess.model.Square;
 
 public class TestPawn {
     @Test
@@ -27,5 +29,17 @@ public class TestPawn {
     @Test
     void pawnCaptureMove() {
         ChessModel model = new ChessModel();
+
+        model.setSelectedSquare(model.getBoard().get(Column.D, 2));
+        model.setSelectedSquare(model.getBoard().get(Column.D, 4));
+
+        model.setSelectedSquare(model.getBoard().get(Column.E, 7));
+        model.setSelectedSquare(model.getBoard().get(Column.E, 5));
+
+        Square pawnSquare = model.getBoard().get(Column.D, 4);
+        Piece pawn = pawnSquare.getPiece();
+
+        assertTrue(pawn instanceof Pawn && pawn.getColor() == ChessColor.WHITE);
+
     }
 }

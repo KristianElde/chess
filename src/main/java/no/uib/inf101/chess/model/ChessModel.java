@@ -17,6 +17,10 @@ public class ChessModel implements ViewableModel, ControllableModel {
         board = ChessBoard.initialPositionBoard();
     }
 
+    public ChessModel(String boardString, ChessColor toDraw) {
+        board = ChessBoard.stringToBoard(boardString, toDraw);
+    }
+
     @Override
     public ChessBoard getBoard() {
         return board;
