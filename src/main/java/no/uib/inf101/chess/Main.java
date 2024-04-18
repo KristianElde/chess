@@ -10,6 +10,7 @@ import no.uib.inf101.chess.view.design.DefaultColorTheme;
 import no.uib.inf101.chess.view.design.DefaultFontTheme;
 import no.uib.inf101.chess.view.design.DefaultTextureTheme;
 import no.uib.inf101.chess.view.design.FontTheme;
+import no.uib.inf101.chess.view.design.StarWarsTextureTheme;
 import no.uib.inf101.chess.view.design.TextureTheme;
 
 public class Main {
@@ -20,7 +21,7 @@ public class Main {
     ChessModel model = new ChessModel();
 
     ColorTheme colorTheme = new DefaultColorTheme();
-    TextureTheme textureTheme = new DefaultTextureTheme();
+    TextureTheme textureTheme = new StarWarsTextureTheme();
     FontTheme fontTheme = new DefaultFontTheme();
 
     ChessView view = new ChessView(model, colorTheme, textureTheme, fontTheme);

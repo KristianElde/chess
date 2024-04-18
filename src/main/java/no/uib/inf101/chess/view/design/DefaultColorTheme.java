@@ -15,7 +15,7 @@ public class DefaultColorTheme implements ColorTheme {
         if ((square.row() + square.col().ordinal()) % 2 == 0) {
             return Color.WHITE;
         } else {
-            return Color.BLACK;
+            return Color.DARK_GRAY;
         }
 
     }
