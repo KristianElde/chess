@@ -19,7 +19,7 @@ public class ChessBoard extends Grid<Square> {
     private boolean whiteInCheck = false;
     private boolean blackInCheck = false;
 
-    ChessBoard() {
+    private ChessBoard() {
         super(8, 8);
 
         for (int row = 1; row < 9; row++) {
@@ -28,47 +28,104 @@ public class ChessBoard extends Grid<Square> {
                 set(new CellPosition(row - 1, col.ordinal()), square);
             }
         }
+    }
 
-        get(Column.A, 1).setPiece(new Rook(ChessColor.WHITE));
-        get(Column.B, 1).setPiece(new Knight(ChessColor.WHITE));
-        get(Column.C, 1).setPiece(new Bishop(ChessColor.WHITE));
-        get(Column.D, 1).setPiece(new Queen(ChessColor.WHITE));
-        get(Column.E, 1).setPiece(new King(ChessColor.WHITE));
-        get(Column.F, 1).setPiece(new Bishop(ChessColor.WHITE));
-        get(Column.G, 1).setPiece(new Knight(ChessColor.WHITE));
-        get(Column.H, 1).setPiece(new Rook(ChessColor.WHITE));
-        get(Column.A, 2).setPiece(new Pawn(ChessColor.WHITE));
-        get(Column.B, 2).setPiece(new Pawn(ChessColor.WHITE));
-        get(Column.C, 2).setPiece(new Pawn(ChessColor.WHITE));
-        get(Column.D, 2).setPiece(new Pawn(ChessColor.WHITE));
-        get(Column.E, 2).setPiece(new Pawn(ChessColor.WHITE));
-        get(Column.F, 2).setPiece(new Pawn(ChessColor.WHITE));
-        get(Column.G, 2).setPiece(new Pawn(ChessColor.WHITE));
-        get(Column.H, 2).setPiece(new Pawn(ChessColor.WHITE));
+    public static ChessBoard initialPositionBoard() {
+        String initialPositionString = """
+                rnbqkbnr
+                pppppppp
+                --------
+                --------
+                --------
+                --------
+                PPPPPPPP
+                RNBQKBNR""";
+        return ChessBoard.stringToBoard(initialPositionString, ChessColor.WHITE);
+    }
 
-        get(Column.A, 7).setPiece(new Pawn(ChessColor.BLACK));
-        get(Column.B, 7).setPiece(new Pawn(ChessColor.BLACK));
-        get(Column.C, 7).setPiece(new Pawn(ChessColor.BLACK));
-        get(Column.D, 7).setPiece(new Pawn(ChessColor.BLACK));
-        get(Column.E, 7).setPiece(new Pawn(ChessColor.BLACK));
-        get(Column.F, 7).setPiece(new Pawn(ChessColor.BLACK));
-        get(Column.G, 7).setPiece(new Pawn(ChessColor.BLACK));
-        get(Column.H, 7).setPiece(new Pawn(ChessColor.BLACK));
+    public static ChessBoard stringToBoard(String boardString, ChessColor toDraw) {
+        if (boardString.length() != 71)
+            throw new IllegalArgumentException("Illegal number of cells in boardString:" + boardString.length());
 
-        get(Column.A, 8).setPiece(new Rook(ChessColor.BLACK));
-        get(Column.B, 8).setPiece(new Knight(ChessColor.BLACK));
-        get(Column.C, 8).setPiece(new Bishop(ChessColor.BLACK));
-        get(Column.D, 8).setPiece(new Queen(ChessColor.BLACK));
-        get(Column.E, 8).setPiece(new King(ChessColor.BLACK));
-        get(Column.F, 8).setPiece(new Bishop(ChessColor.BLACK));
-        get(Column.G, 8).setPiece(new Knight(ChessColor.BLACK));
-        get(Column.H, 8).setPiece(new Rook(ChessColor.BLACK));
+        ChessBoard board = new ChessBoard();
+        for (Square square : board) {
+            square.setPiece(null);
+        }
 
-        whiteKingSquare = get(Column.E, 1);
-        blackKingSquare = get(Column.E, 8);
+        int row = 8;
+        int colOrdinal = 0;
+        for (char c : boardString.toCharArray()) {
+            if (c == '\n') {
+                row--;
+                colOrdinal = 0;
+                continue;
+            }
 
-        updateLegalMoves(toDraw.toggle(), true);
-        updateLegalMoves(toDraw, true);
+            Column col = Column.values()[colOrdinal];
+            Piece piece = charToPiece(c);
+            if (piece instanceof King)
+                board.setKingSquare(board.get(col, row), board.getToDraw());
+
+            if (piece instanceof CastleablePiece && !isInitialPosition(((CastleablePiece) piece), board.get(col, row)))
+                ((CastleablePiece) piece).setAllowCastling(false);
+
+            board.get(col, row).setPiece(piece);
+            colOrdinal++;
+        }
+
+        if (board.getToDraw() != toDraw)
+            board.toggleTurn();
+
+        board.updateLegalMoves(board.getToDraw().toggle(), true);
+        board.updateLegalMoves(board.getToDraw(), false);
+        if (board.isThreatendBy(board.getKingSquare(board.getToDraw()), board.getToDraw().toggle()))
+            board.setCheck(true, board.getToDraw());
+
+        return board;
+    }
+
+    private static boolean isInitialPosition(CastleablePiece piece, Square square) {
+        int row = (piece.getColor() == ChessColor.WHITE ? 1 : 8);
+
+        if (piece instanceof King)
+            return square.col() == Column.E && square.row() == row;
+
+        return (square.col() == Column.A || square.col() == Column.H) && square.row() == row;
+    }
+
+    private static Piece charToPiece(char c) {
+        switch (c) {
+            case '-':
+                return null;
+            case 'P':
+                return new Pawn(ChessColor.WHITE);
+            case 'p':
+                return new Pawn(ChessColor.BLACK);
+            case 'N':
+                return new Knight(ChessColor.WHITE);
+            case 'n':
+                return new Knight(ChessColor.BLACK);
+            case 'B':
+                return new Bishop(ChessColor.WHITE);
+            case 'b':
+                return new Bishop(ChessColor.BLACK);
+            case 'R':
+                return new Rook(ChessColor.WHITE);
+            case 'r':
+                return new Rook(ChessColor.BLACK);
+            case 'Q':
+                return new Queen(ChessColor.WHITE);
+            case 'q':
+                return new Queen(ChessColor.BLACK);
+            case 'K':
+                return new King(ChessColor.WHITE);
+            case 'k':
+                return new King(ChessColor.BLACK);
+
+            default:
+                throw new IllegalArgumentException("The character: " + c + " does not correspond to any piece.");
+        }
+
     }
 
     private Square getKingSquare(ChessColor color) {
@@ -320,88 +377,4 @@ public class ChessBoard extends Grid<Square> {
         return false;
     }
 
-    public static ChessBoard stringToBoard(String boardString, ChessColor toDraw) {
-        if (boardString.length() != 71)
-            throw new IllegalArgumentException("Illegal number of cells in boardString:" + boardString.length());
-
-        ChessBoard board = new ChessBoard();
-        for (Square square : board) {
-            square.setPiece(null);
-        }
-
-        int row = 8;
-        int colOrdinal = 0;
-        for (char c : boardString.toCharArray()) {
-            if (c == '\n') {
-                row--;
-                colOrdinal = 0;
-                continue;
-            }
-
-            Column col = Column.values()[colOrdinal];
-            Piece piece = charToPiece(c);
-            if (piece instanceof King)
-                board.setKingSquare(board.get(col, row), board.getToDraw());
-
-            if (piece instanceof CastleablePiece && !isInitialPosition(((CastleablePiece) piece), board.get(col, row)))
-                ((CastleablePiece) piece).setAllowCastling(false);
-
-            board.get(col, row).setPiece(piece);
-            colOrdinal++;
-        }
-
-        if (board.getToDraw() != toDraw)
-            board.toggleTurn();
-
-        board.updateLegalMoves(board.getToDraw().toggle(), true);
-        board.updateLegalMoves(board.getToDraw(), false);
-        if (board.isThreatendBy(board.getKingSquare(board.getToDraw()), board.getToDraw().toggle()))
-            board.setCheck(true, board.getToDraw());
-
-        return board;
-    }
-
-    private static boolean isInitialPosition(CastleablePiece piece, Square square) {
-        int row = (piece.getColor() == ChessColor.WHITE ? 1 : 8);
-
-        if (piece instanceof King)
-            return square.col() == Column.E && square.row() == row;
-
-        return (square.col() == Column.A || square.col() == Column.H) && square.row() == row;
-    }
-
-    private static Piece charToPiece(char c) {
-        switch (c) {
-            case '-':
-                return null;
-            case 'P':
-                return new Pawn(ChessColor.WHITE);
-            case 'p':
-                return new Pawn(ChessColor.BLACK);
-            case 'N':
-                return new Knight(ChessColor.WHITE);
-            case 'n':
-                return new Knight(ChessColor.BLACK);
-            case 'B':
-                return new Bishop(ChessColor.WHITE);
-            case 'b':
-                return new Bishop(ChessColor.BLACK);
-            case 'R':
-                return new Rook(ChessColor.WHITE);
-            case 'r':
-                return new Rook(ChessColor.BLACK);
-            case 'Q':
-                return new Queen(ChessColor.WHITE);
-            case 'q':
-                return new Queen(ChessColor.BLACK);
-            case 'K':
-                return new King(ChessColor.WHITE);
-            case 'k':
-                return new King(ChessColor.BLACK);
-
-            default:
-                throw new IllegalArgumentException("The character: " + c + " does not correspond to any piece.");
-        }
-
-    }
 }

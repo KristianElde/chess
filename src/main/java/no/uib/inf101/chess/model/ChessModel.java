@@ -14,7 +14,7 @@ public class ChessModel implements ViewableModel, ControllableModel {
     private ChessColor winner;
 
     public ChessModel() {
-        board = new ChessBoard();
+        board = ChessBoard.initialPositionBoard();
     }
 
     @Override

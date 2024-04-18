@@ -16,7 +16,7 @@ public class TestChessBoard {
 
     @Test
     void constructorTest() {
-        ChessBoard board = new ChessBoard();
+        ChessBoard board = ChessBoard.initialPositionBoard();
 
         assertNotNull(board);
         assertEquals(ChessColor.WHITE, board.getToDraw());
@@ -58,7 +58,7 @@ public class TestChessBoard {
 
     @Test
     void movePieceTest() {
-        ChessBoard board = new ChessBoard();
+        ChessBoard board = ChessBoard.initialPositionBoard();
 
         // Check that pawn to E4 does not result in a capture
         assertEquals(null,
