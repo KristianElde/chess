@@ -41,5 +41,66 @@ public class TestPawn {
 
         assertTrue(pawn instanceof Pawn && pawn.getColor() == ChessColor.WHITE);
 
+        // Check if capture move is legal move
+        assertTrue(pawn.getLegalMoves().contains(model.getBoard().get(Column.E, 5)));
+
+        // Check if move one ahead is a legal move
+        assertTrue(pawn.getLegalMoves().contains(model.getBoard().get(Column.D, 5)));
+
+        // Check that there is noe more legal moves
+        assertTrue(pawn.getLegalMoves().size() == 2);
     }
+
+    @Test
+    void pawnEnPassentMove() {
+        ChessModel model = new ChessModel();
+
+        model.setSelectedSquare(model.getBoard().get(Column.D, 2));
+        model.setSelectedSquare(model.getBoard().get(Column.D, 4));
+
+        model.setSelectedSquare(model.getBoard().get(Column.E, 7));
+        model.setSelectedSquare(model.getBoard().get(Column.E, 5));
+
+        model.setSelectedSquare(model.getBoard().get(Column.D, 4));
+        model.setSelectedSquare(model.getBoard().get(Column.D, 5));
+
+        model.setSelectedSquare(model.getBoard().get(Column.C, 7));
+        model.setSelectedSquare(model.getBoard().get(Column.C, 5));
+
+        Square pawnSquare = model.getBoard().get(Column.D, 5);
+        Piece pawn = pawnSquare.getPiece();
+
+        assertTrue(pawn instanceof Pawn && pawn.getColor() == ChessColor.WHITE);
+
+        // Check if move one ahead is a legal move
+        assertTrue(pawn.getLegalMoves().contains(model.getBoard().get(Column.D, 6)));
+
+        // Check if enPassent is a legal move
+        assertTrue(pawn.getLegalMoves().contains(model.getBoard().get(Column.C, 6)));
+
+        // Check that there is noe more legal moves
+        assertTrue(pawn.getLegalMoves().size() == 2);
+    }
+
+    @Test
+    void pawnPromotionMove() {
+        String boardString = """
+                --------
+                --P-----
+                -K------
+                -------k
+                -----p--
+                --------
+                --------
+                --------""";
+        ChessModel model = new ChessModel(boardString, ChessColor.WHITE);
+
+        model.setSelectedSquare(model.getBoard().get(Column.C, 7));
+        model.setSelectedSquare(model.getBoard().get(Column.C, 8));
+
+        // Check that pawn moved to C8 is promoted to a white queen
+        assertTrue(model.getBoard().get(Column.C, 8).getPiece() instanceof Queen
+                && model.getBoard().get(Column.C, 8).getPiece().getColor() == ChessColor.WHITE);
+    }
+
 }
