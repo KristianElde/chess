@@ -12,7 +12,7 @@ import no.uib.inf101.chess.model.Square;
 
 public class TestPawn {
     @Test
-    void pawnLegalMoves() {
+    void pawnLegalMovesTest() {
         ChessModel model = new ChessModel();
 
         Pawn pawnE2 = ((Pawn) model.getBoard().get(Column.E, 2).getPiece());

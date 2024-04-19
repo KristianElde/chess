@@ -12,7 +12,7 @@ import no.uib.inf101.chess.model.Column;
 public class TestBishop {
 
     @Test
-    void knightLegalMoveTest() {
+    void bishopLegalMoveTest() {
         String boardString = """
                 k-------
                 --------

@@ -34,8 +34,4 @@ public enum Column {
         }
         return Column.values()[prevOrdinal];
     }
-
-    public boolean isNull() {
-        return false;
-    }
 }
