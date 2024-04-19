@@ -1,4 +1,4 @@
-package no.uib.inf101.chess.view;
+package no.uib.inf101.chess.view.design;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -9,10 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import no.uib.inf101.chess.model.Column;
 import no.uib.inf101.chess.model.Square;
-import no.uib.inf101.chess.view.design.ColorTheme;
-import no.uib.inf101.chess.view.design.DefaultColorTheme;
 
-public class TestDefaultColorTheme {
+public class TestColorTheme {
     @Test
     void sanityDefaultColorThemeTest() {
         ColorTheme colors = new DefaultColorTheme();
