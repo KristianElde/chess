@@ -8,7 +8,6 @@ import no.uib.inf101.chess.view.ChessView;
 import no.uib.inf101.chess.view.design.ColorTheme;
 import no.uib.inf101.chess.view.design.DefaultColorTheme;
 import no.uib.inf101.chess.view.design.DefaultFontTheme;
-import no.uib.inf101.chess.view.design.DefaultTextureTheme;
 import no.uib.inf101.chess.view.design.FontTheme;
 import no.uib.inf101.chess.view.design.StarWarsTextureTheme;
 import no.uib.inf101.chess.view.design.TextureTheme;

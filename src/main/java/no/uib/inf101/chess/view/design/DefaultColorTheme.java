@@ -12,12 +12,13 @@ public class DefaultColorTheme implements ColorTheme {
 
     @Override
     public Color getSquareColor(Square square) {
+        if (square.row() > 8 || square.row() < 1)
+            throw new IllegalArgumentException("Square is not on chess board.");
         if ((square.row() + square.col().ordinal()) % 2 == 0) {
             return Color.WHITE;
         } else {
             return Color.DARK_GRAY;
         }
-
     }
 
     @Override
@@ -38,11 +39,6 @@ public class DefaultColorTheme implements ColorTheme {
     @Override
     public Color getGameOverTextColor() {
         return Color.RED;
-    }
-
-    @Override
-    public Color getScoreColor() {
-        return Color.LIGHT_GRAY;
     }
 
     @Override

@@ -49,13 +49,6 @@ public interface ColorTheme {
      */
     Color getGameOverTextColor();
 
-    /**
-     * Returns the color used for displaying the score.
-     * 
-     * @return The color of the score text.
-     */
-    Color getScoreColor();
-
     Color getCoordinatesColor();
 
     Color getSelectedSquareColor();
