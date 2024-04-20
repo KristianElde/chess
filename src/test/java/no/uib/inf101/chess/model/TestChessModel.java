@@ -6,7 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import no.uib.inf101.chess.model.pieces.King;
 import no.uib.inf101.chess.model.pieces.Pawn;
+import no.uib.inf101.chess.model.pieces.Piece;
+import no.uib.inf101.chess.model.pieces.Rook;
 
 public class TestChessModel {
 
@@ -76,7 +79,7 @@ public class TestChessModel {
     }
 
     @Test
-    void checkMateTest() {
+    void schoolarsMateTest() {
         ChessModel model = new ChessModel();
 
         // Move white pawn to E4
@@ -110,4 +113,37 @@ public class TestChessModel {
         assertEquals(GameState.CHECKMATE, model.getGameState());
         assertEquals(ChessColor.WHITE, model.getWinner());
     }
+
+    @Test
+    void castlingTest() {
+        String boardString = """
+                k-------
+                --------
+                --------
+                --------
+                --------
+                --------
+                --------
+                R---K--R""";
+        ChessModel model = new ChessModel(boardString, ChessColor.WHITE);
+        Piece WhiteKing = model.getBoard().get(Column.E, 1).getPiece();
+
+        // Check that castling both ways is allowed
+        assertTrue(WhiteKing.getLegalMoves().contains(model.getBoard().get(Column.G, 1)));
+        assertTrue(WhiteKing.getLegalMoves().contains(model.getBoard().get(Column.C, 1)));
+
+        // Performs short castling
+        model.setSelectedSquare(model.getBoard().get(Column.E, 1));
+        model.setSelectedSquare(model.getBoard().get(Column.G, 1));
+
+        // Check that white king ends up in expected position
+        assertTrue(model.getBoard().get(Column.G, 1).getPiece() instanceof King
+                && model.getBoard().get(Column.G, 1).getPiece().getColor() == ChessColor.WHITE);
+
+        // Check that white rook ends up in expected position
+        assertTrue(model.getBoard().get(Column.F, 1).getPiece() instanceof Rook
+                && model.getBoard().get(Column.F, 1).getPiece().getColor() == ChessColor.WHITE);
+
+    }
+
 }

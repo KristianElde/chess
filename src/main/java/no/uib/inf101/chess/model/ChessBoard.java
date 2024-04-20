@@ -1,5 +1,7 @@
 package no.uib.inf101.chess.model;
 
+import java.util.ArrayList;
+
 import no.uib.inf101.chess.model.pieces.Bishop;
 import no.uib.inf101.chess.model.pieces.CastleablePiece;
 import no.uib.inf101.chess.model.pieces.Piece;
@@ -364,6 +366,20 @@ public class ChessBoard extends Grid<Square> {
                 square.getPiece().updateLegalMoves(this, square, primitive);
             }
         }
+    }
+
+    ArrayList<Move> allLegalMoves(ChessColor color) {
+        ArrayList<Move> allLegalMoves = new ArrayList<>();
+        for (Square from : this) {
+            if (from.getPiece() != null && from.getPiece().getColor() == color) {
+                for (Square to : from.getPiece().getLegalMoves()) {
+                    Move move = new Move(from, to);
+                    allLegalMoves.add(move);
+                }
+            }
+        }
+
+        return allLegalMoves;
     }
 
     public boolean isThreatendBy(Square square, ChessColor threatenedBy) {

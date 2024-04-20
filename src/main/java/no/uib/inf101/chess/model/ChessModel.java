@@ -67,7 +67,7 @@ public class ChessModel implements ViewableModel, ControllableModel {
                 board.movePiece(selectedSquare, newSelectedSquare, selectedPiece);
                 setLastMove(selectedSquare, newSelectedSquare);
                 board.updateLegalMoves(board.getToDraw(), false);
-                if (!anyLegalMoves(board.getToDraw())) {
+                if (board.allLegalMoves(board.getToDraw()).isEmpty()) {
                     this.gameState = (board.isInCheck(board.getToDraw()) ? GameState.CHECKMATE : GameState.STALEMATE);
                     if (gameState == GameState.CHECKMATE)
                         winner = board.getToDraw().toggle();
@@ -76,15 +76,6 @@ public class ChessModel implements ViewableModel, ControllableModel {
             }
             this.selectedSquare = null;
         }
-    }
-
-    private boolean anyLegalMoves(ChessColor color) {
-        for (Square square : board) {
-            if (square.getPiece() != null && square.getPiece().getColor() == color)
-                if (!square.getPiece().getLegalMoves().isEmpty())
-                    return true;
-        }
-        return false;
     }
 
     private void setLastMove(Square from, Square to) {
