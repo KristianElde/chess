@@ -18,13 +18,13 @@ public class TestPawn {
         Pawn pawnE2 = ((Pawn) model.getBoard().get(Column.E, 2).getPiece());
         Pawn pawnC7 = ((Pawn) model.getBoard().get(Column.C, 7).getPiece());
 
-        assertTrue(pawnE2.getLegalMoves().size() == 2);
+        assertEquals(2, pawnE2.getLegalMoves().size());
         assertTrue(pawnE2.getLegalMoves().contains(model.getBoard().get(Column.E, 3)));
         assertTrue(pawnE2.getLegalMoves().contains(model.getBoard().get(Column.E, 4)));
 
-        assertTrue(pawnC7.getLegalMoves().size() == 2);
-        assertTrue(pawnC7.getLegalMoves().contains(model.getBoard().get(Column.C, 6)));
-        assertTrue(pawnC7.getLegalMoves().contains(model.getBoard().get(Column.C, 5)));
+        assertEquals(2, pawnC7.getLegalMoves().size());
+        assertTrue(pawnC7.getLegalMoves().contains(model.getBoard().get(Column.B, 6)));
+        assertTrue(pawnC7.getLegalMoves().contains(model.getBoard().get(Column.D, 6)));
     }
 
     @Test

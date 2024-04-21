@@ -28,22 +28,26 @@ public class Pawn extends Piece {
         int nextRow = (getColor() == ChessColor.WHITE ? 1 : -1);
         int startRow = (getColor() == ChessColor.WHITE ? 2 : 7);
 
-        Square oneAhead = board.get(currentSquare.col(), currentSquare.row() + nextRow);
-        if (oneAhead != null && oneAhead.getPiece() == null) {
-            legalMoves.add(oneAhead);
+        if (!primitive) {
+            Square oneAhead = board.get(currentSquare.col(), currentSquare.row() + nextRow);
+            if (oneAhead != null && oneAhead.getPiece() == null) {
+                legalMoves.add(oneAhead);
 
-            Square twoAhead = board.get(currentSquare.col(), currentSquare.row() + 2 * nextRow);
-            if (currentSquare.row() == startRow && twoAhead.getPiece() == null)
-                legalMoves.add(twoAhead);
+                Square twoAhead = board.get(currentSquare.col(), currentSquare.row() + 2 * nextRow);
+                if (currentSquare.row() == startRow && twoAhead.getPiece() == null)
+                    legalMoves.add(twoAhead);
+            }
         }
 
         Square rightAhead = board.get(currentSquare.col().nextCol(), currentSquare.row() + nextRow);
-        if (rightAhead != null && rightAhead.getPiece() != null && rightAhead.getPiece().getColor() != getColor()) {
+        if (rightAhead != null && rightAhead.getPiece() != null && rightAhead.getPiece().getColor() != getColor()
+                || primitive) {
             legalMoves.add(rightAhead);
         }
 
         Square leftAhead = board.get(currentSquare.col().prevCol(), currentSquare.row() + nextRow);
-        if (leftAhead != null && leftAhead.getPiece() != null && leftAhead.getPiece().getColor() != getColor()) {
+        if (leftAhead != null && leftAhead.getPiece() != null && leftAhead.getPiece().getColor() != getColor()
+                || primitive) {
             legalMoves.add(leftAhead);
         }
 

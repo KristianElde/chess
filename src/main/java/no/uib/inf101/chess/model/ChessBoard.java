@@ -32,6 +32,12 @@ public class ChessBoard extends Grid<Square> {
         }
     }
 
+    public Square get(Column col, int row) {
+        if (col == null || row > 8 || row < 1)
+            return null;
+        return super.get(new CellPosition(row - 1, col.ordinal()));
+    }
+
     public static ChessBoard initialPositionBoard() {
         String initialPositionString = """
                 rnbqkbnr
@@ -66,7 +72,7 @@ public class ChessBoard extends Grid<Square> {
             Column col = Column.values()[colOrdinal];
             Piece piece = charToPiece(c);
             if (piece instanceof King)
-                board.setKingSquare(board.get(col, row), board.getToDraw());
+                board.setKingSquare(board.get(col, row), piece.getColor());
 
             if (piece instanceof CastleablePiece && !isInitialPosition(((CastleablePiece) piece), board.get(col, row)))
                 ((CastleablePiece) piece).setAllowCastling(false);
@@ -157,13 +163,6 @@ public class ChessBoard extends Grid<Square> {
         return toDraw;
     }
 
-    // OVERIDE?
-    public Square get(Column col, int row) {
-        if (col == null || row > 8 || row < 1)
-            return null;
-        return super.get(new CellPosition(row - 1, col.ordinal()));
-    }
-
     Piece movePiece(Square from, Square to, Piece piece) {
         Piece capturedPiece = to.getPiece();
 
@@ -177,6 +176,7 @@ public class ChessBoard extends Grid<Square> {
             ((Pawn) capturedPiece).setCapturedByEnPassent(true);
         }
 
+        // Pawn promotion move
         else if (piece instanceof Pawn && isPawnPromotion(from, to, piece))
             performPawnPromotionMove(from, to);
 
@@ -355,7 +355,7 @@ public class ChessBoard extends Grid<Square> {
         to.setPiece(new Queen(toDraw));
     }
 
-    void toggleTurn() {
+    private void toggleTurn() {
         toDraw = toDraw.toggle();
     }
 
