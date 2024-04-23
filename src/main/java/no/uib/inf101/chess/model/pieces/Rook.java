@@ -10,7 +10,7 @@ import no.uib.inf101.chess.model.Square;
 public class Rook extends CastleablePiece {
 
     public Rook(ChessColor color) {
-        super(color);
+        super(color, 5);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package no.uib.inf101.chess.model;
 
 import no.uib.inf101.chess.controller.ControllableModel;
+import no.uib.inf101.chess.model.aiPlayer.AIPlayer;
+import no.uib.inf101.chess.model.aiPlayer.CarefulAI;
 import no.uib.inf101.chess.model.pieces.Piece;
 import no.uib.inf101.chess.view.ViewableModel;
 
@@ -12,9 +14,20 @@ public class ChessModel implements ViewableModel, ControllableModel {
     private Square lastMoveTo;
     private GameState gameState = GameState.ACTIVE;
     private ChessColor winner;
+    private boolean aiOpposition;
+    private ChessColor playerColor;
+    private AIPlayer aiPlayer;
+    public int n = 1;
 
     public ChessModel() {
         board = ChessBoard.initialPositionBoard();
+        aiOpposition = false;
+        playerColor = ChessColor.WHITE;
+        aiPlayer = new CarefulAI(board);
+    }
+    
+    public int getDepth() {
+        return n;
     }
 
     public ChessModel(String boardString, ChessColor toDraw) {
@@ -52,6 +65,21 @@ public class ChessModel implements ViewableModel, ControllableModel {
     }
 
     @Override
+    public boolean isAiOpposition() {
+        return aiOpposition;
+    }
+
+    @Override
+    public ChessColor getPlayerColor() {
+        return playerColor;
+    }
+
+    @Override
+    public AIPlayer getAiPlayer() {
+        return aiPlayer;
+    }
+
+    @Override
     public void setSelectedSquare(Square newSelectedSquare) {
         Piece newSelectedPiece = newSelectedSquare.getPiece();
 
@@ -72,7 +100,6 @@ public class ChessModel implements ViewableModel, ControllableModel {
                     if (gameState == GameState.CHECKMATE)
                         winner = board.getToDraw().toggle();
                 }
-
             }
             this.selectedSquare = null;
         }
@@ -83,7 +110,6 @@ public class ChessModel implements ViewableModel, ControllableModel {
             if (square.getPiece() != null && square.getPiece().getColor() == color
                     && !square.getPiece().getLegalMoves().isEmpty())
                 return true;
-
         }
         return false;
     }

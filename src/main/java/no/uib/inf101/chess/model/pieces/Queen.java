@@ -10,7 +10,7 @@ import no.uib.inf101.chess.model.Square;
 public class Queen extends Piece {
 
     public Queen(ChessColor color) {
-        super(color);
+        super(color, 9);
     }
 
     @Override

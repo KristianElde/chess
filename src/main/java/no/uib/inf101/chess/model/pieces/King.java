@@ -10,7 +10,7 @@ import no.uib.inf101.chess.model.Square;
 public class King extends CastleablePiece {
 
     public King(ChessColor color) {
-        super(color);
+        super(color, 100);
     }
 
     @Override

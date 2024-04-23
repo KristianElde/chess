@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 
 import no.uib.inf101.chess.model.ChessModel;
 import no.uib.inf101.chess.model.Column;
+import no.uib.inf101.chess.model.Move;
 import no.uib.inf101.chess.model.Square;
 import no.uib.inf101.chess.view.ChessView;
 
@@ -26,6 +27,14 @@ public class ChessController implements MouseListener {
         model.setSelectedSquare(selected);
 
         view.repaint();
+
+        if (model.isAiOpposition() && model.getBoard().getToDraw() != model.getPlayerColor()) {
+            Move selectedMove = model.getAiPlayer().getBestMove();
+            model.setSelectedSquare(selectedMove.from());
+            model.setSelectedSquare(selectedMove.to());
+
+            view.repaint();
+        }
     }
 
     @Override

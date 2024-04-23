@@ -10,9 +10,11 @@ public abstract class Piece implements MoveablePiece {
 
     ArrayList<Square> legalMoves = new ArrayList<>();
     private ChessColor color;
+    private int materialValue;
 
-    Piece(ChessColor color) {
+    Piece(ChessColor color, int materialValue) {
         this.color = color;
+        this.materialValue = materialValue;
     }
 
     public ArrayList<Square> getLegalMoves() {
@@ -34,6 +36,10 @@ public abstract class Piece implements MoveablePiece {
         legalMoves.removeAll(illegalMoves);
 
         return legalMoves;
+    }
+
+    public int getMaterialValue() {
+        return materialValue;
     }
 
 }

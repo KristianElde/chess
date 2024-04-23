@@ -6,8 +6,8 @@ public abstract class CastleablePiece extends Piece {
 
     protected boolean allowCastling = true;
 
-    public CastleablePiece(ChessColor color) {
-        super(color);
+    public CastleablePiece(ChessColor color, int materialValue) {
+        super(color, materialValue);
     }
 
     public boolean getAllowCastling() {

@@ -12,7 +12,7 @@ public class Pawn extends Piece {
     private boolean capturedByEnPassent = false;
 
     public Pawn(ChessColor color) {
-        super(color);
+        super(color,1);
     }
 
     @Override

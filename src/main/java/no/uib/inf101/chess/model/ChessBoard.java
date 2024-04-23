@@ -147,7 +147,7 @@ public class ChessBoard extends Grid<Square> {
             blackKingSquare = kingSquare;
     }
 
-    boolean isInCheck(ChessColor color) {
+    public boolean isInCheck(ChessColor color) {
         return (color == ChessColor.WHITE ? whiteInCheck : blackInCheck);
     }
 
@@ -159,11 +159,11 @@ public class ChessBoard extends Grid<Square> {
         }
     }
 
-    ChessColor getToDraw() {
+    public ChessColor getToDraw() {
         return toDraw;
     }
 
-    Piece movePiece(Square from, Square to, Piece piece) {
+    public Piece movePiece(Square from, Square to, Piece piece) {
         Piece capturedPiece = to.getPiece();
 
         // Castle move
@@ -207,7 +207,7 @@ public class ChessBoard extends Grid<Square> {
         return isLegalMove;
     }
 
-    private void undoMove(Square from, Square to, Piece piece, Piece capturedPiece) {
+    public void undoMove(Square from, Square to, Piece piece, Piece capturedPiece) {
 
         if (piece instanceof King && isCastleMove(from, to, (King) piece)) {
             undoCastlingMove(from, to, (King) piece, (Rook) capturedPiece);
@@ -292,7 +292,7 @@ public class ChessBoard extends Grid<Square> {
         capturedPawnSquare.setPiece(capturedPawn);
     }
 
-    private void setStateVariablesAfterMove(Square from, Square to, Piece piece) {
+    public void setStateVariablesAfterMove(Square from, Square to, Piece piece) {
 
         if (piece instanceof CastleablePiece)
             // Stop this piece from being involved in castle-move
@@ -315,7 +315,7 @@ public class ChessBoard extends Grid<Square> {
         toggleTurn();
     }
 
-    private void resetStateVariablesAfterMove(Square from, Square to, Piece piece, Piece capturedPiece,
+    public void resetStateVariablesAfterMove(Square from, Square to, Piece piece, Piece capturedPiece,
             boolean isCheck, boolean allowCastling) {
         toggleTurn();
 
@@ -368,7 +368,7 @@ public class ChessBoard extends Grid<Square> {
         }
     }
 
-    ArrayList<Move> allLegalMoves(ChessColor color) {
+    public ArrayList<Move> allLegalMoves(ChessColor color) {
         ArrayList<Move> allLegalMoves = new ArrayList<>();
         for (Square from : this) {
             if (from.getPiece() != null && from.getPiece().getColor() == color) {

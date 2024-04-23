@@ -9,7 +9,7 @@ import no.uib.inf101.chess.model.Square;
 public class Knight extends Piece {
 
     public Knight(ChessColor color) {
-        super(color);
+        super(color, 3);
     }
 
     @Override

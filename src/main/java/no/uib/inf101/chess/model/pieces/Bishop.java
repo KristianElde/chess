@@ -10,7 +10,7 @@ import no.uib.inf101.chess.model.Square;
 public class Bishop extends Piece {
 
     public Bishop(ChessColor color) {
-        super(color);
+        super(color, 3);
     }
 
     @Override
