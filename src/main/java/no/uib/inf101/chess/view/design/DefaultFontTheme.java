@@ -14,4 +14,19 @@ public class DefaultFontTheme implements FontTheme {
         return new Font("Calibri", Font.BOLD, 24);
     }
 
+    @Override
+    public Font getOptionFont() {
+        return new Font("Calibri", Font.PLAIN, 24);
+    }
+
+    @Override
+    public Font getSelectedOptionFont() {
+        return new Font("Calibri", Font.BOLD, 16);
+    }
+
+    @Override
+    public Font getNonSelectedOptionFont() {
+        return new Font("Calibri", Font.PLAIN, 16);
+    }
+
 }

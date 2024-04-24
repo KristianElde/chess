@@ -3,16 +3,24 @@ package no.uib.inf101.chess.view;
 import javax.swing.JPanel;
 
 import no.uib.inf101.chess.model.ChessBoard;
+import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.ChessModel;
 import no.uib.inf101.chess.model.Column;
 import no.uib.inf101.chess.model.GameState;
+import no.uib.inf101.chess.model.Option;
 import no.uib.inf101.chess.model.Square;
+import no.uib.inf101.chess.model.aiPlayer.AggresiveAI;
+import no.uib.inf101.chess.model.aiPlayer.CarefulAI;
+import no.uib.inf101.chess.model.aiPlayer.RandomAI;
 import no.uib.inf101.chess.model.pieces.Piece;
 import no.uib.inf101.chess.view.design.ColorTheme;
+import no.uib.inf101.chess.view.design.DefaultTextureTheme;
 import no.uib.inf101.chess.view.design.FontTheme;
+import no.uib.inf101.chess.view.design.StarWarsTextureTheme;
 import no.uib.inf101.chess.view.design.TextureTheme;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -62,7 +70,114 @@ public class ChessView extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        drawGame(g2);
+        if (model.getGameState() == GameState.MAIN_MENU)
+            drawMainMenu(g2);
+        else
+            drawGame(g2);
+    }
+
+    public void toggleTextureTheme() {
+        if (textureTheme instanceof DefaultTextureTheme)
+            textureTheme = new StarWarsTextureTheme();
+        else if (textureTheme instanceof StarWarsTextureTheme)
+            textureTheme = new DefaultTextureTheme();
+    }
+
+    private void drawMainMenu(Graphics2D g) {
+        g.setColor(Color.BLACK);
+        g.setFont(fontTheme.getDefaultFont());
+        Inf101Graphics.drawCenteredString(g, "INF101: CHESS", getWidth() / 2, getHeight() / 6);
+        Inf101Graphics.drawCenteredString(g, "Made by: Kristian Elde Johansen", getWidth() / 2, getHeight() / 4);
+
+        drawTextureOption(g);
+        drawModeOption(g);
+        if (model.isAiOpposition()) {
+            drawPlayAsColorOption(g);
+            drawAiLevelOption(g);
+        }
+
+    }
+
+    private void drawTextureOption(Graphics2D g) {
+        g.setFont(fontTheme.getOptionFont());
+        int height = getHeight() / 2;
+        String option = "Texture:";
+        Color textColor = (model.getSelectedOption() == Option.TEXTURE ? colorTheme.getSelectedMenuOptionsColor()
+                : colorTheme.getMenuOptionsColor());
+        g.setColor(textColor);
+        Inf101Graphics.drawCenteredString(g, option, getWidth() / 4, height);
+
+        String option1 = "Default chess";
+        String option2 = "Star wars";
+
+        g.setFont((textureTheme instanceof DefaultTextureTheme ? fontTheme.getSelectedOptionFont()
+                : fontTheme.getNonSelectedOptionFont()));
+        Inf101Graphics.drawCenteredString(g, option1, getWidth() / 2, height);
+        g.setFont((textureTheme instanceof StarWarsTextureTheme ? fontTheme.getSelectedOptionFont()
+                : fontTheme.getNonSelectedOptionFont()));
+        Inf101Graphics.drawCenteredString(g, option2, getWidth() / 2 + getWidth() / 3, height);
+    }
+
+    private void drawModeOption(Graphics2D g) {
+        g.setFont(fontTheme.getOptionFont());
+        int height = getHeight() / 2 + (getHeight() / 8);
+        String option = "Mode:";
+        Color textColor = (model.getSelectedOption() == Option.MULTIPLAYER ? colorTheme.getSelectedMenuOptionsColor()
+                : colorTheme.getMenuOptionsColor());
+        g.setColor(textColor);
+        Inf101Graphics.drawCenteredString(g, option, getWidth() / 4, height);
+
+        String option1 = "Two-player";
+        String option2 = "Play against computer";
+
+        g.setFont((model.isAiOpposition() ? fontTheme.getNonSelectedOptionFont() : fontTheme.getSelectedOptionFont()));
+        Inf101Graphics.drawCenteredString(g, option1, getWidth() / 2, height);
+        g.setFont((!model.isAiOpposition() ? fontTheme.getNonSelectedOptionFont() : fontTheme.getSelectedOptionFont()));
+        Inf101Graphics.drawCenteredString(g, option2, getWidth() / 2 + getWidth() / 3, height);
+    }
+
+    private void drawPlayAsColorOption(Graphics2D g) {
+        g.setFont(fontTheme.getOptionFont());
+        int height = getHeight() / 2 + (getHeight() / 8 * 2);
+        String option = "Play as:";
+        Color textColor = (model.getSelectedOption() == Option.COLOR ? colorTheme.getSelectedMenuOptionsColor()
+                : colorTheme.getMenuOptionsColor());
+        g.setColor(textColor);
+        Inf101Graphics.drawCenteredString(g, option, getWidth() / 4, height);
+
+        String option1 = "White";
+        String option2 = "Black";
+
+        g.setFont((model.getPlayerColor() == ChessColor.WHITE ? fontTheme.getSelectedOptionFont()
+                : fontTheme.getNonSelectedOptionFont()));
+        Inf101Graphics.drawCenteredString(g, option1, getWidth() / 2, height);
+        g.setFont((model.getPlayerColor() == ChessColor.BLACK ? fontTheme.getSelectedOptionFont()
+                : fontTheme.getNonSelectedOptionFont()));
+        Inf101Graphics.drawCenteredString(g, option2, getWidth() / 2 + getWidth() / 3, height);
+    }
+
+    private void drawAiLevelOption(Graphics2D g) {
+        g.setFont(fontTheme.getOptionFont());
+        int height = getHeight() / 2 + (getHeight() / 8 * 3);
+        String option = "Difficulty:";
+        Color textColor = (model.getSelectedOption() == Option.DIFFICULTY ? colorTheme.getSelectedMenuOptionsColor()
+                : colorTheme.getMenuOptionsColor());
+        g.setColor(textColor);
+        Inf101Graphics.drawCenteredString(g, option, getWidth() / 4, height);
+
+        String option1 = "Easy";
+        String option2 = "Medium";
+        String option3 = "Hard";
+
+        g.setFont((model.getAiPlayer() instanceof RandomAI ? fontTheme.getSelectedOptionFont()
+                : fontTheme.getNonSelectedOptionFont()));
+        Inf101Graphics.drawCenteredString(g, option1, getWidth() / 2, height);
+        g.setFont((model.getAiPlayer() instanceof AggresiveAI ? fontTheme.getSelectedOptionFont()
+                : fontTheme.getNonSelectedOptionFont()));
+        Inf101Graphics.drawCenteredString(g, option2, getWidth() / 2 + getWidth() / 5, height);
+        g.setFont((model.getAiPlayer() instanceof CarefulAI ? fontTheme.getSelectedOptionFont()
+                : fontTheme.getNonSelectedOptionFont()));
+        Inf101Graphics.drawCenteredString(g, option3, getWidth() / 2 + (getWidth() / 5) * 2, height);
     }
 
     private void drawGame(Graphics2D g) {

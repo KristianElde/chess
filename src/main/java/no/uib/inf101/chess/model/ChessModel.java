@@ -2,7 +2,9 @@ package no.uib.inf101.chess.model;
 
 import no.uib.inf101.chess.controller.ControllableModel;
 import no.uib.inf101.chess.model.aiPlayer.AIPlayer;
+import no.uib.inf101.chess.model.aiPlayer.AggresiveAI;
 import no.uib.inf101.chess.model.aiPlayer.CarefulAI;
+import no.uib.inf101.chess.model.aiPlayer.RandomAI;
 import no.uib.inf101.chess.model.pieces.Piece;
 import no.uib.inf101.chess.view.ViewableModel;
 
@@ -12,22 +14,17 @@ public class ChessModel implements ViewableModel, ControllableModel {
     private Square selectedSquare;
     private Square lastMoveFrom;
     private Square lastMoveTo;
-    private GameState gameState = GameState.ACTIVE;
+    private GameState gameState = GameState.MAIN_MENU;
     private ChessColor winner;
+    private Option selectedOption = Option.TEXTURE;
     private boolean aiOpposition;
     private ChessColor playerColor;
-    private AIPlayer aiPlayer;
-    public int n = 1;
+    private AIPlayer aiPlayer = new RandomAI(board);
 
     public ChessModel() {
         board = ChessBoard.initialPositionBoard();
-        aiOpposition = false;
+        aiOpposition = true;
         playerColor = ChessColor.WHITE;
-        aiPlayer = new CarefulAI(board);
-    }
-    
-    public int getDepth() {
-        return n;
     }
 
     public ChessModel(String boardString, ChessColor toDraw) {
@@ -50,6 +47,11 @@ public class ChessModel implements ViewableModel, ControllableModel {
     }
 
     @Override
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
+    @Override
     public ChessColor getWinner() {
         return winner;
     }
@@ -65,6 +67,16 @@ public class ChessModel implements ViewableModel, ControllableModel {
     }
 
     @Override
+    public Option getSelectedOption() {
+        return selectedOption;
+    }
+
+    @Override
+    public void setSelectedOption(Option option) {
+        selectedOption = option;
+    }
+
+    @Override
     public boolean isAiOpposition() {
         return aiOpposition;
     }
@@ -77,6 +89,49 @@ public class ChessModel implements ViewableModel, ControllableModel {
     @Override
     public AIPlayer getAiPlayer() {
         return aiPlayer;
+    }
+
+    @Override
+    public void setAiPlayer(AIPlayer aiPlayer) {
+        this.aiPlayer = aiPlayer;
+    }
+
+    @Override
+    public void toggleSelectedOption(boolean next) {
+        if (selectedOption == Option.TEXTURE) {
+
+        }
+        if (selectedOption == Option.MULTIPLAYER)
+            this.aiOpposition = !aiOpposition;
+
+        if (selectedOption == Option.COLOR)
+            this.playerColor = playerColor.toggle();
+
+        if (selectedOption == Option.DIFFICULTY) {
+            if (next)
+                nextAiLevel();
+            else
+                prevAiLevel();
+        }
+
+    }
+
+    private void nextAiLevel() {
+        if (aiPlayer instanceof RandomAI)
+            aiPlayer = new AggresiveAI(board);
+        else if (aiPlayer instanceof AggresiveAI)
+            aiPlayer = new CarefulAI(board);
+        else if (aiPlayer instanceof CarefulAI)
+            aiPlayer = new RandomAI(board);
+    }
+
+    private void prevAiLevel() {
+        if (aiPlayer instanceof RandomAI)
+            aiPlayer = new CarefulAI(board);
+        else if (aiPlayer instanceof AggresiveAI)
+            aiPlayer = new RandomAI(board);
+        else if (aiPlayer instanceof CarefulAI)
+            aiPlayer = new AggresiveAI(board);
     }
 
     @Override

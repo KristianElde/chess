@@ -54,4 +54,8 @@ public interface ColorTheme {
     Color getSelectedSquareColor();
 
     Color getLastMoveSquareColor();
+
+    Color getMenuOptionsColor();
+
+    Color getSelectedMenuOptionsColor();
 }

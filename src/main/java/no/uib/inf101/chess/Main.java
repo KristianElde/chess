@@ -3,6 +3,7 @@ package no.uib.inf101.chess;
 import javax.swing.JFrame;
 
 import no.uib.inf101.chess.controller.ChessController;
+import no.uib.inf101.chess.controller.MainMenuController;
 import no.uib.inf101.chess.model.ChessModel;
 import no.uib.inf101.chess.view.ChessView;
 import no.uib.inf101.chess.view.design.ColorTheme;
@@ -26,7 +27,9 @@ public class Main {
     ChessView view = new ChessView(model, colorTheme, textureTheme, fontTheme);
 
     new ChessController(model, view);
-
+    new MainMenuController(model, view);
+    
+    System.out.println("INIT CHESS");
     JFrame frame = new JFrame(WINDOW_TITLE);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setContentPane(view);

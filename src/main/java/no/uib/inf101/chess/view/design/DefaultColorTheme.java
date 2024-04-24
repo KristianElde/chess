@@ -56,4 +56,14 @@ public class DefaultColorTheme implements ColorTheme {
         return Color.ORANGE;
     }
 
+    @Override
+    public Color getMenuOptionsColor() {
+        return Color.BLACK;
+    }
+
+    @Override
+    public Color getSelectedMenuOptionsColor() {
+        return Color.BLUE;
+    }
+
 }

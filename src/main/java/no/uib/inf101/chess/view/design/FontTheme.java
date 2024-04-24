@@ -7,4 +7,11 @@ public interface FontTheme {
     Font getDefaultFont();
 
     Font getGameOverScreenFont();
+
+    Font getOptionFont();
+
+    Font getSelectedOptionFont();
+
+    Font getNonSelectedOptionFont();
+
 }
