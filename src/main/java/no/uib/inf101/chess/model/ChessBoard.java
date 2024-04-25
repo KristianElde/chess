@@ -372,7 +372,7 @@ public class ChessBoard extends Grid<Square> {
         ArrayList<Move> allLegalMoves = new ArrayList<>();
         for (Square from : this) {
             if (from.getPiece() != null && from.getPiece().getColor() == color) {
-                for (Square to : from.getPiece().getLegalMoves()) {
+                for (Square to : from.getPiece().calculateLegalMoves(this, from, false)) {
                     Move move = new Move(from, to);
                     allLegalMoves.add(move);
                 }

@@ -6,6 +6,8 @@ public interface FontTheme {
 
     Font getDefaultFont();
 
+    Font getHeaderFont();
+
     Font getGameOverScreenFont();
 
     Font getOptionFont();

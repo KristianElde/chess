@@ -6,11 +6,11 @@ import no.uib.inf101.chess.model.ChessBoard;
 import no.uib.inf101.chess.model.Move;
 import no.uib.inf101.chess.model.pieces.Piece;
 
-public class AggresiveAI implements AIPlayer {
+public class AggressiveAI implements AIPlayer {
 
     private ChessBoard board;
 
-    public AggresiveAI(ChessBoard board) {
+    public AggressiveAI(ChessBoard board) {
         this.board = board;
     }
 
@@ -23,11 +23,13 @@ public class AggresiveAI implements AIPlayer {
             Piece capturedPiece = candidateMove.to().getPiece();
             int capturedMaterialValue = (capturedPiece != null ? capturedPiece.getMaterialValue() : 0);
 
-            if (capturedMaterialValue > leadingMaterialValue)
+            if (capturedMaterialValue > leadingMaterialValue) {
                 leadingMove = candidateMove;
+                leadingMaterialValue = capturedMaterialValue;
+            }
         }
 
         return leadingMove;
     }
-    
+
 }

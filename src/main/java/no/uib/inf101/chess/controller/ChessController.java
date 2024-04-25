@@ -3,8 +3,10 @@ package no.uib.inf101.chess.controller;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import no.uib.inf101.chess.Main;
 import no.uib.inf101.chess.model.ChessModel;
 import no.uib.inf101.chess.model.Column;
+import no.uib.inf101.chess.model.GameState;
 import no.uib.inf101.chess.model.Move;
 import no.uib.inf101.chess.model.Square;
 import no.uib.inf101.chess.view.ChessView;
@@ -23,17 +25,23 @@ public class ChessController implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        Square selected = pixelToSquareConverter(e.getX(), e.getY());
-        model.setSelectedSquare(selected);
-
-        view.repaint();
-
-        if (model.isAiOpposition() && model.getBoard().getToDraw() != model.getPlayerColor()) {
-            Move selectedMove = model.getAiPlayer().getBestMove();
-            model.setSelectedSquare(selectedMove.from());
-            model.setSelectedSquare(selectedMove.to());
+        if (model.getGameState() == GameState.ACTIVE) {
+            Square selected = pixelToSquareConverter(e.getX(), e.getY());
+            model.setSelectedSquare(selected);
 
             view.repaint();
+
+            if (model.isAiOpposition() && model.getBoard().getToDraw() != model.getPlayerColor()) {
+                Move selectedMove = model.getAiPlayer().getBestMove();
+                model.setSelectedSquare(selectedMove.from());
+                model.setSelectedSquare(selectedMove.to());
+
+                view.repaint();
+            }
+        }
+
+        else if (model.getGameState() == GameState.CHECKMATE || model.getGameState() == GameState.STALEMATE) {
+            rerunApp();
         }
     }
 
@@ -76,6 +84,10 @@ public class ChessController implements MouseListener {
         }
 
         return model.getBoard().get(col, row);
+    }
+
+    private void rerunApp() {
+        Main.main(new String[0]);
     }
 
 }

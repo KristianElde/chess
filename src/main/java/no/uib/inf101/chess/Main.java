@@ -28,8 +28,7 @@ public class Main {
 
     new ChessController(model, view);
     new MainMenuController(model, view);
-    
-    System.out.println("INIT CHESS");
+
     JFrame frame = new JFrame(WINDOW_TITLE);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setContentPane(view);

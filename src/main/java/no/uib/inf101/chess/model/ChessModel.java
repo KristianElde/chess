@@ -2,7 +2,7 @@ package no.uib.inf101.chess.model;
 
 import no.uib.inf101.chess.controller.ControllableModel;
 import no.uib.inf101.chess.model.aiPlayer.AIPlayer;
-import no.uib.inf101.chess.model.aiPlayer.AggresiveAI;
+import no.uib.inf101.chess.model.aiPlayer.AggressiveAI;
 import no.uib.inf101.chess.model.aiPlayer.CarefulAI;
 import no.uib.inf101.chess.model.aiPlayer.RandomAI;
 import no.uib.inf101.chess.model.pieces.Piece;
@@ -17,18 +17,19 @@ public class ChessModel implements ViewableModel, ControllableModel {
     private GameState gameState = GameState.MAIN_MENU;
     private ChessColor winner;
     private Option selectedOption = Option.TEXTURE;
-    private boolean aiOpposition;
-    private ChessColor playerColor;
-    private AIPlayer aiPlayer = new RandomAI(board);
+    private boolean aiOpposition = true;
+    private ChessColor playerColor = ChessColor.WHITE;
+    private AIPlayer aiPlayer;
 
     public ChessModel() {
         board = ChessBoard.initialPositionBoard();
-        aiOpposition = true;
-        playerColor = ChessColor.WHITE;
+        aiPlayer = new RandomAI(board);
     }
 
     public ChessModel(String boardString, ChessColor toDraw) {
         board = ChessBoard.stringToBoard(boardString, toDraw);
+        aiPlayer = new RandomAI(board);
+
     }
 
     @Override
@@ -118,8 +119,8 @@ public class ChessModel implements ViewableModel, ControllableModel {
 
     private void nextAiLevel() {
         if (aiPlayer instanceof RandomAI)
-            aiPlayer = new AggresiveAI(board);
-        else if (aiPlayer instanceof AggresiveAI)
+            aiPlayer = new AggressiveAI(board);
+        else if (aiPlayer instanceof AggressiveAI)
             aiPlayer = new CarefulAI(board);
         else if (aiPlayer instanceof CarefulAI)
             aiPlayer = new RandomAI(board);
@@ -128,10 +129,10 @@ public class ChessModel implements ViewableModel, ControllableModel {
     private void prevAiLevel() {
         if (aiPlayer instanceof RandomAI)
             aiPlayer = new CarefulAI(board);
-        else if (aiPlayer instanceof AggresiveAI)
+        else if (aiPlayer instanceof AggressiveAI)
             aiPlayer = new RandomAI(board);
         else if (aiPlayer instanceof CarefulAI)
-            aiPlayer = new AggresiveAI(board);
+            aiPlayer = new AggressiveAI(board);
     }
 
     @Override

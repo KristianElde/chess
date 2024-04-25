@@ -10,6 +10,11 @@ public class DefaultFontTheme implements FontTheme {
     }
 
     @Override
+    public Font getHeaderFont() {
+        return new Font("Calibri", Font.BOLD, 24);
+    }
+
+    @Override
     public Font getGameOverScreenFont() {
         return new Font("Calibri", Font.BOLD, 24);
     }

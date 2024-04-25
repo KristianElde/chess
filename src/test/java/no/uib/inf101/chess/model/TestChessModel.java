@@ -19,7 +19,7 @@ public class TestChessModel {
 
         assertNotNull(model);
         assertNotNull(model.getBoard());
-        assertEquals(GameState.ACTIVE, model.getGameState());
+        assertEquals(GameState.MAIN_MENU, model.getGameState());
         assertEquals(null, model.getSelectedSquare());
         assertEquals(null, model.getLastMoveFrom());
         assertEquals(null, model.getLastMoveTo());

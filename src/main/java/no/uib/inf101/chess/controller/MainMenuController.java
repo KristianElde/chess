@@ -28,7 +28,6 @@ public class MainMenuController implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (model.getGameState() == GameState.MAIN_MENU) {
-            System.out.println(e.getKeyCode());
             if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                 model.setGameState(GameState.ACTIVE);
             }

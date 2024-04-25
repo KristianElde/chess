@@ -9,7 +9,7 @@ import no.uib.inf101.chess.model.Column;
 import no.uib.inf101.chess.model.GameState;
 import no.uib.inf101.chess.model.Option;
 import no.uib.inf101.chess.model.Square;
-import no.uib.inf101.chess.model.aiPlayer.AggresiveAI;
+import no.uib.inf101.chess.model.aiPlayer.AggressiveAI;
 import no.uib.inf101.chess.model.aiPlayer.CarefulAI;
 import no.uib.inf101.chess.model.aiPlayer.RandomAI;
 import no.uib.inf101.chess.model.pieces.Piece;
@@ -85,9 +85,14 @@ public class ChessView extends JPanel {
 
     private void drawMainMenu(Graphics2D g) {
         g.setColor(Color.BLACK);
-        g.setFont(fontTheme.getDefaultFont());
+        g.setFont(fontTheme.getHeaderFont());
         Inf101Graphics.drawCenteredString(g, "INF101: CHESS", getWidth() / 2, getHeight() / 6);
         Inf101Graphics.drawCenteredString(g, "Made by: Kristian Elde Johansen", getWidth() / 2, getHeight() / 4);
+        g.setFont(fontTheme.getDefaultFont());
+        Inf101Graphics.drawCenteredString(g, "Use arrow keys to select your preffered options", getWidth() / 2,
+                getHeight() / 3);
+        Inf101Graphics.drawCenteredString(g, "Press space to start chess game", getWidth() / 2,
+                getHeight() / 2.5);
 
         drawTextureOption(g);
         drawModeOption(g);
@@ -172,7 +177,7 @@ public class ChessView extends JPanel {
         g.setFont((model.getAiPlayer() instanceof RandomAI ? fontTheme.getSelectedOptionFont()
                 : fontTheme.getNonSelectedOptionFont()));
         Inf101Graphics.drawCenteredString(g, option1, getWidth() / 2, height);
-        g.setFont((model.getAiPlayer() instanceof AggresiveAI ? fontTheme.getSelectedOptionFont()
+        g.setFont((model.getAiPlayer() instanceof AggressiveAI ? fontTheme.getSelectedOptionFont()
                 : fontTheme.getNonSelectedOptionFont()));
         Inf101Graphics.drawCenteredString(g, option2, getWidth() / 2 + getWidth() / 5, height);
         g.setFont((model.getAiPlayer() instanceof CarefulAI ? fontTheme.getSelectedOptionFont()
