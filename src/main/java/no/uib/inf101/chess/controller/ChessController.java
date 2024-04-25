@@ -11,11 +11,22 @@ import no.uib.inf101.chess.model.Move;
 import no.uib.inf101.chess.model.Square;
 import no.uib.inf101.chess.view.ChessView;
 
+/**
+ * The ChessController class is responsible for handling mouse events in the
+ * chess game.
+ * It implements the MouseListener interface to listen for mouse events.
+ */
 public class ChessController implements MouseListener {
 
     private ControllableModel model;
     private ChessView view;
 
+    /**
+     * Constructs a new ChessController with the specified model and view.
+     *
+     * @param model The controllable model representing the game state and options.
+     * @param view  The view representing the chess game screen.
+     */
     public ChessController(ChessModel model, ChessView view) {
         this.model = model;
         this.view = view;

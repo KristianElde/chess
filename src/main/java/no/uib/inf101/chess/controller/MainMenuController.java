@@ -7,15 +7,27 @@ import no.uib.inf101.chess.model.GameState;
 import no.uib.inf101.chess.model.Option;
 import no.uib.inf101.chess.view.ChessView;
 
+/**
+ * The MainMenuController class is responsible for handling user input events on
+ * the main menu screen.
+ * It implements the KeyListener interface to listen for key events.
+ */
 public class MainMenuController implements KeyListener {
 
     private ControllableModel model;
     private ChessView view;
 
+    /**
+     * Constructs a new MainMenuController with the specified model and view.
+     *
+     * @param model The controllable model representing the game state and options.
+     * @param view  The view representing the main menu screen.
+     */
     public MainMenuController(ControllableModel model, ChessView view) {
         this.model = model;
         this.view = view;
 
+        // Registering the view to receive key events
         this.view.setFocusable(true);
         this.view.addKeyListener(this);
     }
