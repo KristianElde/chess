@@ -8,6 +8,11 @@ import no.uib.inf101.chess.model.aiPlayer.RandomAI;
 import no.uib.inf101.chess.model.pieces.Piece;
 import no.uib.inf101.chess.view.ViewableModel;
 
+/**
+ * The ChessModel class represents the model for a chess game,
+ * implementing both the ViewableModel and ControllableModel interfaces.
+ * It manages the game state, player actions, and AI opponents.
+ */
 public class ChessModel implements ViewableModel, ControllableModel {
 
     private ChessBoard board;
@@ -21,11 +26,20 @@ public class ChessModel implements ViewableModel, ControllableModel {
     private ChessColor playerColor = ChessColor.WHITE;
     private AIPlayer aiPlayer;
 
+    /**
+     * Constructs a ChessModel object with the start chess board setup.
+     */
     public ChessModel() {
         board = ChessBoard.initialPositionBoard();
         aiPlayer = new RandomAI(board);
     }
 
+    /**
+     * Constructs a ChessModel object with the specified chess board setup.
+     *
+     * @param boardString The string representation of the chess board.
+     * @param toDraw      The color to draw the board from.
+     */
     public ChessModel(String boardString, ChessColor toDraw) {
         board = ChessBoard.stringToBoard(boardString, toDraw);
         aiPlayer = new RandomAI(board);

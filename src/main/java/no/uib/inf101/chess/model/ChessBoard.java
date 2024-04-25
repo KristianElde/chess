@@ -13,6 +13,11 @@ import no.uib.inf101.chess.model.pieces.Rook;
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.Grid;
 
+/**
+ * The ChessBoard class represents the chess board for a game of chess.
+ * It manages the arrangement of pieces, legal moves, and checks for checkmate
+ * conditions.
+ */
 public class ChessBoard extends Grid<Square> {
 
     private ChessColor toDraw = ChessColor.WHITE;
@@ -21,6 +26,11 @@ public class ChessBoard extends Grid<Square> {
     private boolean whiteInCheck = false;
     private boolean blackInCheck = false;
 
+    /**
+     * Constructs an empty chess board without any pieces.
+     *
+     * @return The empty chess board.
+     */
     private ChessBoard() {
         super(8, 8);
 
@@ -32,12 +42,24 @@ public class ChessBoard extends Grid<Square> {
         }
     }
 
+    /**
+     * Gets the specified square from the chess board.
+     * 
+     * @param col The column of the square.
+     * @param row The row of the square.
+     * @return The specified square.
+     */
     public Square get(Column col, int row) {
         if (col == null || row > 8 || row < 1)
             return null;
         return super.get(new CellPosition(row - 1, col.ordinal()));
     }
 
+    /**
+     * Constructs an chess board with the standard starting position of the pieces.
+     *
+     * @return The chess board with the initial position.
+     */
     public static ChessBoard initialPositionBoard() {
         String initialPositionString = """
                 rnbqkbnr
@@ -51,6 +73,13 @@ public class ChessBoard extends Grid<Square> {
         return ChessBoard.stringToBoard(initialPositionString, ChessColor.WHITE);
     }
 
+    /**
+     * Converts a string representation of a chess board to a ChessBoard object.
+     *
+     * @param boardString The string representation of the chess board.
+     * @param toDraw      The color to draw the board from.
+     * @return The ChessBoard object created from the string representation.
+     */
     public static ChessBoard stringToBoard(String boardString, ChessColor toDraw) {
         if (boardString.length() != 71)
             throw new IllegalArgumentException("Illegal number of cells in boardString:" + boardString.length());
@@ -147,6 +176,12 @@ public class ChessBoard extends Grid<Square> {
             blackKingSquare = kingSquare;
     }
 
+    /**
+     * Checks if the specified color is in check on the chess board.
+     *
+     * @param color The color to check for check condition.
+     * @return True if the specified color is in check, false otherwise.
+     */
     public boolean isInCheck(ChessColor color) {
         return (color == ChessColor.WHITE ? whiteInCheck : blackInCheck);
     }
@@ -163,6 +198,14 @@ public class ChessBoard extends Grid<Square> {
         return toDraw;
     }
 
+    /**
+     * Moves a piece from the source square to the destination square on the chess
+     * board.
+     *
+     * @param from  The source square from which to move the piece.
+     * @param to    The destination square to move the piece to.
+     * @param piece The piece to move.
+     */
     public Piece movePiece(Square from, Square to, Piece piece) {
         Piece capturedPiece = to.getPiece();
 
@@ -359,6 +402,14 @@ public class ChessBoard extends Grid<Square> {
         toDraw = toDraw.toggle();
     }
 
+    /**
+     * Updates the legal moves for all pieces of the specified color on the chess
+     * board.
+     *
+     * @param color     The color of the pieces to update legal moves for.
+     * @param primitive Whether to check that legal moves does not set own king in
+     *                  check.
+     */
     void updateLegalMoves(ChessColor color, boolean primitive) {
         for (Square square : this) {
             Piece piece = square.getPiece();
