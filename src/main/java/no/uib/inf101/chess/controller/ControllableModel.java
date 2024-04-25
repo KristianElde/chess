@@ -9,9 +9,8 @@ import no.uib.inf101.chess.model.aiPlayer.AIPlayer;
 
 /**
  * The ControllableModel interface represents a controllable model for a chess
- * application,
- * providing methods to interact with the game state and control various
- * settings.
+ * application, providing methods to interact with the game state and control
+ * various settings.
  */
 public interface ControllableModel {
 
@@ -30,20 +29,16 @@ public interface ControllableModel {
     Square getSelectedSquare();
 
     /**
-     * Sets the currently selected square on the chess board.
-     * If the selected square contains a piece belonging to the current player's
-     * color,
-     * it sets the selected square to the provided square without further action.
-     * If the selected square does not contain a piece belonging to the current
-     * player's color,
-     * and the previously selected square is not null, it attempts to move the piece
-     * from
-     * the previously selected square to the provided square. If the move is legal,
-     * it updates the game state accordingly, checks for checkmate or stalemate
-     * conditions,
-     * and adjusts the winner if necessary.
-     * If the move is not legal, the previously selected square remains selected.
-     * After handling the move, the selected square is set to null.
+     * Sets the currently selected square on the chess board. If the selected square
+     * contains a piece belonging to the current player's color, it sets the
+     * selected square to the provided square without further action. If the
+     * selected square does not contain a piece belonging to the current player's
+     * color, and the previously selected square is not null, it attempts to move
+     * the piece from the previously selected square to the provided square. If the
+     * move is legal, it updates the game state accordingly, checks for checkmate or
+     * stalemate conditions, and adjusts the winner if necessary. If the move is not
+     * legal, the previously selected square remains selected. After handling the
+     * move, the selected square is set to null.
      *
      * @param newSelectedSquare The square to set as the currently selected square.
      */

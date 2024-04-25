@@ -55,8 +55,7 @@ public class ChessView extends JPanel {
 
     /**
      * Constructs a ChessView object with the specified model, color theme, texture
-     * theme,
-     * and font theme.
+     * theme, and font theme.
      * 
      * @param model        The chess model to be displayed.
      * @param colorTheme   The color theme used for the graphical elements.

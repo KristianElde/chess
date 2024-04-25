@@ -13,8 +13,8 @@ import no.uib.inf101.chess.view.ChessView;
 
 /**
  * The ChessController class is responsible for handling mouse events in the
- * chess game.
- * It implements the MouseListener interface to listen for mouse events.
+ * chess game. It implements the MouseListener interface to listen for mouse
+ * events.
  */
 public class ChessController implements MouseListener {
 

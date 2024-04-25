@@ -7,8 +7,7 @@ import no.uib.inf101.chess.model.Square;
 
 /**
  * The MoveablePiece interface represents a piece on the chess board that can
- * move.
- * Classes implementing this interface must provide methods to update and
+ * move. Classes implementing this interface must provide methods to update and
  * calculate legal moves.
  */
 public interface MoveablePiece {

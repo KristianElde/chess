@@ -2,11 +2,9 @@ package no.uib.inf101.chess.model;
 
 /**
  * The Option enum represents different options available in the chess
- * application.
- * It includes options such as texture settings, multiplayer mode, color
- * settings, and difficulty level.
- * This enum provides methods to navigate to the next or previous option based
- * on whether AI opposition is enabled.
+ * application. It includes options such as texture settings, multiplayer mode,
+ * color settings, and difficulty level. This enum provides methods to navigate
+ * to the next or previous option based on whether AI opposition is enabled.
  */
 public enum Option {
     TEXTURE, MULTIPLAYER, COLOR, DIFFICULTY;

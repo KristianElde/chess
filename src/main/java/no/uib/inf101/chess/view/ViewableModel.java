@@ -9,8 +9,8 @@ import no.uib.inf101.chess.model.aiPlayer.AIPlayer;
 
 /**
  * The ViewableModel interface represents a viewable model for a chess
- * application,
- * providing methods to retrieve information about the game state and settings.
+ * application, providing methods to retrieve information about the game state
+ * and settings.
  */
 public interface ViewableModel {
 

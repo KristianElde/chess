@@ -7,9 +7,9 @@ import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.Square;
 
 /**
- * The Knight class represents a knight chess piece.
- * It extends the Piece class and provides functionality for updating and
- * calculating legal moves for the knight.
+ * The Knight class represents a knight chess piece. It extends the Piece class
+ * and provides functionality for updating and calculating legal moves for the
+ * knight.
  */
 public class Knight extends Piece {
 

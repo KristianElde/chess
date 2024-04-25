@@ -3,8 +3,8 @@ package no.uib.inf101.chess.view.design;
 import java.awt.Font;
 
 /**
- * The FontTheme interface defines a set of methods for obtaining
- * fonts used in a chess game.
+ * The FontTheme interface defines a set of methods for obtaining fonts used in
+ * a chess game.
  */
 public interface FontTheme {
 

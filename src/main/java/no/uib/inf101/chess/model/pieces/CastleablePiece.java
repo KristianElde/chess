@@ -4,9 +4,8 @@ import no.uib.inf101.chess.model.ChessColor;
 
 /**
  * The CastleablePiece class represents a chess piece that can participate in
- * castling.
- * It extends the Piece class and provides functionality for allowing or
- * disallowing castling for the piece.
+ * castling. It extends the Piece class and provides functionality for allowing
+ * or disallowing castling for the piece.
  */
 public abstract class CastleablePiece extends Piece {
 

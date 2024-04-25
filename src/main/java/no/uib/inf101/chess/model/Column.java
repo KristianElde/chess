@@ -1,9 +1,9 @@
 package no.uib.inf101.chess.model;
 
 /**
- * The Column enum represents the columns of a chess board.
- * It provides methods to navigate to the next or previous column, as well as
- * methods to navigate two columns ahead or behind.
+ * The Column enum represents the columns of a chess board. It provides methods
+ * to navigate to the next or previous column, as well as methods to navigate
+ * two columns ahead or behind.
  */
 public enum Column {
     A, B, C, D, E, F, G, H;

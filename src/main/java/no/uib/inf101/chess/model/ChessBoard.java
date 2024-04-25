@@ -14,8 +14,8 @@ import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.Grid;
 
 /**
- * The ChessBoard class represents the chess board for a game of chess.
- * It manages the arrangement of pieces, legal moves, and checks for checkmate
+ * The ChessBoard class represents the chess board for a game of chess. It
+ * manages the arrangement of pieces, legal moves, and checks for checkmate
  * conditions.
  */
 public class ChessBoard extends Grid<Square> {
@@ -237,9 +237,8 @@ public class ChessBoard extends Grid<Square> {
     /**
      * Tests if a move is legal on the chess board.
      * This method checks if the specified move is legal by temporarily applying the
-     * move,
-     * checking for check conditions, and then reverting the board state.
-     * It returns true if the move is legal, and false otherwise.
+     * move, checking for check conditions, and then reverting the board state. It
+     * returns true if the move is legal, and false otherwise.
      *
      * @param from  The square from which the piece is moved.
      * @param to    The square to which the piece is moved.
@@ -264,9 +263,9 @@ public class ChessBoard extends Grid<Square> {
     }
 
     /**
-     * Undoes a move on the chess board.
-     * This method reverts a move that was previously made on the board.
-     * It restores the state of the squares involved in the move.
+     * Undoes a move on the chess board. This method reverts a move that was
+     * previously made on the board. It restores the state of the squares involved
+     * in the move.
      *
      * @param from          The square from which the piece was moved.
      * @param to            The square to which the piece was moved.
@@ -359,11 +358,10 @@ public class ChessBoard extends Grid<Square> {
     }
 
     /**
-     * Updates state variables after a move is made on the chess board.
-     * This method adjusts various game state variables based on the move made.
-     * It handles special cases such as castling, en passant, and king movement.
-     * Additionally, it checks for check conditions and toggles the turn to the next
-     * player.
+     * Updates state variables after a move is made on the chess board. This method
+     * adjusts various game state variables based on the move made. It handles
+     * special cases such as castling, en passant, and king movement. Additionally,
+     * it checks for check conditions and toggles the turn to the next player.
      *
      * @param from  The square from which the piece is moved.
      * @param to    The square to which the piece is moved.
@@ -393,10 +391,9 @@ public class ChessBoard extends Grid<Square> {
     }
 
     /**
-     * Resets state variables after a move is undone on the chess board.
-     * This method reverts the state variables to their previous state before the
-     * move.
-     * It handles special cases such as castling, en passant, and check conditions.
+     * Resets state variables after a move is undone on the chess board. This method
+     * reverts the state variables to their previous state before the move. It
+     * handles special cases such as castling, en passant, and check conditions.
      *
      * @param from          The square from which the piece was moved.
      * @param to            The square to which the piece was moved.

@@ -9,8 +9,8 @@ import no.uib.inf101.chess.view.ChessView;
 
 /**
  * The MainMenuController class is responsible for handling user input events on
- * the main menu screen.
- * It implements the KeyListener interface to listen for key events.
+ * the main menu screen. It implements the KeyListener interface to listen for
+ * key events.
  */
 public class MainMenuController implements KeyListener {
 

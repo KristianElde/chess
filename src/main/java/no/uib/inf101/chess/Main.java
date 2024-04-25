@@ -23,8 +23,8 @@ public class Main {
 
   /**
    * The main method initializes the chess model, color theme, texture theme, font
-   * theme,
-   * and sets up the main application window with the chess view and controllers.
+   * theme, and sets up the main application window with the chess view and
+   * controllers.
    * 
    * @param args The command line arguments (not used).
    */
