@@ -2,6 +2,10 @@ package no.uib.inf101.chess.view.design;
 
 import java.awt.Font;
 
+/**
+ * The DefaultFontTheme class implements the FontTheme interface and provides
+ * default fonts for various UI elements.
+ */
 public class DefaultFontTheme implements FontTheme {
 
     @Override

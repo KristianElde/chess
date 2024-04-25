@@ -9,6 +9,11 @@ import no.uib.inf101.chess.model.pieces.Pawn;
 import no.uib.inf101.chess.model.pieces.Queen;
 import no.uib.inf101.chess.model.pieces.Rook;
 
+/**
+ * The DefaultTextureTheme class implements the TextureTheme interface and
+ * provides image paths for the different chess pieces. This texture theme
+ * consists of classic looking chess pieces.
+ */
 public class DefaultTextureTheme implements TextureTheme {
 
     @Override

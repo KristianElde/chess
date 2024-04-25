@@ -9,6 +9,12 @@ import no.uib.inf101.chess.model.pieces.Piece;
 import no.uib.inf101.chess.model.pieces.Queen;
 import no.uib.inf101.chess.model.pieces.Rook;
 
+/**
+ * The StarWarsTextureTheme class implements the TextureTheme interface and
+ * provides image paths for the different chess pieces. This texture theme
+ * consists of star wars themed textures. With each piece being associated with
+ * a character from the Star Wars-universe.
+ */
 public class StarWarsTextureTheme implements TextureTheme {
 
     @Override

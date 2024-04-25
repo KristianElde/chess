@@ -5,8 +5,8 @@ import java.awt.Color;
 import no.uib.inf101.chess.model.Square;
 
 /**
- * The DefaultColorTheme class implements the ColorTheme interface,
- * providing default colors for the Tetris game interface.
+ * The DefaultColorTheme class implements the ColorTheme interface and provides
+ * default colors for various UI elements in a chess game.
  */
 public class DefaultColorTheme implements ColorTheme {
 
