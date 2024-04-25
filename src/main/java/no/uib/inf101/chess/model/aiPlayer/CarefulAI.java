@@ -18,7 +18,7 @@ public class CarefulAI implements AIPlayer {
     @Override
     public Move getBestMove() {
         ArrayList<Move> possibleMoves = board.allLegalMoves(board.getToDraw());
-        AggressiveAI aggresiveAI = new AggressiveAI(board);
+        AggressiveAI aggressiveAI = new AggressiveAI(board);
 
         Move leadingMove = null;
         int leadingMatVal = -100;
@@ -34,9 +34,8 @@ public class CarefulAI implements AIPlayer {
             Piece capturedPiece = board.movePiece(candidateMove.from(), candidateMove.to(),
                     candidateMove.getPieceToMove());
             int capturedPieceMatVal = (capturedPiece != null ? capturedPiece.getMaterialValue() : 0);
-            board.setStateVariablesAfterMove(candidateMove.from(), candidateMove.to(), piece);
 
-            Piece responseCapturedPiece = aggresiveAI.getBestMove().to().getPiece();
+            Piece responseCapturedPiece = aggressiveAI.getBestMove().to().getPiece();
             int responseCapturedPieceMatVal = (responseCapturedPiece != null ? responseCapturedPiece.getMaterialValue()
                     : 0);
 

@@ -14,7 +14,7 @@ public class ChessModel implements ViewableModel, ControllableModel {
     private Square selectedSquare;
     private Square lastMoveFrom;
     private Square lastMoveTo;
-    private GameState gameState = GameState.MAIN_MENU;
+    private GameState gameState = GameState.ACTIVE;
     private ChessColor winner;
     private Option selectedOption = Option.TEXTURE;
     private boolean aiOpposition = true;
@@ -23,7 +23,7 @@ public class ChessModel implements ViewableModel, ControllableModel {
 
     public ChessModel() {
         board = ChessBoard.initialPositionBoard();
-        aiPlayer = new RandomAI(board);
+        aiPlayer = new CarefulAI(board);
     }
 
     public ChessModel(String boardString, ChessColor toDraw) {
