@@ -227,8 +227,6 @@ public class ChessView extends JPanel {
             g.setColor(colorTheme.getCoordinatesColor());
             g.setFont(fontTheme.getDefaultFont());
             Inf101Graphics.drawCenteredString(g, String.valueOf(i), HORIZONTAL_OUTERMARGIN / 2, y);
-            // Inf101Graphics.drawCenteredString(g, String.valueOf(i), getWidth() -
-            // HORIZONTAL_OUTERMARGIN / 2, y);
         }
 
         for (Column column : Column.values()) {
@@ -236,8 +234,6 @@ public class ChessView extends JPanel {
                     + squareWidth / 2;
             g.setColor(colorTheme.getCoordinatesColor());
             g.setFont(fontTheme.getDefaultFont());
-            // Inf101Graphics.drawCenteredString(g, column.toString(), x,
-            // VERTICAL_OUTERMARGIN / 2);
             Inf101Graphics.drawCenteredString(g, column.toString(), x, getHeight() - VERTICAL_OUTERMARGIN / 2);
         }
     }

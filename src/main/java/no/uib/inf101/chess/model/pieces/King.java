@@ -57,9 +57,9 @@ public class King extends CastleablePiece {
         if (piece instanceof Rook && ((Rook) piece).getAllowCastling()) {
             if (board.get(Column.B, row).getPiece() == null && board.get(Column.C, row).getPiece() == null
                     && board.get(Column.D, row).getPiece() == null) {
-                if (!board.isThreatendBy(board.get(Column.C, row), getColor().toggle())
-                        && !board.isThreatendBy(board.get(Column.D, row), getColor().toggle())
-                        && !board.isThreatendBy(board.get(Column.E, row), getColor().toggle())) {
+                if (!board.isThreatenedBy(board.get(Column.C, row), getColor().toggle())
+                        && !board.isThreatenedBy(board.get(Column.D, row), getColor().toggle())
+                        && !board.isThreatenedBy(board.get(Column.E, row), getColor().toggle())) {
                     Square castlingSquare = board.get(Column.C, row);
                     legalCastlingMoves.add(castlingSquare);
                 }
@@ -68,9 +68,9 @@ public class King extends CastleablePiece {
         piece = board.get(Column.H, row).getPiece();
         if (piece instanceof Rook && ((Rook) piece).getAllowCastling()) {
             if (board.get(Column.F, row).getPiece() == null && board.get(Column.G, row).getPiece() == null) {
-                if (!board.isThreatendBy(board.get(Column.E, row), getColor().toggle())
-                        && !board.isThreatendBy(board.get(Column.F, row), getColor().toggle())
-                        && !board.isThreatendBy(board.get(Column.G, row), getColor().toggle())) {
+                if (!board.isThreatenedBy(board.get(Column.E, row), getColor().toggle())
+                        && !board.isThreatenedBy(board.get(Column.F, row), getColor().toggle())
+                        && !board.isThreatenedBy(board.get(Column.G, row), getColor().toggle())) {
                     Square castlingSquare = board.get(Column.G, row);
                     legalCastlingMoves.add(castlingSquare);
                 }

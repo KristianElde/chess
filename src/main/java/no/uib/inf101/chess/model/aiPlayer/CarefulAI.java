@@ -1,6 +1,7 @@
 package no.uib.inf101.chess.model.aiPlayer;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import no.uib.inf101.chess.model.ChessBoard;
 import no.uib.inf101.chess.model.Move;
@@ -20,7 +21,7 @@ public class CarefulAI implements AIPlayer {
         ArrayList<Move> possibleMoves = board.allLegalMoves(board.getToDraw());
         AggressiveAI aggressiveAI = new AggressiveAI(board);
 
-        Move leadingMove = null;
+        ArrayList<Move> leadingMoves = new ArrayList<>();
         int leadingMatVal = -100;
 
         for (Move candidateMove : possibleMoves) {
@@ -47,12 +48,18 @@ public class CarefulAI implements AIPlayer {
             candidateMoveMatVal -= responseCapturedPieceMatVal;
 
             if (candidateMoveMatVal > leadingMatVal) {
-                leadingMove = candidateMove;
+                leadingMoves.clear();
+                leadingMoves.add(candidateMove);
                 leadingMatVal = candidateMoveMatVal;
+            } else if (candidateMoveMatVal == leadingMatVal) {
+                leadingMoves.add(candidateMove);
             }
         }
 
-        return leadingMove;
+        Random random = new Random();
+        int randomIndex = random.nextInt(leadingMoves.size());
+
+        return leadingMoves.get(randomIndex);
     }
 
 }

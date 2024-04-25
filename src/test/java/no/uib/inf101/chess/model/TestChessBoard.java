@@ -95,13 +95,13 @@ public class TestChessBoard {
                                 ------K-""";
                 ChessBoard board = ChessBoard.stringToBoard(boardString, ChessColor.BLACK);
 
-                assertFalse(board.isThreatendBy(board.get(Column.B, 8), ChessColor.WHITE));
-                assertTrue(board.isThreatendBy(board.get(Column.A, 8), ChessColor.WHITE));
-                assertFalse(board.isThreatendBy(board.get(Column.G, 8), ChessColor.WHITE));
-                assertTrue(board.isThreatendBy(board.get(Column.F, 8), ChessColor.WHITE));
-                assertTrue(board.isThreatendBy(board.get(Column.C, 8), ChessColor.WHITE));
-                assertTrue(board.isThreatendBy(board.get(Column.B, 7), ChessColor.BLACK));
-                assertTrue(board.isThreatendBy(board.get(Column.F, 2), ChessColor.WHITE));
+                assertFalse(board.isThreatenedBy(board.get(Column.B, 8), ChessColor.WHITE));
+                assertTrue(board.isThreatenedBy(board.get(Column.A, 8), ChessColor.WHITE));
+                assertFalse(board.isThreatenedBy(board.get(Column.G, 8), ChessColor.WHITE));
+                assertTrue(board.isThreatenedBy(board.get(Column.F, 8), ChessColor.WHITE));
+                assertTrue(board.isThreatenedBy(board.get(Column.C, 8), ChessColor.WHITE));
+                assertTrue(board.isThreatenedBy(board.get(Column.B, 7), ChessColor.BLACK));
+                assertTrue(board.isThreatenedBy(board.get(Column.F, 2), ChessColor.WHITE));
         }
 
         @Test
