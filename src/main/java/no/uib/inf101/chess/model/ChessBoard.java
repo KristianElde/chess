@@ -200,7 +200,8 @@ public class ChessBoard extends Grid<Square> {
 
     /**
      * Moves a piece from the source square to the destination square on the chess
-     * board.
+     * board. And calls a method for updating various state variables after having
+     * performed move.
      *
      * @param from  The source square from which to move the piece.
      * @param to    The destination square to move the piece to.
@@ -233,6 +234,18 @@ public class ChessBoard extends Grid<Square> {
         return capturedPiece;
     }
 
+    /**
+     * Tests if a move is legal on the chess board.
+     * This method checks if the specified move is legal by temporarily applying the
+     * move,
+     * checking for check conditions, and then reverting the board state.
+     * It returns true if the move is legal, and false otherwise.
+     *
+     * @param from  The square from which the piece is moved.
+     * @param to    The square to which the piece is moved.
+     * @param piece The piece being moved.
+     * @return True if the move is legal, false otherwise.
+     */
     public boolean testMoveIsLegal(Square from, Square to, Piece piece) {
         boolean isLegalMove = true;
         boolean isCheck = isInCheck(toDraw);
@@ -250,6 +263,16 @@ public class ChessBoard extends Grid<Square> {
         return isLegalMove;
     }
 
+    /**
+     * Undoes a move on the chess board.
+     * This method reverts a move that was previously made on the board.
+     * It restores the state of the squares involved in the move.
+     *
+     * @param from          The square from which the piece was moved.
+     * @param to            The square to which the piece was moved.
+     * @param piece         The piece that was moved.
+     * @param capturedPiece The piece that was captured during the move, if any.
+     */
     public void undoMove(Square from, Square to, Piece piece, Piece capturedPiece) {
 
         if (piece instanceof King && isCastleMove(from, to, (King) piece)) {
@@ -335,7 +358,18 @@ public class ChessBoard extends Grid<Square> {
         capturedPawnSquare.setPiece(capturedPawn);
     }
 
-    public void setStateVariablesAfterMove(Square from, Square to, Piece piece) {
+    /**
+     * Updates state variables after a move is made on the chess board.
+     * This method adjusts various game state variables based on the move made.
+     * It handles special cases such as castling, en passant, and king movement.
+     * Additionally, it checks for check conditions and toggles the turn to the next
+     * player.
+     *
+     * @param from  The square from which the piece is moved.
+     * @param to    The square to which the piece is moved.
+     * @param piece The piece being moved.
+     */
+    private void setStateVariablesAfterMove(Square from, Square to, Piece piece) {
 
         if (piece instanceof CastleablePiece)
             // Stop this piece from being involved in castle-move
@@ -358,6 +392,21 @@ public class ChessBoard extends Grid<Square> {
         toggleTurn();
     }
 
+    /**
+     * Resets state variables after a move is undone on the chess board.
+     * This method reverts the state variables to their previous state before the
+     * move.
+     * It handles special cases such as castling, en passant, and check conditions.
+     *
+     * @param from          The square from which the piece was moved.
+     * @param to            The square to which the piece was moved.
+     * @param piece         The piece that was moved.
+     * @param capturedPiece The piece that was captured during the move, if any.
+     * @param isCheck       Indicates whether the player was in check previous to
+     *                      the move just undone.
+     * @param allowCastling Indicates whether castling was allowed for the piece
+     *                      that was moved previous to the move just undone.
+     */
     public void resetStateVariablesAfterMove(Square from, Square to, Piece piece, Piece capturedPiece,
             boolean isCheck, boolean allowCastling) {
         toggleTurn();
@@ -419,6 +468,12 @@ public class ChessBoard extends Grid<Square> {
         }
     }
 
+    /**
+     * Gets all legal moves for the specified color on the chess board.
+     * 
+     * @param color The color for which to get all legal moves for.
+     * @return An ArrayList containing all legal moves for the specified color.
+     */
     public ArrayList<Move> allLegalMoves(ChessColor color) {
         ArrayList<Move> allLegalMoves = new ArrayList<>();
         for (Square from : this) {
@@ -433,6 +488,15 @@ public class ChessBoard extends Grid<Square> {
         return allLegalMoves;
     }
 
+    /**
+     * Checks if the specified square is threatened by any piece of the specified
+     * color on the chess board.
+     *
+     * @param square       The square to check for threats.
+     * @param threatenedBy The color of the pieces to consider for threats.
+     * @return True if the specified square is threatened by any piece of the
+     *         specified color, false otherwise.
+     */
     public boolean isThreatenedBy(Square square, ChessColor threatenedBy) {
         for (Square currentSquare : this) {
             if (currentSquare.getPiece() != null && currentSquare.getPiece().getColor() == threatenedBy) {
