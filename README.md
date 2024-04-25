@@ -32,6 +32,9 @@ On hard the AI will be more careful than on medium. It will still optimize for m
 - In an active game: Use the mouse to click on the piece you want to move. Click again on the square you want to move it to, in order to perform the move.
 
 ## Resources
+### Star Wars textures
+Obtained from: https://no.pinterest.com/pin/happy-star-wars-celebration-day-i-wont-be-attending-but-my-artwork-will-be-there-in-the-form-of-o--292663675784528615/
+Originator: Derek Laufman
 
 ## Video
 Check out this video where i present how the application works: 

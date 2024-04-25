@@ -3,6 +3,9 @@ package no.uib.inf101.grid;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+// Hentet fra: https://git.app.uib.no/ii/inf101/24v/assignments/Kristian.E.Johansen_sem1-tetris
+// Opphaver: Torstein Strømme. Hentet: 10.04.24
+
 /**
  * Represents a two-dimensional grid data structure with elements of type E.
  * This class implements the IGrid interface, providing functionalities for

@@ -1,5 +1,8 @@
 package no.uib.inf101.chess.view;
 
+// Hentet fra: https://inf101v23.stromme.me/notat/grafikk/filer/Inf101Graphics.java
+// Opphaver: Torstein Strømme. Hentet: 10.05.24
+
 // University of Bergen INF101 helper methods for graphics with Swing.
 // Methods for drawing images are adapted with permission from
 // https://kosbie.net/cmu/spring-08/15-100/handouts/DrawImageFromFile.java
