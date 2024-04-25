@@ -6,8 +6,8 @@ import no.uib.inf101.chess.model.Square;
 import no.uib.inf101.grid.GridDimension;
 
 /**
- * The CellPositionToPixelConverter class converts cell positions in a
- * grid to corresponding pixel bounds within a specified rectangle.
+ * The SquareToPixelConverter class converts squares in a
+ * chess board to corresponding pixel bounds within a specified rectangle.
  */
 public class SquareToPixelConverter {
 
@@ -23,7 +23,7 @@ public class SquareToPixelConverter {
   private double margin;
 
   /**
-   * Constructs a CellPositionToPixelConverter with the given parameters.
+   * Constructs a SquareToPixelConverter with the given parameters.
    * 
    * @param box    The rectangle defining the bounds for the converted
    *               pixel positions.
@@ -39,7 +39,7 @@ public class SquareToPixelConverter {
   /**
    * Gets the bounds for the specified cell position in pixels.
    * 
-   * @param pos The cell position to convert to pixel bounds.
+   * @param pos The square to convert to pixel bounds.
    * @return The rectangle representing the pixel bounds for the specified
    *         cell position.
    */

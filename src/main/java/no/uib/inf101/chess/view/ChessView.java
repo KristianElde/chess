@@ -29,6 +29,12 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * The ChessView class represents the graphical view of the chess game. It
+ * extends JPanel and provides methods for drawing the chessboard, pieces, and
+ * various game elements based on the provided model, color theme, texture
+ * theme, and font theme.
+ */
 public class ChessView extends JPanel {
 
     private ViewableModel model;
@@ -41,11 +47,22 @@ public class ChessView extends JPanel {
     double squareWidth;
     double squareHeight;
 
+    // Constants for margins, cell size, and cell margin
     public static final double VERTICAL_OUTERMARGIN = 50;
     public static final double HORIZONTAL_OUTERMARGIN = 50;
     private static final double CELL_SIZE = 80;
     private static final double CELL_MARGIN = 1;
 
+    /**
+     * Constructs a ChessView object with the specified model, color theme, texture
+     * theme,
+     * and font theme.
+     * 
+     * @param model        The chess model to be displayed.
+     * @param colorTheme   The color theme used for the graphical elements.
+     * @param textureTheme The texture theme used for the chess pieces.
+     * @param fontTheme    The font theme used for text rendering.
+     */
     public ChessView(ChessModel model, ColorTheme colorTheme, TextureTheme textureTheme, FontTheme fontTheme) {
         double windowWidth = (CELL_SIZE + CELL_MARGIN) * model.getBoard().cols() + CELL_MARGIN
                 + HORIZONTAL_OUTERMARGIN;
@@ -76,6 +93,9 @@ public class ChessView extends JPanel {
             drawGame(g2);
     }
 
+    /**
+     * Toggles the texture theme between the default theme and the Star Wars theme.
+     */
     public void toggleTextureTheme() {
         if (textureTheme instanceof DefaultTextureTheme)
             textureTheme = new StarWarsTextureTheme();
