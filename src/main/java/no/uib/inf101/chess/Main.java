@@ -15,8 +15,7 @@ import no.uib.inf101.chess.view.design.TextureTheme;
 
 /**
  * The Main class contains the entry point for the INF101 Chess application. It
- * sets up
- * the chess model, views, controllers, and the main application window.
+ * sets up the chess model, views, controllers, and the main application window.
  */
 public class Main {
 
