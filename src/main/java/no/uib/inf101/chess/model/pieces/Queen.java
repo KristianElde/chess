@@ -7,8 +7,18 @@ import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.Column;
 import no.uib.inf101.chess.model.Square;
 
+/**
+ * The Queen class represents a queen chess piece.
+ * It extends the Piece class and provides functionality for updating and
+ * calculating legal moves for the queen.
+ */
 public class Queen extends Piece {
 
+    /**
+     * Constructs a new queen with the specified color.
+     *
+     * @param color The color of the queen.
+     */
     public Queen(ChessColor color) {
         super(color, 9);
     }

@@ -217,7 +217,7 @@ public class ChessBoard extends Grid<Square> {
         // En passant move
         else if (piece instanceof Pawn && isEnPassantMove(from, to)) {
             capturedPiece = performEnPassantMove(from, to, piece);
-            ((Pawn) capturedPiece).setCapturedByEnPassent(true);
+            ((Pawn) capturedPiece).setCapturedByEnPassant(true);
         }
 
         // Pawn promotion move
@@ -377,7 +377,7 @@ public class ChessBoard extends Grid<Square> {
 
         if (piece instanceof Pawn && isPawnDoubleStep(from, to))
             // Allow moved pawn to be captured by en passant-move
-            ((Pawn) piece).setEnPassentAllowed(true);
+            ((Pawn) piece).setEnPassantAllowed(true);
 
         if (piece instanceof King)
             // Update king position if king is moved
@@ -420,7 +420,7 @@ public class ChessBoard extends Grid<Square> {
         }
 
         if (piece instanceof Pawn && isPawnDoubleStep(from, to))
-            ((Pawn) piece).setEnPassentAllowed(false);
+            ((Pawn) piece).setEnPassantAllowed(false);
 
         if (piece instanceof King)
             setKingSquare(from, toDraw);

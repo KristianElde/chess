@@ -7,8 +7,18 @@ import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.Column;
 import no.uib.inf101.chess.model.Square;
 
+/**
+ * The Rook class represents a rook chess piece.
+ * It extends the Piece class and provides functionality for updating and
+ * calculating legal moves for the rook.
+ */
 public class Rook extends CastleablePiece {
 
+    /**
+     * Constructs a new rook with the specified color.
+     *
+     * @param color The color of the rook.
+     */
     public Rook(ChessColor color) {
         super(color, 5);
     }

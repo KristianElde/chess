@@ -7,8 +7,18 @@ import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.Column;
 import no.uib.inf101.chess.model.Square;
 
+/**
+ * The Bishop class represents a bishop chess piece.
+ * It extends the Piece class and provides functionality for updating and
+ * calculating legal moves for the bishop.
+ */
 public class Bishop extends Piece {
 
+    /**
+     * Constructs a new bishop with the specified color.
+     *
+     * @param color The color of the bishop.
+     */
     public Bishop(ChessColor color) {
         super(color, 3);
     }

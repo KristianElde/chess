@@ -7,8 +7,18 @@ import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.Column;
 import no.uib.inf101.chess.model.Square;
 
+/**
+ * The King class represents a king chess piece.
+ * It extends the Piece class and provides functionality for updating and
+ * calculating legal moves for the king.
+ */
 public class King extends CastleablePiece {
 
+    /**
+     * Constructs a new king with the specified color.
+     *
+     * @param color The color of the king.
+     */
     public King(ChessColor color) {
         super(color, 100);
     }

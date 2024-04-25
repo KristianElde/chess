@@ -6,19 +6,29 @@ import no.uib.inf101.chess.model.ChessBoard;
 import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.Square;
 
+/**
+ * The Pawn class represents a pawn chess piece.
+ * It extends the Piece class and provides functionality for updating and
+ * calculating legal moves for the pawn.
+ */
 public class Pawn extends Piece {
 
-    private boolean enPassentAllowed = false;
-    private boolean capturedByEnPassent = false;
+    private boolean enPassantAllowed = false;
+    private boolean capturedByEnPassant = false;
 
+    /**
+     * Constructs a new pawn with the specified color.
+     *
+     * @param color The color of the pawn.
+     */
     public Pawn(ChessColor color) {
-        super(color,1);
+        super(color, 1);
     }
 
     @Override
     public void updateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive) {
         legalMoves = calculateLegalMoves(board, currentSquare, primitive);
-        this.enPassentAllowed = false;
+        this.enPassantAllowed = false;
     }
 
     @Override
@@ -53,12 +63,12 @@ public class Pawn extends Piece {
 
         Square rightEnPassent = board.get(currentSquare.col().nextCol(), currentSquare.row());
         if (rightEnPassent != null && rightEnPassent.getPiece() instanceof Pawn
-                && ((Pawn) rightEnPassent.getPiece()).getEnPassentAllowed())
+                && ((Pawn) rightEnPassent.getPiece()).getEnPassantAllowed())
             legalMoves.add(rightAhead);
 
         Square leftEnPassent = board.get(currentSquare.col().prevCol(), currentSquare.row());
         if (leftEnPassent != null && leftEnPassent.getPiece() instanceof Pawn
-                && ((Pawn) leftEnPassent.getPiece()).getEnPassentAllowed())
+                && ((Pawn) leftEnPassent.getPiece()).getEnPassantAllowed())
             legalMoves.add(leftAhead);
 
         if (!primitive)
@@ -67,20 +77,20 @@ public class Pawn extends Piece {
         return legalMoves;
     }
 
-    public boolean getEnPassentAllowed() {
-        return enPassentAllowed;
+    public boolean getEnPassantAllowed() {
+        return enPassantAllowed;
     }
 
-    public void setEnPassentAllowed(boolean bool) {
-        enPassentAllowed = bool;
+    public void setEnPassantAllowed(boolean bool) {
+        enPassantAllowed = bool;
     }
 
     public boolean getCaptureByEnPassent() {
-        return capturedByEnPassent;
+        return capturedByEnPassant;
     }
 
-    public void setCapturedByEnPassent(boolean capturedByEnPassent) {
-        this.capturedByEnPassent = capturedByEnPassent;
+    public void setCapturedByEnPassant(boolean capturedByEnPassent) {
+        this.capturedByEnPassant = capturedByEnPassent;
     }
 
 }

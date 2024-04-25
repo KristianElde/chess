@@ -6,8 +6,18 @@ import no.uib.inf101.chess.model.ChessBoard;
 import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.Square;
 
+/**
+ * The Knight class represents a knight chess piece.
+ * It extends the Piece class and provides functionality for updating and
+ * calculating legal moves for the knight.
+ */
 public class Knight extends Piece {
 
+    /**
+     * Constructs a new knight with the specified color.
+     *
+     * @param color The color of the knight.
+     */
     public Knight(ChessColor color) {
         super(color, 3);
     }
