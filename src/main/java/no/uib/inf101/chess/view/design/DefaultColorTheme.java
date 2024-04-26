@@ -15,20 +15,20 @@ public class DefaultColorTheme implements ColorTheme {
         if (square.row() > 8 || square.row() < 1)
             throw new IllegalArgumentException("Square is not on chess board.");
         if ((square.row() + square.col().ordinal()) % 2 == 0) {
-            return Color.WHITE;
+            return new Color(219, 195, 182);
         } else {
-            return Color.DARK_GRAY;
+            return new Color(150, 101, 74);
         }
     }
 
     @Override
-    public Color getFrameColor() {
-        return Color.LIGHT_GRAY;
+    public Color getBackgroundColorMenu() {
+        return new Color(176, 147, 132);
     }
 
     @Override
-    public Color getBackgroundColor() {
-        return Color.LIGHT_GRAY;
+    public Color getBackgroundColorActive() {
+        return new Color(74, 47, 32);
     }
 
     @Override
@@ -43,12 +43,12 @@ public class DefaultColorTheme implements ColorTheme {
 
     @Override
     public Color getCoordinatesColor() {
-        return Color.BLACK;
+        return Color.WHITE;
     }
 
     @Override
     public Color getSelectedSquareColor() {
-        return new Color(71, 143, 57);
+        return new Color(0, 0, 0, 100);
     }
 
     @Override
@@ -58,12 +58,12 @@ public class DefaultColorTheme implements ColorTheme {
 
     @Override
     public Color getMenuOptionsColor() {
-        return Color.BLACK;
+        return new Color(74, 47, 32);
     }
 
     @Override
     public Color getSelectedMenuOptionsColor() {
-        return Color.BLUE;
+        return new Color(255, 245, 228);
     }
 
 }

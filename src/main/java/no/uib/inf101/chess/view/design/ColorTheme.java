@@ -19,19 +19,13 @@ public interface ColorTheme {
     Color getSquareColor(Square square);
 
     /**
-     * Returns the color used for the frame or the borders for cells in the
-     * chessboard.
-     * 
-     * @return The color of the frame.
-     */
-    Color getFrameColor();
-
-    /**
      * Returns the background color used in the chess game.
      * 
      * @return The background color.
      */
-    Color getBackgroundColor();
+    Color getBackgroundColorMenu();
+
+    Color getBackgroundColorActive();
 
     /**
      * Returns the color used for the game over screen.

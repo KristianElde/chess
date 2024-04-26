@@ -1,4 +1,6 @@
 - Testing:
     - Castling tests in board
+    - CarefulAI test
 - Video
-- Color theme tweaks
+- INF101 texture theme
+- Texture info-screen

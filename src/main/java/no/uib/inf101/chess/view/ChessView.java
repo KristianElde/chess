@@ -78,7 +78,6 @@ public class ChessView extends JPanel {
         this.colorTheme = colorTheme;
         this.textureTheme = textureTheme;
         this.fontTheme = fontTheme;
-        this.setBackground(this.colorTheme.getBackgroundColor());
     }
 
     @Override
@@ -86,10 +85,13 @@ public class ChessView extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        if (model.getGameState() == GameState.MAIN_MENU)
+        if (model.getGameState() == GameState.MAIN_MENU) {
+            this.setBackground(colorTheme.getBackgroundColorMenu());
             drawMainMenu(g2);
-        else
+        } else {
+            this.setBackground(colorTheme.getBackgroundColorActive());
             drawGame(g2);
+        }
     }
 
     /**
@@ -103,15 +105,15 @@ public class ChessView extends JPanel {
     }
 
     private void drawMainMenu(Graphics2D g) {
-        g.setColor(Color.BLACK);
+        g.setColor(colorTheme.getBackgroundColorActive());
         g.setFont(fontTheme.getHeaderFont());
-        Inf101Graphics.drawCenteredString(g, "INF101: CHESS", getWidth() / 2, getHeight() / 6);
-        Inf101Graphics.drawCenteredString(g, "Made by: Kristian Elde Johansen", getWidth() / 2, getHeight() / 4);
+        Inf101Graphics.drawCenteredString(g, "INF101: CHESS", getWidth() / 2, getHeight() / 7);
+        Inf101Graphics.drawCenteredString(g, "Made by: Kristian Elde Johansen", getWidth() / 2, getHeight() / 5);
         g.setFont(fontTheme.getDefaultFont());
-        Inf101Graphics.drawCenteredString(g, "Use arrow keys to select your preffered options", getWidth() / 2,
-                getHeight() / 3);
+        Inf101Graphics.drawCenteredString(g, "Use arrow keys to select your preferred options", getWidth() / 2,
+                getHeight() / 3.2);
         Inf101Graphics.drawCenteredString(g, "Press space to start chess game", getWidth() / 2,
-                getHeight() / 2.5);
+                getHeight() / 2.8);
 
         drawTextureOption(g);
         drawModeOption(g);
@@ -129,7 +131,7 @@ public class ChessView extends JPanel {
         Color textColor = (model.getSelectedOption() == Option.TEXTURE ? colorTheme.getSelectedMenuOptionsColor()
                 : colorTheme.getMenuOptionsColor());
         g.setColor(textColor);
-        Inf101Graphics.drawCenteredString(g, option, getWidth() / 4, height);
+        Inf101Graphics.drawCenteredString(g, option, getWidth() / 5, height);
 
         String option1 = "Default chess";
         String option2 = "Star wars";
@@ -144,12 +146,12 @@ public class ChessView extends JPanel {
 
     private void drawModeOption(Graphics2D g) {
         g.setFont(fontTheme.getOptionFont());
-        int height = getHeight() / 2 + (getHeight() / 8);
+        int height = getHeight() / 2 + (getHeight() / 12);
         String option = "Mode:";
         Color textColor = (model.getSelectedOption() == Option.MULTIPLAYER ? colorTheme.getSelectedMenuOptionsColor()
                 : colorTheme.getMenuOptionsColor());
         g.setColor(textColor);
-        Inf101Graphics.drawCenteredString(g, option, getWidth() / 4, height);
+        Inf101Graphics.drawCenteredString(g, option, getWidth() / 5, height);
 
         String option1 = "Two-player";
         String option2 = "Play against computer";
@@ -157,17 +159,17 @@ public class ChessView extends JPanel {
         g.setFont((model.isAiOpposition() ? fontTheme.getNonSelectedOptionFont() : fontTheme.getSelectedOptionFont()));
         Inf101Graphics.drawCenteredString(g, option1, getWidth() / 2, height);
         g.setFont((!model.isAiOpposition() ? fontTheme.getNonSelectedOptionFont() : fontTheme.getSelectedOptionFont()));
-        Inf101Graphics.drawCenteredString(g, option2, getWidth() / 2 + getWidth() / 3, height);
+        Inf101Graphics.drawCenteredString(g, option2, getWidth() / 2 + getWidth() / 3.5, height);
     }
 
     private void drawPlayAsColorOption(Graphics2D g) {
         g.setFont(fontTheme.getOptionFont());
-        int height = getHeight() / 2 + (getHeight() / 8 * 2);
+        int height = getHeight() / 2 + (getHeight() / 12 * 2);
         String option = "Play as:";
         Color textColor = (model.getSelectedOption() == Option.COLOR ? colorTheme.getSelectedMenuOptionsColor()
                 : colorTheme.getMenuOptionsColor());
         g.setColor(textColor);
-        Inf101Graphics.drawCenteredString(g, option, getWidth() / 4, height);
+        Inf101Graphics.drawCenteredString(g, option, getWidth() / 5, height);
 
         String option1 = "White";
         String option2 = "Black";
@@ -182,12 +184,12 @@ public class ChessView extends JPanel {
 
     private void drawAiLevelOption(Graphics2D g) {
         g.setFont(fontTheme.getOptionFont());
-        int height = getHeight() / 2 + (getHeight() / 8 * 3);
+        int height = getHeight() / 2 + (getHeight() / 12 * 3);
         String option = "Difficulty:";
         Color textColor = (model.getSelectedOption() == Option.DIFFICULTY ? colorTheme.getSelectedMenuOptionsColor()
                 : colorTheme.getMenuOptionsColor());
         g.setColor(textColor);
-        Inf101Graphics.drawCenteredString(g, option, getWidth() / 4, height);
+        Inf101Graphics.drawCenteredString(g, option, getWidth() / 5, height);
 
         String option1 = "Easy";
         String option2 = "Medium";
@@ -270,7 +272,7 @@ public class ChessView extends JPanel {
 
         for (Square square : legalMoves) {
             Rectangle2D squarePos = squareConverter.getBoundsForCell(square);
-            int diameter = 10;
+            int diameter = 15;
             int radius = diameter / 2;
             Ellipse2D circle = new Ellipse2D.Double(squarePos.getCenterX() - radius, squarePos.getCenterY() - radius,
                     diameter,

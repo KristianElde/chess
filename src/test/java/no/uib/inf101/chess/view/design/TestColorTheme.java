@@ -14,8 +14,7 @@ public class TestColorTheme {
     @Test
     void sanityDefaultColorThemeTest() {
         ColorTheme colors = new DefaultColorTheme();
-        assertEquals(Color.LIGHT_GRAY, colors.getBackgroundColor());
-        assertEquals(Color.LIGHT_GRAY, colors.getFrameColor());
+        assertEquals(Color.LIGHT_GRAY, colors.getBackgroundColorMenu());
         assertEquals(new Color(0, 0, 0, 128), colors.getGameOverScreenColor());
         assertEquals(Color.RED, colors.getGameOverTextColor());
         assertEquals(Color.BLACK, colors.getCoordinatesColor());

@@ -15,7 +15,7 @@ public class DefaultFontTheme implements FontTheme {
 
     @Override
     public Font getHeaderFont() {
-        return new Font("Calibri", Font.BOLD, 24);
+        return new Font("Calibri", Font.BOLD, 30);
     }
 
     @Override
@@ -25,17 +25,17 @@ public class DefaultFontTheme implements FontTheme {
 
     @Override
     public Font getOptionFont() {
-        return new Font("Calibri", Font.PLAIN, 24);
+        return new Font("Calibri", Font.PLAIN, 20);
     }
 
     @Override
     public Font getSelectedOptionFont() {
-        return new Font("Calibri", Font.BOLD, 16);
+        return new Font("Calibri", Font.BOLD, 20);
     }
 
     @Override
     public Font getNonSelectedOptionFont() {
-        return new Font("Calibri", Font.PLAIN, 16);
+        return new Font("Calibri", Font.PLAIN, 20);
     }
 
 }
