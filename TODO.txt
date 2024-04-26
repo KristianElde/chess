@@ -1,3 +1,4 @@
-- JAVAdocs
 - Testing:
     - Castling tests in board
+- Video
+- Color theme tweaks

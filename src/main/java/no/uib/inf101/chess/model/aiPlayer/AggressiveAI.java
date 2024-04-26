@@ -1,13 +1,12 @@
 package no.uib.inf101.chess.model.aiPlayer;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import no.uib.inf101.chess.model.ChessBoard;
 import no.uib.inf101.chess.model.Move;
 import no.uib.inf101.chess.model.pieces.Piece;
 
-public class AggressiveAI implements AIPlayer {
+public class AggressiveAI extends AIPlayer {
 
     private ChessBoard board;
 
@@ -16,7 +15,7 @@ public class AggressiveAI implements AIPlayer {
     }
 
     @Override
-    public Move getBestMove() {
+    public ArrayList<Move> getBestMoves() {
         ArrayList<Move> possibleMoves = board.allLegalMoves(board.getToDraw());
         ArrayList<Move> leadingMoves = new ArrayList<>();
         int leadingMaterialValue = 0;
@@ -33,10 +32,7 @@ public class AggressiveAI implements AIPlayer {
             }
         }
 
-        Random random = new Random();
-        int randomIndex = random.nextInt(leadingMoves.size());
-
-        return leadingMoves.get(randomIndex);
+        return leadingMoves;
     }
 
 }

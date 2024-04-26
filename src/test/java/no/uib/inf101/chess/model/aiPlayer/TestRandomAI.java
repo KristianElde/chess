@@ -22,7 +22,7 @@ public class TestRandomAI {
         model.setSelectedSquare(model.getBoard().get(Column.D, 4));
         assertTrue(model.getBoard().getToDraw() == ChessColor.BLACK);
 
-        Move aiMove = model.getAiPlayer().getBestMove();
+        Move aiMove = model.getAiPlayer().getMove();
 
         assertNotNull(aiMove);
     }

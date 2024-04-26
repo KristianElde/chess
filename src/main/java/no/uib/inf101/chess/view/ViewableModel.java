@@ -5,7 +5,7 @@ import no.uib.inf101.chess.model.ChessColor;
 import no.uib.inf101.chess.model.GameState;
 import no.uib.inf101.chess.model.Option;
 import no.uib.inf101.chess.model.Square;
-import no.uib.inf101.chess.model.aiPlayer.AIPlayer;
+import no.uib.inf101.chess.model.aiPlayer.AIPlayerI;
 
 /**
  * The ViewableModel interface represents a viewable model for a chess
@@ -68,7 +68,7 @@ public interface ViewableModel {
      *
      * @return The AI player controlling the opponent.
      */
-    AIPlayer getAiPlayer();
+    AIPlayerI getAiPlayer();
 
     /**
      * Gets the color of the player.

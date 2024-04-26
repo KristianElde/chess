@@ -383,6 +383,9 @@ public class ChessBoard extends Grid<Square> {
 
         setCheck(false, toDraw);
 
+        if (piece == null)
+            System.out.println("Piece is null");
+
         if (isThreatenedBy(getKingSquare(piece.getColor().toggle()), piece.getColor()))
             // Set inCheck to true when king is threatened
             setCheck(true, toDraw.toggle());

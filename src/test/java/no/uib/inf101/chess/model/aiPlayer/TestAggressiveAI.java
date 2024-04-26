@@ -30,7 +30,7 @@ public class TestAggressiveAI {
         model.toggleSelectedOption(true);
         assertTrue(model.getAiPlayer() instanceof AggressiveAI);
 
-        Move aiMove = model.getAiPlayer().getBestMove();
+        Move aiMove = model.getAiPlayer().getMove();
         assertNotNull(aiMove);
         assertEquals(model.getBoard().get(Column.F, 5), aiMove.from());
         assertEquals(model.getBoard().get(Column.F, 4), aiMove.to());

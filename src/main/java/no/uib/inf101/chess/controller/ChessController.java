@@ -42,8 +42,9 @@ public class ChessController implements MouseListener {
 
             view.repaint();
 
-            if (model.isAiOpposition() && model.getBoard().getToDraw() != model.getPlayerColor()) {
-                Move selectedMove = model.getAiPlayer().getBestMove();
+            if (model.getGameState() == GameState.ACTIVE && model.isAiOpposition()
+                    && model.getBoard().getToDraw() != model.getPlayerColor()) {
+                Move selectedMove = model.getAiPlayer().getMove();
                 model.setSelectedSquare(selectedMove.from());
                 model.setSelectedSquare(selectedMove.to());
 
