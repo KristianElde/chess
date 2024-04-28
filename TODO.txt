@@ -3,4 +3,11 @@
     - CarefulAI test
 - Video
 - INF101 texture theme
+    - Black
+        King: Martin
+        Queen: Sondre
+        Rook: Torstein
+        Knight: 
+        Bishop: Tyra
+        Pawn: Sune
 - Texture info-screen
