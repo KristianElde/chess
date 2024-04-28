@@ -22,7 +22,7 @@ public class ChessModel implements ViewableModel, ControllableModel {
     private GameState gameState = GameState.MAIN_MENU;
     private ChessColor winner;
     private Option selectedOption = Option.TEXTURE;
-    private boolean aiOpposition = false;
+    private boolean aiOpposition = true;
     private ChessColor playerColor = ChessColor.WHITE;
     private AIPlayer aiPlayer;
 

@@ -26,6 +26,12 @@ public class Pawn extends Piece {
     }
 
     @Override
+    public void updateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive) {
+        enPassantAllowed = false;
+        super.updateLegalMoves(board, currentSquare, primitive);
+    }
+
+    @Override
     public ArrayList<Square> calculateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive) {
         ArrayList<Square> legalMoves = new ArrayList<>();
 
