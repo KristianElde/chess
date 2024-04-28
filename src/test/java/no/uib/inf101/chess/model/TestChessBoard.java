@@ -150,7 +150,93 @@ public class TestChessBoard {
                 assertTrue(board.testMoveIsLegal(rookSquare, board.get(Column.E, 8), rookSquare.getPiece()));
                 assertTrue(board.testMoveIsLegal(rookSquare, board.get(Column.H, 8), rookSquare.getPiece()));
                 assertFalse(board.testMoveIsLegal(rookSquare, board.get(Column.D, 7), rookSquare.getPiece()));
+        }
 
+        @Test
+        void testCastlingIsLegal() {
+                String boardString = """
+                                r---k--r
+                                pppqppbp
+                                --n-bnp-
+                                ---p----
+                                ----P---
+                                -PNB-N--
+                                PBPPQPPP
+                                R---K--R""";
+                ChessBoard board = ChessBoard.stringToBoard(boardString, ChessColor.WHITE);
+
+                King whiteKing = ((King) board.get(Column.E, 1).getPiece());
+                King blackKing = ((King) board.get(Column.E, 8).getPiece());
+
+                assertTrue(whiteKing.getLegalMoves().contains(board.get(Column.G, 1)));
+                assertTrue(whiteKing.getLegalMoves().contains(board.get(Column.C, 1)));
+
+                board.movePiece(board.get(Column.E, 1), board.get(Column.G, 1), whiteKing);
+                board.updateLegalMoves(ChessColor.BLACK, false);
+
+                assertTrue(blackKing.getLegalMoves().contains(board.get(Column.G, 8)));
+                assertTrue(blackKing.getLegalMoves().contains(board.get(Column.C, 8)));
+
+        }
+
+        @Test
+        void testCastlingNotLegalAfterMovedKing() {
+                String boardString = """
+                                r---k--r
+                                pppqppbp
+                                --n-bnp-
+                                ---p----
+                                ----P---
+                                -PNB-N--
+                                PBPPQPPP
+                                R---K--R""";
+                ChessBoard board = ChessBoard.stringToBoard(boardString, ChessColor.WHITE);
+
+                King whiteKing = ((King) board.get(Column.E, 1).getPiece());
+                King blackKing = ((King) board.get(Column.E, 8).getPiece());
+
+                board.movePiece(board.get(Column.E, 1), board.get(Column.F, 1), whiteKing);
+                board.movePiece(board.get(Column.E, 8), board.get(Column.F, 8), blackKing);
+                board.movePiece(board.get(Column.F, 1), board.get(Column.E, 1), whiteKing);
+                board.movePiece(board.get(Column.F, 8), board.get(Column.E, 8), blackKing);
+
+                board.updateLegalMoves(ChessColor.WHITE, false);
+                board.updateLegalMoves(ChessColor.BLACK, false);
+
+                assertFalse(whiteKing.getLegalMoves().contains(board.get(Column.G, 1)));
+                assertFalse(whiteKing.getLegalMoves().contains(board.get(Column.C, 1)));
+                assertFalse(blackKing.getLegalMoves().contains(board.get(Column.G, 8)));
+                assertFalse(blackKing.getLegalMoves().contains(board.get(Column.C, 8)));
+        }
+
+        @Test
+        void testCastlingAfterMovedRook() {
+                String boardString = """
+                                r---k--r
+                                pppqppbp
+                                --n-bnp-
+                                ---p----
+                                ----P---
+                                -PNB-N--
+                                PBPPQPPP
+                                R---K--R""";
+                ChessBoard board = ChessBoard.stringToBoard(boardString, ChessColor.WHITE);
+
+                King whiteKing = ((King) board.get(Column.E, 1).getPiece());
+                King blackKing = ((King) board.get(Column.E, 8).getPiece());
+
+                board.movePiece(board.get(Column.A, 1), board.get(Column.B, 1), board.get(Column.A, 1).getPiece());
+                board.movePiece(board.get(Column.A, 8), board.get(Column.B, 8), board.get(Column.A, 8).getPiece());
+                board.movePiece(board.get(Column.B, 1), board.get(Column.A, 1), board.get(Column.B, 1).getPiece());
+                board.movePiece(board.get(Column.B, 8), board.get(Column.A, 8), board.get(Column.B, 8).getPiece());
+
+                board.updateLegalMoves(ChessColor.WHITE, false);
+                board.updateLegalMoves(ChessColor.BLACK, false);
+
+                assertTrue(whiteKing.getLegalMoves().contains(board.get(Column.G, 1)));
+                assertFalse(whiteKing.getLegalMoves().contains(board.get(Column.C, 1)));
+                assertTrue(blackKing.getLegalMoves().contains(board.get(Column.G, 8)));
+                assertFalse(blackKing.getLegalMoves().contains(board.get(Column.C, 8)));
         }
 
 }

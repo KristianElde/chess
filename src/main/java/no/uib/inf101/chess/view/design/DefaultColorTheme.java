@@ -33,12 +33,12 @@ public class DefaultColorTheme implements ColorTheme {
 
     @Override
     public Color getGameOverScreenColor() {
-        return new Color(0, 0, 0, 128);
+        return new Color(0, 0, 0, 160);
     }
 
     @Override
     public Color getGameOverTextColor() {
-        return Color.RED;
+        return Color.WHITE;
     }
 
     @Override

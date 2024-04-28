@@ -246,6 +246,8 @@ public class ChessBoard extends Grid<Square> {
      * @return True if the move is legal, false otherwise.
      */
     public boolean testMoveIsLegal(Square from, Square to, Piece piece) {
+        if (piece == null)
+            System.out.println("Piece is null");
         boolean isLegalMove = true;
         boolean isCheck = isInCheck(toDraw);
         boolean allowCastling = false;

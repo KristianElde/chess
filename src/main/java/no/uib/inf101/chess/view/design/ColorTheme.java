@@ -19,12 +19,17 @@ public interface ColorTheme {
     Color getSquareColor(Square square);
 
     /**
-     * Returns the background color used in the chess game.
+     * Returns the background color used in the main menu.
      * 
      * @return The background color.
      */
     Color getBackgroundColorMenu();
 
+    /**
+     * Returns the background color used in the chess game.
+     * 
+     * @return The background color.
+     */
     Color getBackgroundColorActive();
 
     /**
