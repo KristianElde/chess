@@ -15,7 +15,7 @@ public abstract class Piece implements MoveablePiece {
     /**
      * The list of legal moves available to the piece.
      */
-    ArrayList<Square> legalMoves = new ArrayList<>();
+    private ArrayList<Square> legalMoves = new ArrayList<>();
 
     /**
      * The color of the piece.
@@ -45,6 +45,20 @@ public abstract class Piece implements MoveablePiece {
      */
     public ArrayList<Square> getLegalMoves() {
         return legalMoves;
+    }
+
+    /**
+     * Updates the legal moves variable for the piece based on the current board
+     * position.
+     *
+     * @param board         The chess board.
+     * @param currentSquare The current square occupied by the piece.
+     * @param primitive     Indicates whether to perform primitive move calculation.
+     *                      Primitive move calculation does not check whether a move
+     *                      puts its own king in check.
+     */
+    public void updateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive) {
+        legalMoves = calculateLegalMoves(board, currentSquare, primitive);
     }
 
     /**

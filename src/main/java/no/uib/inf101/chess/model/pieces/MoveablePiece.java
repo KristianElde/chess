@@ -13,18 +13,6 @@ import no.uib.inf101.chess.model.Square;
 public interface MoveablePiece {
 
     /**
-     * Updates the legal moves variable for the piece based on the current board
-     * position.
-     *
-     * @param board         The chess board.
-     * @param currentSquare The current square occupied by the piece.
-     * @param primitive     Indicates whether to perform primitive move calculation.
-     *                      Primitive move calculation does not check whether a move
-     *                      puts its own king in check.
-     */
-    void updateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive);
-
-    /**
      * Calculates the legal moves for the piece based on the current board position.
      *
      * @param board         The chess board.

@@ -24,11 +24,6 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public void updateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive) {
-        legalMoves = calculateLegalMoves(board, currentSquare, primitive);
-    }
-
-    @Override
     public ArrayList<Square> calculateLegalMoves(ChessBoard board, Square currentSquare, boolean primitive) {
         ArrayList<Square> legalMoves = new ArrayList<>();
 
