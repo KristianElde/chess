@@ -37,4 +37,4 @@ Obtained from: https://no.pinterest.com/pin/happy-star-wars-celebration-day-i-wo
 Originator: Derek Laufman
 
 ## Video
-Check out this video where i present how the application works: 
+Check out this video where i present how the application works: [youtube.com](https://youtu.be/4KGJe_OwlXs)
